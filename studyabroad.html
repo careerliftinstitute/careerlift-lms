@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Abroad | CareerLift</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nav-footer.css">
+    
+    <style>
+        /* --- PAGE SPECIFIC STYLES --- */
+        .hero-study {
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding-top: 160px;
+            padding-bottom: 80px;
+        }
+
+        .destination-card {
+            height: 250px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: 0.4s;
+        }
+        .destination-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+        .destination-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 20px;
+        }
+        .destination-card:hover img { transform: scale(1.1); }
+        .destination-card:hover { border-color: var(--color-primary); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2); }
+
+        details { margin-bottom: 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; overflow: hidden; transition: 0.3s; }
+        details[open] { border-color: var(--color-primary); }
+        summary { padding: 20px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::after { content: '\f078'; font-family: "Font Awesome 6 Free"; transition: 0.3s; }
+        details[open] summary::after { transform: rotate(180deg); color: var(--color-primary); }
+        .details-content { padding: 20px; border-top: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); }
+        .details-content ul { list-style: none; }
+        .details-content li { margin-bottom: 10px; display: flex; gap: 10px; color: var(--color-text-muted); }
+        .details-content li i { color: var(--color-primary); margin-top: 5px; }
+
+        .glass-input, .glass-select {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .glass-select option { background: #0f172a; color: #fff; }
+        
+        .country-select-group { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+        .country-checkbox { display: none; }
+        .country-label {
+            padding: 10px 20px;
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            background: rgba(255,255,255,0.05);
+            color: var(--color-text-muted);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .country-checkbox:checked + .country-label {
+            background: var(--color-primary); color: #000; border-color: var(--color-primary); font-weight: 600;
+        }
+
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; }
+        .popup-content { background: var(--color-bg); border: 1px solid var(--color-primary); padding: 40px; border-radius: 20px; text-align: center; max-width: 400px; }
+
+        /* Responsive Form Layout */
+        .form-row {
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr; /* Stack inputs vertically on mobile */
+                gap: 0;
+            }
+            .glass-panel {
+                padding: 30px !important; /* Reduce padding on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span></a>
+            <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="studyabroad.html" class="active">Study Abroad</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px;">Login</a></li>
+                <li><a href="register.html" class="btn btn-primary" style="padding: 8px 24px;">Join Free</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero-study text-center">
+        <div class="container">
+            <span style="color: var(--color-primary); font-weight: 600; letter-spacing: 2px;">GLOBAL EDUCATION</span>
+            <h1 style="font-size: 3.5rem; margin: 10px 0;">Your Gateway to the <span class="text-primary">World</span></h1>
+            
+            <p style="color: #cbd5e1; max-width: 600px; margin: 0 auto 30px;">
+                Expert guidance for UK, Canada, Australia & Europe. <br>
+                <strong>No assessment fee</strong> for Bangladeshi students.
+            </p>
+            <a href="#assessment-form" class="btn btn-primary">Start Free Assessment</a>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            <h2 style="margin-bottom: 40px;">Top <span class="text-primary">Destinations</span></h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop" alt="UK">
+                    <div class="destination-overlay">
+                        <h3>United Kingdom</h3>
+                        <p style="font-size:0.85rem; color:#cbd5e1;">Masters with Spouse Allowed</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?q=80&w=1965&auto=format&fit=crop" alt="Canada">
+                    <div class="destination-overlay">
+                        <h3>Canada</h3>
+                        <p style="font-size:0.85rem; color:#cbd5e1;">PR Pathway Opportunities</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=2030&auto=format&fit=crop" alt="Australia">
+                    <div class="destination-overlay">
+                        <h3>Australia</h3>
+                        <p style="font-size:0.85rem; color:#cbd5e1;">Partner Visa Available</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1499856871940-a09627c6d7db?q=80&w=2070&auto=format&fit=crop" alt="Europe">
+                    <div class="destination-overlay">
+                        <h3>Europe (Schengen)</h3>
+                        <p style="font-size:0.85rem; color:#cbd5e1;">Low Tuition Fees</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="padding-top: 0;">
+        <div class="container">
+            <h2 style="margin-bottom: 30px;">Visa Guidelines</h2>
+            <details open>
+                <summary><span class="text-primary">📄 General Requirements</span></summary>
+                <div class="details-content">
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> <strong>Passport:</strong> Must have at least 1 year validity.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Visa History:</strong> Disclose previous rejections.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Academics:</strong> SSC & HSC Certificates + Gap explanation.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary><span>🇬🇧 United Kingdom</span></summary>
+                <div class="details-content">
+                    <ul>
+                        <li><i class="fa-solid fa-language"></i> <strong>Language:</strong> IELTS 6.0 overall (min 5.5). MOI accepted.</li>
+                        <li><i class="fa-solid fa-user-group"></i> <strong>Spouse:</strong> Allowed for Masters/PhD. Not for Undergrad.</li>
+                        <li><i class="fa-solid fa-sterling-sign"></i> <strong>Bank Solvency:</strong> Min £21,000 kept for 28 days.</li>
+                        <li><i class="fa-solid fa-school"></i> <strong>Tuition:</strong> Approx £12,000+ per year.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary><span>🇨🇦 Canada & 🇦🇺 Australia</span></summary>
+                <div class="details-content">
+                    <ul>
+                        <li><i class="fa-brands fa-canadian-maple-leaf"></i> <strong>Canada:</strong> Spouse Open Work Permit allowed for Post-grad.</li>
+                        <li><i class="fa-solid fa-earth-oceania"></i> <strong>Australia:</strong> Partner visa allowed for Undergrad students too.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary><span>🇪🇺 Europe & No IELTS</span></summary>
+                <div class="details-content">
+                    <ul>
+                        <li><i class="fa-solid fa-ban"></i> <strong>No IELTS:</strong> Possible in Cyprus, Malaysia, Sri Lanka.</li>
+                        <li><i class="fa-solid fa-check-double"></i> <strong>Spouse Allowed:</strong> Netherlands, France, Italy.</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <section id="assessment-form" class="section-padding" style="background: linear-gradient(to top, #020617, var(--color-bg));">
+        <div class="container">
+            <div class="glass-panel" style="padding: 50px; max-width: 800px; margin: 0 auto; border-top: 2px solid var(--color-primary);">
+                <div class="text-center" style="margin-bottom: 30px;">
+                    <h2>Free Profile <span class="text-primary">Assessment</span></h2>
+                    <p style="color: var(--color-text-muted);">Fill out the form below. We will analyze your profile and contact you.</p>
+                </div>
+
+                <form id="visaForm">
+                    <input type="hidden" name="access_key" value="fe6348e1-d356-4537-a346-75732d424439">
+                    
+                    <div class="form-row">
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Your Name</label>
+                            <input type="text" name="name" placeholder="Full Name" class="glass-input" required>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Email Address</label>
+                            <input type="email" name="email" placeholder="example@email.com" class="glass-input" required>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                        <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Phone Number</label>
+                        <input type="tel" name="phone" placeholder="+880..." class="glass-input" required>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">What type of Visa?</label>
+                        <select name="visa_type" class="glass-select" required>
+                            <option value="" disabled selected>Select Visa Type</option>
+                            <option value="Student Visa">Student Visa</option>
+                            <option value="Visit Visa">Visit Visa</option>
+                            <option value="Study Visit Visa">Study Visit Visa (Short Course)</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <label style="display: block; margin-bottom: 15px; font-size: 0.9rem;">Which Country do you want to go? (Select multiple)</label>
+                        
+                        <div class="country-select-group">
+                            <input type="checkbox" name="country[]" value="UK" id="uk" class="country-checkbox">
+                            <label for="uk" class="country-label"><img src="https://flagcdn.com/w20/gb.png" width="20"> UK</label>
+                            
+                            <input type="checkbox" name="country[]" value="USA" id="usa" class="country-checkbox">
+                            <label for="usa" class="country-label"><img src="https://flagcdn.com/w20/us.png" width="20"> USA</label>
+
+                            <input type="checkbox" name="country[]" value="Canada" id="can" class="country-checkbox">
+                            <label for="can" class="country-label"><img src="https://flagcdn.com/w20/ca.png" width="20"> Canada</label>
+
+                            <input type="checkbox" name="country[]" value="Australia" id="aus" class="country-checkbox">
+                            <label for="aus" class="country-label"><img src="https://flagcdn.com/w20/au.png" width="20"> Australia</label>
+
+                            <input type="checkbox" name="country[]" value="Europe" id="eu" class="country-checkbox">
+                            <label for="eu" class="country-label"><i class="fa-solid fa-earth-europe"></i> Europe</label>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Additional Message (Optional)</label>
+                        <textarea name="message" rows="3" placeholder="Tell us about your education gap or specific needs..." class="glass-input"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                        Submit for Assessment <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div id="successPopup" class="popup-overlay">
+        <div class="popup-content">
+            <i class="fa-solid fa-check-circle" style="font-size: 4rem; color: var(--color-primary); margin-bottom: 20px;"></i>
+            <h2>Assessment Received!</h2>
+            <p style="color: var(--color-text-muted); margin-bottom: 20px;">
+                Our experts will analyze your profile and contact you via email shortly.
+            </p>
+            <button class="btn btn-outline" onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container text-center" style="padding: 40px 0;">
+            <p>&copy; 2025 CareerLift Institute. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        const form = document.getElementById('visaForm');
+        const popup = document.getElementById('successPopup');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            const res = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", Accept: "application/json" },
+                body: JSON.stringify(Object.fromEntries(formData))
+            }).then(r => r.json());
+
+            if (res.success) {
+                form.reset();
+                popup.style.display = "flex";
+            } else {
+                alert("Something went wrong. Please try again.");
+            }
+        });
+
+        function closePopup() { popup.style.display = "none"; }
+        popup.addEventListener('click', (e) => { if (e.target === popup) closePopup(); });
+    </script>
+</body>
+</html>

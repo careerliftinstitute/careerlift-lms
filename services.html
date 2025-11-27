@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | CareerLift</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nav-footer.css">
+    
+    <style>
+        /* Services Hero Override */
+        .hero-services {
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)), 
+                        url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding-top: 140px;
+            padding-bottom: 80px;
+        }
+
+        /* Feature Icon Box */
+        .icon-box {
+            width: 70px; height: 70px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px; /* Slight rounded square matches theme better */
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Custom List Styles */
+        .service-list ul { list-style: none; margin-top: 15px; }
+        .service-list li { 
+            margin-bottom: 12px; 
+            padding-left: 25px; 
+            position: relative; 
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+        .service-list li::before {
+            content: '\f00c'; /* FontAwesome Check Icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute; left: 0; top: 4px;
+            color: var(--color-primary);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="studyabroad.html">Study Abroad</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
+                <li><a href="register.html" class="btn btn-primary" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero-services text-center">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="display: inline-block; padding: 6px 16px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 50px; margin-bottom: 20px;">
+                    <span style="color: var(--color-primary); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.5px;">
+                        WHAT WE OFFER
+                    </span>
+                </div>
+                <h1 style="font-size: 3rem; margin-bottom: 15px;">Comprehensive <span class="text-primary">Solutions</span></h1>
+                <p style="color: var(--color-text-muted); font-size: 1.1rem; line-height: 1.6;">
+                    From Skill Development to Global Career Management. Supporting students, entrepreneurs, and employers.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            <h2 style="margin-bottom: 40px; font-size: 2rem;">For Learners & Professionals</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+                
+                <div class="glass-panel service-list" style="padding: 40px;">
+                    <div class="icon-box" style="color: var(--color-primary); background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.2);">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+                    <h3 style="margin-bottom: 10px;">Skill Development</h3>
+                    <p style="font-size: 0.95rem; color: #fff; margin-bottom: 15px; font-weight: 500;">NSDA Recognized Training.</p>
+                    <ul>
+                        <li><strong>Practical Training:</strong> Caregiving, Medical Scribing, IT.</li>
+                        <li><strong>Financial Independence:</strong> Learn skills that pay immediately.</li>
+                        <li><strong>Job Placement:</strong> Support in local & international firms.</li>
+                        <li><strong>Career Prep:</strong> CV writing & interview skills workshops.</li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel service-list" style="padding: 40px;">
+                    <div class="icon-box" style="color: var(--color-secondary); background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.2);">
+                        <i class="fa-solid fa-plane-circle-check"></i>
+                    </div>
+                    <h3 style="margin-bottom: 10px;">Study Abroad</h3>
+                    <p style="font-size: 0.95rem; color: #fff; margin-bottom: 15px; font-weight: 500;">End-to-end support for UK, Canada & Europe.</p>
+                    <ul>
+                        <li>Career counseling & Course selection.</li>
+                        <li>University Shortlisting & Application.</li>
+                        <li>SOP, LOR & CV guidance.</li>
+                        <li>Visa guidance & Interview preparation.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="padding-top: 0;">
+        <div class="container">
+            <h2 style="margin-bottom: 30px; font-size: 2rem;">For Employers</h2>
+            <div class="glass-panel" style="padding: 50px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center;">
+                <div>
+                    <h3 style="color: var(--color-accent); margin-bottom: 15px; font-size: 1.5rem;">Corporate Partnership</h3>
+                    <p style="color: var(--color-text-muted); margin-bottom: 25px; line-height: 1.7;">
+                        We bridge the gap between academia and industry. Partner with us to find ready-to-work talent equipped with practical skills.
+                    </p>
+                    <div class="service-list">
+                        <ul>
+                            <li><strong>Industry Collaboration:</strong> We design curriculum based on your needs.</li>
+                            <li><strong>Campus Interviews:</strong> Hire directly from our graduate pool.</li>
+                            <li><strong>Recruitment Support:</strong> We filter and train candidates for you.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <i class="fa-solid fa-handshake-simple" style="font-size: 10rem; color: var(--color-accent); opacity: 0.2;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: rgba(0,0,0,0.2);">
+        <div class="container">
+            <h2 style="margin-bottom: 40px; font-size: 2rem;">Entrepreneurship Support</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                
+                <div class="glass-panel" style="padding: 30px; text-align: center;">
+                    <i class="fa-solid fa-seedling" style="color: #22c55e; font-size: 2.5rem; margin-bottom: 15px;"></i>
+                    <h4 style="color: #fff; font-size: 1.2rem;">Start Your Business</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.6;">
+                        Guidance on business planning, strategy, and securing funding.
+                    </p>
+                </div>
+
+                <div class="glass-panel" style="padding: 30px; text-align: center;">
+                    <i class="fa-solid fa-user-tie" style="color: var(--color-primary); font-size: 2.5rem; margin-bottom: 15px;"></i>
+                    <h4 style="color: #fff; font-size: 1.2rem;">Expert Mentorship</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.6;">
+                        Learn directly from experienced entrepreneurs and industry leaders.
+                    </p>
+                </div>
+
+                <div class="glass-panel" style="padding: 30px; text-align: center;">
+                    <i class="fa-solid fa-globe" style="color: var(--color-secondary); font-size: 2.5rem; margin-bottom: 15px;"></i>
+                    <h4 style="color: #fff; font-size: 1.2rem;">Import/Export</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.6;">
+                        Basic understanding of global trade logistics and regulations.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo" style="margin-bottom: 20px; display:inline-block;">
+                    <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+                </a>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem;">
+                    A Place to Build Your Dreams. <br> NSDA Recognized.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="studyabroad.html">Visa Guide</a></li>
+                    <li><a href="services.html">Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Social</h4>
+                <div style="display: flex; gap: 15px;">
+                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 CareerLift Institute. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

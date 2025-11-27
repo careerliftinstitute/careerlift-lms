@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | CareerLift</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nav-footer.css">
+
+    <style>
+        /* About Page Specific Styles */
+        .hero-about {
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.75)), 
+                        url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding-top: 140px;
+            padding-bottom: 80px;
+        }
+
+        .about-image {
+            height: 400px;
+            border-radius: 12px;
+            background: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        /* Responsive Grid for About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .about-image {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="studyabroad.html">Study Abroad</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
+                <li><a href="register.html" class="btn btn-primary" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero-about text-center">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="display: inline-block; padding: 6px 16px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 50px; margin-bottom: 20px;">
+                    <span style="color: var(--color-primary); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.5px;">
+                        WHO WE ARE
+                    </span>
+                </div>
+                <h1 style="font-size: 3rem; margin-bottom: 15px;">About <span class="text-primary">CareerLift</span></h1>
+                <p style="color: var(--color-text-muted); font-size: 1.1rem; line-height: 1.6;">
+                    A leading educational institution dedicated to enhancing professional development in Bangladesh. 
+                    <strong style="color: #fff;">Recognized by the National Skills Development Authority (NSDA).</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="about-grid">
+                
+                <div>
+                    <h2 style="margin-bottom: 20px; font-size: 2.2rem;">Bridging Education <br> & <span class="text-primary">Employment</span></h2>
+                    <p style="color: var(--color-text-muted); line-height: 1.8; margin-bottom: 30px; font-size: 1rem;">
+                        CareerLift Institute provides modern curriculum, experienced instructors, and advanced learning systems. We are committed to creating an inclusive environment that prepares learners for a global workforce.
+                    </p>
+                    
+                    <div style="display: flex; gap: 40px; flex-wrap: wrap;">
+                        <div>
+                            <h2 style="margin:0; color:var(--color-primary); font-size: 2.5rem;">5+</h2>
+                            <span style="font-size: 0.9rem; color: #fff;">Years Experience</span>
+                        </div>
+                        <div>
+                            <h2 style="margin:0; color:var(--color-secondary); font-size: 2.5rem;">10k+</h2>
+                            <span style="font-size: 0.9rem; color: #fff;">Students Trained</span>
+                        </div>
+                        <div>
+                            <h2 style="margin:0; color:var(--color-accent); font-size: 2.5rem;">100%</h2>
+                            <span style="font-size: 0.9rem; color: #fff;">Job Assistance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-image glass-panel" style="padding: 0;"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="padding-top: 0;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                
+                <div class="glass-panel" style="padding: 40px; position: relative; overflow: hidden;">
+                    <i class="fa-solid fa-eye" style="font-size: 8rem; color: var(--color-primary); position: absolute; right: -20px; bottom: -20px; opacity: 0.05;"></i>
+                    <h3 style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 15px;">Our Vision</h3>
+                    <p style="color: var(--color-text-muted); line-height: 1.7;">
+                        To become a top and most trusted center for career-focused education— inspiring innovation, encouraging lifelong learning, and preparing the future workforce.
+                    </p>
+                </div>
+
+                <div class="glass-panel" style="padding: 40px; position: relative; overflow: hidden;">
+                    <i class="fa-solid fa-rocket" style="font-size: 8rem; color: var(--color-accent); position: absolute; right: -20px; bottom: -20px; opacity: 0.05;"></i>
+                    <h3 style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 15px;">Our Mission</h3>
+                    <p style="color: var(--color-text-muted); line-height: 1.7;">
+                        We aim to equip learners with skills, confidence, and adaptability. We strive to create sustainable employment pathways in a rapidly evolving global world.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: rgba(0,0,0,0.2);">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <h2>Our <span class="text-primary">Core Values</span></h2>
+                <p style="color: var(--color-text-muted);">The principles that guide everything we do.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px;">
+                
+                <div class="glass-panel" style="padding: 30px; text-align: center;">
+                    <i class="fa-solid fa-medal" style="color: #fbbf24; font-size: 2rem; margin-bottom: 15px;"></i>
+                    <h4 style="font-size: 1.1rem; color: #fff;">Excellence</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-muted);">Highest standards in teaching outcomes.</p>
+                </div>
+
+                <div class="glass-panel" style="padding: 30px; text-align: center;">
+                    <i class="fa-solid fa-hand-holding-heart" style="color: var(--color-primary); font-size: 2rem; margin-bottom: 15px;"></i>
+                    <h4 style="font-size: 1.1rem; color: #fff;">Integrity</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-muted);">Ethics, honesty, and transparency.</p>
+                </div>
+
+                <div class="glass-panel" style="padding: 30px; text-align: center;">
+                    <i class="fa-solid fa-fist-raised" style="color: var(--color-secondary); font-size: 2rem; margin-bottom: 15px;"></i>
+                    <h4 style="font-size: 1.1rem; color: #fff;">Empowerment</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-muted);">Building confidence for the future.</p>
+                </div>
+
+                <div class="glass-panel" style="padding: 30px; text-align: center;">
+                    <i class="fa-solid fa-lightbulb" style="color: var(--color-accent); font-size: 2rem; margin-bottom: 15px;"></i>
+                    <h4 style="font-size: 1.1rem; color: #fff;">Innovation</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-muted);">Adopting new technologies.</p>
+                </div>
+
+                <div class="glass-panel" style="padding: 30px; text-align: center;">
+                    <i class="fa-solid fa-users" style="color: #fff; font-size: 2rem; margin-bottom: 15px;"></i>
+                    <h4 style="font-size: 1.1rem; color: #fff;">Inclusion</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-muted);">Fair environment for all backgrounds.</p>
+                </div>
+
+                <div class="glass-panel" style="padding: 30px; text-align: center;">
+                    <i class="fa-solid fa-book-open" style="color: var(--color-primary); font-size: 2rem; margin-bottom: 15px;"></i>
+                    <h4 style="font-size: 1.1rem; color: #fff;">Lifelong Learning</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-muted);">Developing skills throughout life.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo" style="margin-bottom: 20px; display:inline-block;">
+                    <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+                </a>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem;">
+                    A Place to Build Your Dreams. <br> NSDA Recognized.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="studyabroad.html">Visa Guide</a></li>
+                    <li><a href="services.html">Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Social</h4>
+                <div style="display: flex; gap: 15px;">
+                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 CareerLift Institute. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

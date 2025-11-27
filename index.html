@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerLift Institute | Build Your Dreams</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nav-footer.css">
+    <link rel="stylesheet" href="css/courses.css"> 
+
+    <style>
+        /* Home Page Specific Overrides */
+        .hero-home {
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.75)), 
+                        url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding-top: 140px;
+            padding-bottom: 80px;
+        }
+
+        /* Success Popup */
+        #successPopup {
+            display: none; 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.7); 
+            backdrop-filter: blur(5px);
+            z-index: 2000; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .popup-content { 
+            background: #1e293b; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            padding: 40px; 
+            border-radius: 12px; 
+            text-align: center; 
+            max-width: 400px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5); 
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="studyabroad.html">Study Abroad</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
+                <li><a href="register.html" class="btn btn-primary" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero-home">
+        <div class="container">
+            <div class="hero-grid">
+                
+                <div class="hero-text">
+                    <div style="display: inline-block; padding: 6px 16px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 50px; margin-bottom: 20px;">
+                        <span style="color: var(--color-primary); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.5px;">
+                            <i class="fa-solid fa-check-circle"></i> NSDA Recognized Institute
+                        </span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        CareerLift <span class="text-primary">Institute</span>
+                    </h1>
+                    <h3 class="hero-subtitle">A Place to Build Your Dreams</h3>
+                    
+                    <p style="color: var(--color-text-muted); font-size: 1.05rem; margin-bottom: 35px; max-width: 550px;">
+                        We bridge the gap between education and employment. Expert training in Caregiving, Medical Scribing, and Visa Consultancy.
+                    </p>
+                    
+                    <div class="hero-buttons" style="display: flex; gap: 15px;">
+                        <a href="courses.html" class="btn btn-primary">Explore Courses</a>
+                        <a href="#contact" class="btn btn-outline">Contact Us</a>
+                    </div>
+
+                    <div class="stats-bar">
+                        <div class="stat-item">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <div><strong style="display:block; font-size:1.2rem; color:white;">5+</strong><span style="font-size:0.85rem; color:#94a3b8;">Years Exp.</span></div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fa-solid fa-user-graduate"></i>
+                            <div><strong style="display:block; font-size:1.2rem; color:white;">10k+</strong><span style="font-size:0.85rem; color:#94a3b8;">Students</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel cert-box">
+                    <div class="cert-icon-wrapper">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3 style="color: #fff; margin-bottom: 5px;">Skill to Success</h3>
+                    <p style="color: var(--color-text-muted); font-size: 0.9rem;">Govt. Recognized Certification</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <h2>Our Core <span class="text-primary">Services</span></h2>
+                <p style="color: var(--color-text-muted);">Comprehensive solutions for Students & Professionals.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="glass-panel" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: rgba(14, 165, 233, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <i class="fa-solid fa-user-nurse" style="font-size: 1.8rem; color: var(--color-primary);"></i>
+                    </div>
+                    <h3 style="font-size: 1.3rem;">Medical & Care</h3>
+                    <p style="color: var(--color-text-muted); margin-bottom: 25px; font-size: 0.9rem;">
+                        Caregiving (Level 2 & 3) and Medical Scribing for high-paying jobs abroad.
+                    </p>
+                    <a href="courses.html" style="color: var(--color-primary); font-weight: 600; font-size: 0.9rem;">View Courses &rarr;</a>
+                </div>
+
+                <div class="glass-panel" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: rgba(139, 92, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <i class="fa-solid fa-plane-departure" style="font-size: 1.8rem; color: var(--color-secondary);"></i>
+                    </div>
+                    <h3 style="font-size: 1.3rem;">Study Abroad</h3>
+                    <p style="color: var(--color-text-muted); margin-bottom: 25px; font-size: 0.9rem;">
+                        No assessment fee. Visa guidance for UK, Canada, Australia & Europe.
+                    </p>
+                    <a href="studyabroad.html" style="color: var(--color-secondary); font-weight: 600; font-size: 0.9rem;">Visa Guide &rarr;</a>
+                </div>
+
+                <div class="glass-panel" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: rgba(244, 63, 94, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <i class="fa-solid fa-laptop-code" style="font-size: 1.8rem; color: var(--color-accent);"></i>
+                    </div>
+                    <h3 style="font-size: 1.3rem;">Freelancing</h3>
+                    <p style="color: var(--color-text-muted); margin-bottom: 25px; font-size: 0.9rem;">
+                        Digital Marketing & Graphics Design courses with marketplace support.
+                    </p>
+                    <a href="courses.html" style="color: var(--color-accent); font-weight: 600; font-size: 0.9rem;">Start Earning &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: rgba(0,0,0,0.2);">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <h2>Featured <span class="text-primary">Programs</span></h2>
+                    <p style="color: var(--color-text-muted);">In-demand skills with certificate.</p>
+                </div>
+                <a href="courses.html" class="btn btn-outline" style="padding: 8px 20px; font-size: 0.9rem;">View All</a>
+            </div>
+
+            <div class="course-grid-home">
+                <div class="glass-panel" style="padding:0; overflow:hidden;">
+                    <img src="https://placehold.co/600x400/0f172a/38bdf8?text=Caregiving" alt="Caregiving" style="width:100%; height:200px; object-fit:cover;">
+                    <div style="padding:20px;">
+                        <div style="margin-bottom:10px;">
+                            <span style="font-size:0.75rem; background:rgba(14, 165, 233, 0.1); color:var(--color-primary); padding:4px 10px; border-radius:20px; text-transform:uppercase; font-weight:600;">Job Ready</span>
+                        </div>
+                        <h3 style="color:#fff; font-size:1.1rem; margin-bottom:10px;">Caregiving (Level 2 & 3)</h3>
+                        <div style="display:flex; justify-content:space-between; color:#94a3b8; font-size:0.9rem; margin-bottom:15px;">
+                            <span><i class="fa-solid fa-star" style="color:#fbbf24;"></i> 5.0</span>
+                            <span>Elderly Care</span>
+                        </div>
+                        <a href="courses.html" class="btn btn-primary" style="width:100%; text-align:center;">View Details</a>
+                    </div>
+                </div>
+                <div class="glass-panel" style="padding:0; overflow:hidden;">
+                    <img src="https://placehold.co/600x400/0f172a/a78bfa?text=Medical+Scribing" style="width:100%; height:200px; object-fit:cover;">
+                    <div style="padding:20px;">
+                        <div style="margin-bottom:10px;">
+                            <span style="font-size:0.75rem; background:rgba(139, 92, 246, 0.1); color:var(--color-secondary); padding:4px 10px; border-radius:20px; text-transform:uppercase; font-weight:600;">Hot Career</span>
+                        </div>
+                        <h3 style="color:#fff; font-size:1.1rem; margin-bottom:10px;">Medical Scribing</h3>
+                        <div style="display:flex; justify-content:space-between; color:#94a3b8; font-size:0.9rem; margin-bottom:15px;">
+                            <span><i class="fa-solid fa-star" style="color:#fbbf24;"></i> 4.9</span>
+                            <span>Dr. Assistant</span>
+                        </div>
+                        <a href="courses.html" class="btn btn-primary" style="width:100%; text-align:center;">View Details</a>
+                    </div>
+                </div>
+                <div class="glass-panel" style="padding:0; overflow:hidden;">
+                    <img src="https://placehold.co/600x400/0f172a/f472b6?text=Diplomas" style="width:100%; height:200px; object-fit:cover;">
+                    <div style="padding:20px;">
+                        <div style="margin-bottom:10px;">
+                            <span style="font-size:0.75rem; background:rgba(244, 63, 94, 0.1); color:var(--color-accent); padding:4px 10px; border-radius:20px; text-transform:uppercase; font-weight:600;">UK Level-3</span>
+                        </div>
+                        <h3 style="color:#fff; font-size:1.1rem; margin-bottom:10px;">Intl. Diplomas</h3>
+                        <div style="display:flex; justify-content:space-between; color:#94a3b8; font-size:0.9rem; margin-bottom:15px;">
+                            <span><i class="fa-solid fa-star" style="color:#fbbf24;"></i> 5.0</span>
+                            <span>Health/IT</span>
+                        </div>
+                        <a href="courses.html" class="btn btn-primary" style="width:100%; text-align:center;">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding" style="background: linear-gradient(to top, #020617, transparent);">
+        <div class="container contact-grid">
+            
+            <div>
+                <h1>Let's Start Your <br> <span class="text-primary">Journey Today</span></h1>
+                <p style="color: var(--color-text-muted); margin: 20px 0; max-width: 450px; line-height: 1.6;">
+                    Have questions about courses or visa processing? Fill out the form and our team will get back to you within 24 hours.
+                </p>
+                
+                <div style="margin-top: 30px; display:flex; flex-direction:column; gap:20px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 45px; height: 45px; background: rgba(14, 165, 233, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-primary);">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.85rem; color: var(--color-text-muted);">Phone</span>
+                            <strong style="color:#fff;">+880 1234 567 890</strong>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 45px; height: 45px; background: rgba(139, 92, 246, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-secondary);">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.85rem; color: var(--color-text-muted);">Email</span>
+                            <strong style="color:#fff;">info@careerlift.com</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel">
+                <h3 style="margin-bottom: 20px; color:#fff;">Send a Message</h3>
+                <form id="contactForm">
+                    <input type="hidden" name="access_key" value="fe6348e1-d356-4537-a346-75732d424439">
+                    <input type="hidden" name="subject" value="New Contact from CareerLift Home Page">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                    <input type="text" name="name" placeholder="Your Name" class="glass-input" required>
+                    <input type="email" name="email" placeholder="Your Email" class="glass-input" required>
+                    <input type="tel" name="phone" placeholder="Phone Number" class="glass-input" required>
+                    
+                    <textarea name="message" rows="4" placeholder="How can we help you?" class="glass-input" required></textarea>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        Send Message <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo" style="margin-bottom: 20px; display:inline-block;">
+                    <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+                </a>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem;">
+                    A Place to Build Your Dreams. <br> NSDA Recognized.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="studyabroad.html">Visa Guide</a></li>
+                    <li><a href="services.html">Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Social</h4>
+                <div style="display: flex; gap: 15px;">
+                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 CareerLift Institute. All Rights Reserved.
+        </div>
+    </footer>
+
+    <div id="successPopup">
+        <div class="popup-content">
+            <i class="fa-solid fa-check-circle" style="font-size: 4rem; color: var(--color-primary); margin-bottom: 20px;"></i>
+            <h2>Message Sent!</h2>
+            <p style="color: var(--color-text-muted); margin-bottom: 20px;">
+                Thank you for contacting us. We will get back to you shortly.
+            </p>
+            <button class="btn btn-outline" onclick="document.getElementById('successPopup').style.display='none'">Close</button>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            try {
+                const res = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", Accept: "application/json" },
+                    body: JSON.stringify(Object.fromEntries(formData))
+                }).then(r => r.json());
+                if (res.success) {
+                    contactForm.reset();
+                    document.getElementById('successPopup').style.display = 'flex';
+                } else { alert("Failed to send message."); }
+            } catch (err) { alert("Network error."); }
+        });
+    </script>
+</body>
+</html>

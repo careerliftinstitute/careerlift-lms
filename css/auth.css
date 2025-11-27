@@ -1,0 +1,218 @@
+/* css/auth.css */
+
+/* --- 1. BACKGROUND & WRAPPER --- */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle background glowing orbs for premium feel */
+.auth-wrapper::before, .auth-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: var(--color-primary);
+    filter: blur(150px);
+    opacity: 0.15;
+    border-radius: 50%;
+    z-index: 0;
+}
+.auth-wrapper::before { top: -100px; left: -100px; }
+.auth-wrapper::after { bottom: -100px; right: -100px; background: var(--color-secondary); }
+
+/* --- 2. GLASS CARD --- */
+.auth-card {
+    width: 100%;
+    max-width: 500px; /* Default for Login */
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+/* Wider card specifically for Register page */
+.auth-card.wide {
+    max-width: 700px;
+}
+
+/* --- 3. TYPOGRAPHY --- */
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
+
+.auth-header p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+/* --- 4. TOGGLE SWITCH (LOGIN) --- */
+.login-toggle {
+    display: flex;
+    background: rgba(15, 23, 42, 0.6);
+    padding: 4px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    color: #94a3b8;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn:hover { color: #fff; }
+
+.toggle-btn.active {
+    background: var(--color-primary);
+    color: #fff; /* White text on blue bg */
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+/* --- 5. FORM LAYOUTS --- */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-grid-3 {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 0.8fr;
+    gap: 15px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+/* --- 6. INPUT FIELDS --- */
+.form-control {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(15, 23, 42, 0.9);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+/* Dropdown Arrow Fix */
+select.form-control {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+}
+
+/* --- 7. BUTTONS --- */
+.btn-primary {
+    background: var(--color-primary);
+    color: #ffffff !important;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px rgba(14, 165, 233, 0.25);
+}
+
+.btn-primary:hover {
+    background: #0284c7; /* Darker blue */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(14, 165, 233, 0.35);
+}
+
+/* --- 8. PASSWORD EYE & FOOTER --- */
+.password-wrapper { position: relative; }
+.password-wrapper input { padding-right: 45px; }
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #64748b;
+    transition: 0.3s;
+}
+.toggle-password:hover { color: #fff; }
+
+.auth-footer {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.95rem;
+    color: #94a3b8;
+}
+
+.auth-footer a {
+    color: var(--color-primary);
+    font-weight: 600;
+    transition: 0.3s;
+}
+.auth-footer a:hover { color: #fff; text-decoration: underline; }
+
+/* --- 9. RESPONSIVE BREAKPOINT --- */
+@media (max-width: 650px) {
+    .auth-card { padding: 30px 20px; }
+    .form-grid-2, .form-grid-3 {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses | CareerLift</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nav-footer.css">
+    <link rel="stylesheet" href="css/courses.css">
+
+    <style>
+        /* Responsive Search Bar */
+        .search-container {
+            display: inline-flex; 
+            padding: 10px; 
+            gap: 10px; 
+            max-width: 800px; 
+            width: 100%; 
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+                background: transparent;
+                padding: 0;
+                border: none;
+            }
+            .search-container input, .search-container select {
+                width: 100%;
+                background: rgba(30, 41, 59, 0.9) !important;
+                border: 1px solid rgba(255,255,255,0.1) !important;
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="courses.html" class="active">Courses</a></li>
+                <li><a href="studyabroad.html">Study Abroad</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
+                <li><a href="register.html" class="btn btn-primary" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="section-padding" style="padding-top: 140px; padding-bottom: 50px;">
+        <div class="container text-center">
+            <h1 style="font-size: 3rem; margin-bottom: 10px;">Our <span class="text-primary">Courses</span></h1>
+            <p style="color: var(--color-text-muted); margin: 0 auto 30px auto; max-width: 600px;">
+                NSDA Recognized professional courses designed to fast-track your career growth locally and globally.
+            </p>
+            
+            <div class="glass-panel search-container">
+                <input type="text" id="searchInput" placeholder="Search Caregiving, Scribing..." 
+                       style="background: transparent; border: none; color: #fff; flex: 1; padding: 12px; outline: none; font-size: 1rem;">
+                
+                <select id="categoryFilter" style="background: var(--color-bg); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 8px; cursor: pointer;">
+                    <option value="all">All Courses</option>
+                    <option value="free">Free Courses</option>
+                    <option value="medical">Medical & Care</option>
+                    <option value="freelancing">Freelancing</option>
+                    <option value="diploma">Diplomas (UK)</option>
+                    <option value="Programming">Programming</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="padding-top: 0;">
+        <div class="container">
+            <div id="courseGrid">
+                <div style="text-align: center; color: var(--color-text-muted); grid-column: 1 / -1;">
+                    <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--color-primary);"></i>
+                    <p style="margin-top: 10px;">Loading Courses...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo" style="margin-bottom: 20px; display:inline-block;">
+                    <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+                </a>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem;">
+                    A Place to Build Your Dreams. <br> NSDA Recognized.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="studyabroad.html">Visa Guide</a></li>
+                    <li><a href="services.html">Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Social</h4>
+                <div style="display: flex; gap: 15px;">
+                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 CareerLift Institute. All Rights Reserved.
+        </div>
+    </footer>
+
+    <div id="prebookModal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="max-width: 450px; padding: 40px;">
+            <span class="modal-close" onclick="closeModals()" style="position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer;">&times;</span>
+            <h3 class="text-primary" style="margin-bottom: 10px;">Pre-book Course</h3>
+            <p style="font-size:0.9rem; color:var(--color-text-muted); margin-bottom:25px;">Reserve your seat. We will contact you for payment.</p>
+            
+            <form id="prebookForm">
+                <input type="hidden" id="prebookCourseId">
+                
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #cbd5e1;">Full Name</label>
+                    <input type="text" id="pbName" class="glass-input" required>
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #cbd5e1;">Phone Number</label>
+                    <input type="tel" id="pbPhone" class="glass-input" required>
+                </div>
+                
+                <button type="submit" class="btn btn-outline" style="width:100%;">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="enrollPaidModal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="max-width: 450px; padding: 40px;">
+            <span class="modal-close" onclick="closeModals()" style="position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer;">&times;</span>
+            <h3 class="text-primary" style="margin-bottom: 10px;">Final Enrollment</h3>
+            <p style="font-size:0.9rem; color:var(--color-text-muted); margin-bottom:25px;">Enter the Special Code provided by Admin.</p>
+            
+            <form id="enrollPaidForm">
+                <input type="hidden" id="enrollCourseId">
+                
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #cbd5e1;">Full Name</label>
+                    <input type="text" id="enName" class="glass-input" required>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #cbd5e1;">Phone Number</label>
+                    <input type="tel" id="enPhone" class="glass-input" required>
+                </div>
+
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #cbd5e1;">Admin Special Code</label>
+                    <input type="text" id="enCode" class="glass-input" placeholder="e.g. CL-2025-X" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width:100%;">Verify & Enroll</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="text-align:center; max-width: 400px; padding: 40px; border: 1px solid #22c55e;">
+            <span class="modal-close" onclick="closeModals()" style="position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer;">&times;</span>
+            <div style="margin-bottom:20px;">
+                <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: #22c55e;"></i>
+            </div>
+            <h3 style="color:#fff; margin-bottom:10px;" id="successTitle">Success!</h3>
+            <p id="successMessage" style="color:var(--color-text-muted); margin-bottom:25px; font-size:0.95rem; line-height:1.5;">
+                Your request has been processed.
+            </p>
+            <button class="btn btn-primary" onclick="closeModals()" style="width:100%; background: #22c55e; border-color: #22c55e;">Okay, Got it</button>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/courses.js"></script>
+</body>
+</html>

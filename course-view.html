@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Classroom | CareerLift</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Palette - Matching Main Theme */
+            --bg-body: #0f172a;       /* Deepest Slate */
+            --bg-panel: #1e293b;      /* Card Background */
+            --bg-element: #334155;    /* Hover/Input Background */
+            
+            --primary: #38bdf8;       /* Sky Blue */
+            --primary-dim: rgba(56, 189, 248, 0.15);
+            --accent: #8b5cf6;        /* Violet */
+            
+            /* Typography Colors - Optimized for Reading */
+            --text-heading: #f1f5f9;  /* Bright for titles */
+            --text-body: #cbd5e1;     /* Soft Grey for reading (prevents eye strain) */
+            --text-muted: #94a3b8;    /* Darker grey for metadata */
+            
+            --border: 1px solid rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-body); 
+            font-family: 'Inter', sans-serif; /* Inter is better for long-form reading */
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .logo, .btn-dash { font-family: 'Outfit', sans-serif; }
+
+        /* --- Navbar --- */
+        .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: var(--border);
+            height: 70px;
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .logo { 
+            font-size: 1.5rem; font-weight: 700; color: var(--text-heading); text-decoration: none; 
+            display: flex; align-items: center; gap: 10px;
+        }
+        .logo i { color: var(--primary); }
+
+        .btn-dash {
+            padding: 8px 24px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--primary); 
+            border-radius: 50px;
+            text-decoration: none; font-size: 0.9rem; font-weight: 500;
+            transition: 0.3s;
+        }
+        .btn-dash:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary-dim); }
+
+        /* --- Layout --- */
+        .classroom-grid {
+            display: grid;
+            grid-template-columns: 3fr 1.2fr; /* More space for content */
+            gap: 40px;
+            max-width: 1440px;
+            margin: 100px auto 60px;
+            padding: 0 30px;
+        }
+
+        /* --- Left Column: Content Area --- */
+        .content-area { display: flex; flex-direction: column; gap: 30px; }
+
+        .back-link {
+            color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
+            width: fit-content;
+        }
+        .back-link:hover { color: var(--primary); transform: translateX(-5px); }
+
+        /* Course Header Card */
+        .course-hero {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .badge-pill {
+            display: inline-block; padding: 5px 14px; border-radius: 20px;
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+            background: var(--primary-dim); color: var(--primary); border: 1px solid rgba(56, 189, 248, 0.2);
+            margin-bottom: 12px;
+        }
+
+        h1.course-title { 
+            font-size: 2.4rem; margin-bottom: 15px; line-height: 1.2; 
+            color: var(--text-heading);
+        }
+        
+        .course-desc { color: var(--text-muted); line-height: 1.6; font-size: 1.05rem; max-width: 90%; }
+
+        /* Notes & Resources Section (Reading Optimized) */
+        .notes-card {
+            background: var(--bg-panel); /* Solid background for better text rendering */
+            border: var(--border);
+            border-radius: 16px;
+            padding: 40px; /* Generous padding */
+            box-shadow: var(--glass-shadow);
+        }
+
+        .section-header { 
+            display: flex; align-items: center; gap: 12px; margin-bottom: 25px; padding-bottom: 15px;
+            color: var(--text-heading); font-size: 1.4rem; border-bottom: var(--border);
+        }
+        .section-header i { color: var(--primary); }
+
+        .note-content {
+            font-family: 'Inter', sans-serif;
+            color: #e2e8f0; /* Soft white - easier on eyes than pure white */
+            line-height: 1.8; /* Higher line height for readability */
+            font-size: 1.05rem;
+            white-space: pre-line; /* Preserves paragraphs */
+        }
+        
+        /* Highlight specific boxes inside notes if needed */
+        .note-content strong { color: var(--primary); font-weight: 600; }
+
+        /* --- Right Column: Sidebar --- */
+        .sidebar {
+            position: sticky; top: 100px;
+            height: calc(100vh - 140px);
+            background: var(--bg-panel);
+            border: var(--border);
+            border-radius: 16px;
+            display: flex; flex-direction: column;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .sidebar-header {
+            padding: 20px 25px; border-bottom: var(--border);
+            background: rgba(0,0,0,0.2);
+        }
+        .sidebar-header h3 { font-size: 1.1rem; font-weight: 600; color: var(--text-heading); display:flex; align-items:center; gap:10px; }
+
+        .lecture-list {
+            overflow-y: auto;
+            flex: 1;
+            padding: 15px;
+        }
+        
+        /* Custom Scrollbar */
+        .lecture-list::-webkit-scrollbar { width: 5px; }
+        .lecture-list::-webkit-scrollbar-thumb { background: var(--bg-element); border-radius: 10px; }
+        .lecture-list::-webkit-scrollbar-track { background: transparent; }
+
+        .lecture-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px;
+            margin-bottom: 10px;
+            background: var(--bg-body); /* Darker than sidebar for contrast */
+            border: 1px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lecture-item:hover {
+            background: var(--bg-element);
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateX(5px);
+        }
+
+        .lec-info { display: flex; flex-direction: column; gap: 5px; }
+        .lec-title { font-size: 0.95rem; font-weight: 500; color: var(--text-heading); }
+        .lec-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+        
+        .lec-icon { 
+            width: 32px; height: 32px; 
+            background: var(--primary-dim); 
+            color: var(--primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .classroom-grid { grid-template-columns: 1fr; gap: 30px; }
+            .sidebar { height: auto; max-height: 500px; position: static; margin-bottom: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span></a>
+        <a href="courses.html" class="btn-dash">Dashboard</a>
+    </nav>
+
+    <div class="classroom-grid">
+        
+        <div class="content-area">
+            <a href="courses.html" class="back-link">
+                <i class="fa-solid fa-arrow-left"></i> Back to Courses
+            </a>
+
+            <div class="course-hero">
+                <div style="display:flex; justify-content:space-between; align-items:start;">
+                    <div>
+                        <span id="cBadge" class="badge-pill">Loading...</span>
+                        <h1 id="cTitle" class="course-title">Loading Course...</h1>
+                        <p id="cOverview" class="course-desc">Please wait while we retrieve the course syllabus and materials from the server.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notes-card">
+                <div class="section-header">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <h3>Classroom Notes & Instructions</h3>
+                </div>
+                <div id="cNote" class="note-content">
+                    <div style="text-align:center; padding: 40px; color: var(--text-muted);">
+                        <i class="fa-regular fa-file-lines" style="font-size: 3rem; opacity: 0.5; margin-bottom: 15px;"></i>
+                        <p>No notes available for this course.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fa-solid fa-layer-group" style="color: var(--primary);"></i> Course Modules</h3>
+            </div>
+            <div id="lectureList" class="lecture-list">
+                <div style="padding: 30px; text-align: center; color: var(--text-muted);">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading...
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api/courses'; 
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Check Auth
+            const user = localStorage.getItem('user');
+            if(!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // 2. Get Course ID
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('id');
+
+            if(!courseId) {
+                alert("No course selected");
+                window.location.href = 'courses.html';
+                return;
+            }
+
+            // 3. Fetch Data
+            try {
+                const res = await fetch(`${API_URL}`); 
+                const courses = await res.json();
+                const course = courses.find(c => c._id === courseId);
+
+                if(course) {
+                    renderCourseDetails(course);
+                } else {
+                    alert("Course not found!");
+                    window.location.href = 'courses.html';
+                }
+            } catch(err) {
+                console.error(err);
+                alert("Error loading course data.");
+            }
+        });
+
+        function renderCourseDetails(course) {
+            // Fill Basic Info
+            document.getElementById('cTitle').innerText = course.title;
+            document.getElementById('cOverview').innerText = course.overview || "No overview provided for this course.";
+            
+            // Notes - Check if empty
+            const noteText = course.classNote || course.paidNote;
+            if(noteText) {
+                document.getElementById('cNote').innerText = noteText;
+            }
+
+            // Badge Logic
+            const badge = document.getElementById('cBadge');
+            badge.innerText = course.category || "General";
+            
+            if(course.type === 'free') {
+                badge.style.borderColor = '#22c55e';
+                badge.style.color = '#22c55e';
+                badge.style.background = 'rgba(34, 197, 94, 0.1)';
+            } else {
+                // Keep default primary color for Paid
+                badge.style.borderColor = '#38bdf8';
+                badge.style.color = '#38bdf8';
+                badge.style.background = 'rgba(56, 189, 248, 0.15)';
+            }
+
+            // Fill Sidebar (Lectures)
+            const list = document.getElementById('lectureList');
+            list.innerHTML = ''; 
+
+            if(course.type === 'free') {
+                renderFreeContent(course, list);
+            } else {
+                renderPaidContent(course, list);
+            }
+        }
+
+        function renderFreeContent(course, list) {
+            let html = '';
+            
+            // 1. Main Resource Link
+            if(course.videoLink) {
+                html += `
+                    <div class="lecture-item" onclick="openLink('${course.videoLink}')">
+                        <div class="lec-info">
+                            <span class="lec-title">Class Resource Link</span>
+                            <span class="lec-meta"><i class="fa-solid fa-link"></i> External Resource</span>
+                        </div>
+                        <div class="lec-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                    </div>
+                `;
+            } else {
+                html += `<div style="padding:20px; text-align:center; color:#64748b; font-size:0.9rem;">No external link provided.</div>`;
+            }
+
+            // 2. Syllabus (Text)
+            if(course.syllabus) {
+                html += `
+                    <div style="padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 15px;">
+                        <h4 style="color:#f1f5f9; font-size:0.95rem; margin-bottom:10px;"><i class="fa-solid fa-list-ul"></i> Syllabus Outline</h4>
+                        <p style="color:#94a3b8; font-size:0.9rem; line-height:1.6; white-space:pre-line;">${course.syllabus}</p>
+                    </div>
+                `;
+            }
+
+            list.innerHTML = html;
+        }
+
+        function renderPaidContent(course, list) {
+            if(!course.lectures || course.lectures.length === 0) {
+                list.innerHTML = `<div style="padding:20px; text-align:center; color:#64748b;">No lectures scheduled yet.</div>`;
+                return;
+            }
+
+            course.lectures.forEach((lec, index) => {
+                const lectureHtml = `
+                    <div class="lecture-item" onclick="openLink('${lec.link}')">
+                        <div class="lec-info">
+                            <span class="lec-title">Lecture ${index + 1}: ${lec.title}</span>
+                            <span class="lec-meta"><i class="fa-solid fa-video"></i> Video Class</span>
+                        </div>
+                        <div class="lec-icon">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </div>
+                `;
+                list.innerHTML += lectureHtml;
+            });
+        }
+
+        function openLink(link) {
+            if(link && link !== '#') {
+                window.open(link, '_blank');
+            } else {
+                alert("The link for this item is not available yet.");
+            }
+        }
+    </script>
+</body>
+</html>

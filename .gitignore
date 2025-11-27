@@ -1,0 +1,11 @@
+node_modules
+.env
+
+Now, even if you push your code to GitHub, the `.env` file (containing the password) will be ignored and stay safe on your local computer.
+
+
+node_modules/
+server/node_modules/
+.env
+server/.env
+.DS_Store

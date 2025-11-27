@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | CareerLift</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nav-footer.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            
+            <div class="login-toggle">
+                <div class="toggle-btn active" id="tab-student" onclick="switchTab('student')">Student</div>
+                <div class="toggle-btn" id="tab-admin" onclick="switchTab('admin')">Admin</div>
+            </div>
+
+            <div class="auth-header">
+                <h2 id="form-title">Welcome Back</h2>
+                <p style="color: var(--color-text-muted);">Enter your credentials to access your account.</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <div style="position: relative;">
+                        <input type="email" id="email" class="form-control" placeholder="name@example.com" required style="padding-left: 45px;">
+                        <i class="fa-solid fa-envelope" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:#64748b;"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required style="padding-left: 45px;">
+                        <i class="fa-solid fa-lock" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:#64748b;"></i>
+                        <i class="fa-solid fa-eye toggle-password" onclick="toggleVisibility('password', this)"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Login to Account</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>New to CareerLift? <a href="register.html">Create an account</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        function switchTab(type) {
+            const studentBtn = document.getElementById('tab-student');
+            const adminBtn = document.getElementById('tab-admin');
+            const title = document.getElementById('form-title');
+
+            if(type === 'admin') {
+                adminBtn.classList.add('active');
+                studentBtn.classList.remove('active');
+                title.innerText = "Admin Portal";
+            } else {
+                studentBtn.classList.add('active');
+                adminBtn.classList.remove('active');
+                title.innerText = "Welcome Back";
+            }
+        }
+
+        function toggleVisibility(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+</html>

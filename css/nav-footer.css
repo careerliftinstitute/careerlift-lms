@@ -1,0 +1,98 @@
+/* css/nav-footer.css */
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    z-index: 1000;
+    padding: 15px 0;
+    background: rgba(15, 23, 42, 0.95); /* Solid for readability */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex; align-items: center; gap: 8px;
+}
+.logo span { color: var(--color-primary); }
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links li a {
+    color: var(--color-text);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.nav-links li a:hover, .nav-links li a.active {
+    color: var(--color-text-muted);
+}
+
+/* Mobile Toggle */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* FOOTER */
+footer {
+    background: #020617;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 60px;
+    margin-top: auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    padding-bottom: 40px;
+}
+
+.footer-col h4 { margin-bottom: 20px; color: #fff; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a { color: var(--color-text-muted); font-size: 0.9rem; }
+.footer-col ul li a:hover { color: var(--color-primary); }
+
+.footer-bottom {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+/* MOBILE RESPONSIVE NAV */
+@media (max-width: 900px) {
+    .menu-toggle { display: block; }
+    
+    .nav-links {
+        position: absolute;
+        top: 70px; left: 0; width: 100%;
+        background: #1e293b;
+        flex-direction: column;
+        padding: 30px;
+        gap: 20px;
+        display: none; /* Hidden by default */
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-links.active { display: flex; }
+    
+    .nav-links .btn { width: 100%; text-align: center; }
+}
