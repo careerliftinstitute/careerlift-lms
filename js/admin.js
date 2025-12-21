@@ -1,7 +1,10 @@
 /* js/admin.js */
 
 // 🔥 FIX: Renamed variable to avoid conflict with auth.js
-const ADMIN_API = "http://localhost:5000/api";
+/* js/admin.js */
+
+// আগের localhost লিংকটি মুছে নিচেরটি বসান:
+const ADMIN_API = "https://careerlift-lms.onrender.com/api";
 
 // ==========================================
 // GOOGLE DRIVE MAGIC LINK
@@ -285,6 +288,7 @@ async function fetchUsers() {
         console.error("Error fetching users:", err);
     }
 }
+
 
 // ===========================
 // EDIT USER LOGIC
