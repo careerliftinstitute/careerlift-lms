@@ -1,6 +1,7 @@
 /* js/courses.js */
 
-const API_URL = 'http://localhost:5000/api';
+// লাইভ সার্ভার লিংক
+const API_URL = 'https://careerlift-lms.onrender.com/api/courses';
 
 // ELEMENTS
 const grid = document.getElementById('courseGrid');
