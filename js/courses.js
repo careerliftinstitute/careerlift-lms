@@ -1,8 +1,8 @@
 /* js/courses.js */
 
 // লাইভ সার্ভার লিংক
-const API_URL = 'https://careerlift-lms.onrender.com/api/courses';
-
+// শুধুমাত্র /api পর্যন্ত রাখুন
+const API_URL = 'https://careerlift-lms.onrender.com/api';
 // ELEMENTS
 const grid = document.getElementById('courseGrid');
 const searchInput = document.getElementById('searchInput');
