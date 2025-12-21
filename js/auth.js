@@ -3,7 +3,7 @@
 /* =============================
    1. API CONFIGURATION
 ============================= */
-const API_URL = 'http://localhost:5000/api/auth';
+const API_URL = 'https://careerlift-lms.onrender.com/api/auth';
 
 /* =============================
    2. LOGIN LOGIC
