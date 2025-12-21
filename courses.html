@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses | CareerLift</title>
+    <title>Courses | CareerLift Skill Development Institute</title>
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/nav-footer.css">
@@ -54,7 +54,7 @@
                 <li><a href="studyabroad.html">Study Abroad</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
-                <li><a href="register.html" class="btn btn-primary" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
+                <li><a href="register.html" class="join-btn" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
             </ul>
         </div>
     </nav>
@@ -76,7 +76,6 @@
                     <option value="medical">Medical & Care</option>
                     <option value="freelancing">Freelancing</option>
                     <option value="diploma">Diplomas (UK)</option>
-                    <option value="Programming">Programming</option>
                 </select>
             </div>
         </div>
@@ -118,39 +117,44 @@
                     <li><a href="#">Terms of Service</a></li>
                 </ul>
             </div>
+            
             <div class="footer-col">
                 <h4>Social</h4>
                 <div style="display: flex; gap: 15px;">
-                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-facebook fa-lg"></i></a>
-                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    <a href="https://www.facebook.com/careerliftskill/" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                    <a href="https://www.youtube.com/@CareerliftInstitute" class="social-icon" title="YouTube"><i class="fa-brands fa-youtube fa-lg"></i></a>
+                    <a href="#" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    <a href="#" class="social-icon" title="X (Twitter)"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                    <a href="https://wa.me/8801814304081" target="_blank" class="social-icon" title="WhatsApp" style="color: #25D366;">
+                        <i class="fa-brands fa-whatsapp fa-lg"></i>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; 2025 CareerLift Institute. All Rights Reserved.
+            &copy; 2025 CareerLift Skill Development Institute. All Rights Reserved.
         </div>
     </footer>
 
     <div id="prebookModal" class="modal-overlay">
-        <div class="modal-content glass-panel" style="max-width: 450px; padding: 40px;">
+        <div class="modal-content glass-panel" style="max-width: 400px; padding: 40px; text-align: center;">
             <span class="modal-close" onclick="closeModals()" style="position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer;">&times;</span>
-            <h3 class="text-primary" style="margin-bottom: 10px;">Pre-book Course</h3>
-            <p style="font-size:0.9rem; color:var(--color-text-muted); margin-bottom:25px;">Reserve your seat. We will contact you for payment.</p>
+            
+            <div style="margin-bottom: 20px;">
+                <i class="fa-solid fa-calendar-check" style="font-size: 3rem; color: var(--color-primary);"></i>
+            </div>
+            
+            <h3 class="text-primary" style="margin-bottom: 10px;">Confirm Pre-booking?</h3>
+            <p style="font-size:0.9rem; color:var(--color-text-muted); margin-bottom:25px; line-height: 1.5;">
+                We will use your registered profile details to contact you for the next steps.
+            </p>
             
             <form id="prebookForm">
                 <input type="hidden" id="prebookCourseId">
-                
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #cbd5e1;">Full Name</label>
-                    <input type="text" id="pbName" class="glass-input" required>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn-outline" onclick="closeModals()" style="flex: 1; padding: 10px; border-radius: 8px;">Cancel</button>
+                    <button type="submit" class="btn-primary" style="flex: 1; padding: 10px; border-radius: 8px;">Yes, Book</button>
                 </div>
-                
-                <div style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #cbd5e1;">Phone Number</label>
-                    <input type="tel" id="pbPhone" class="glass-input" required>
-                </div>
-                
-                <button type="submit" class="btn btn-outline" style="width:100%;">Confirm Booking</button>
             </form>
         </div>
     </div>
@@ -164,16 +168,6 @@
             <form id="enrollPaidForm">
                 <input type="hidden" id="enrollCourseId">
                 
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #cbd5e1;">Full Name</label>
-                    <input type="text" id="enName" class="glass-input" required>
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #cbd5e1;">Phone Number</label>
-                    <input type="tel" id="enPhone" class="glass-input" required>
-                </div>
-
                 <div style="margin-bottom: 25px;">
                     <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #cbd5e1;">Admin Special Code</label>
                     <input type="text" id="enCode" class="glass-input" placeholder="e.g. CL-2025-X" required>

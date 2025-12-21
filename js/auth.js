@@ -16,31 +16,40 @@ if (loginForm) {
 
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        const btn = loginForm.querySelector('button');
+        
+        // 🔥 GET LOGIN TYPE (Student or Admin)
+        // This input exists in login.html and changes when Admin Mode is toggled
+        const typeInput = document.getElementById('loginType'); 
+        const loginType = typeInput ? typeInput.value : 'student';
 
+        const btn = loginForm.querySelector('button');
         const originalText = btn.innerText;
-        btn.innerText = 'Logging in...';
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging in...';
         btn.disabled = true;
 
         try {
             const response = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
+                // 🔥 Sending loginType to backend
+                body: JSON.stringify({ email, password, loginType }) 
             });
 
             const data = await response.json();
 
+            // Handle Errors
             if (!response.ok) {
                 alert(data.message || "Login failed");
+                btn.innerText = originalText;
+                btn.disabled = false;
                 return;
             }
 
+            // SUCCESS: Save Token
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
 
-            alert('Login Successful!');
-
+            // Redirect based on role
             if (data.user.role === 'admin') {
                 window.location.href = 'admin.html';
             } else {
@@ -48,9 +57,8 @@ if (loginForm) {
             }
 
         } catch (err) {
-            console.error(err);
-            alert("Server not responding. Is backend running?");
-        } finally {
+            console.error("Login Error:", err);
+            alert("Server connection failed. Ensure the backend is running.");
             btn.innerText = originalText;
             btn.disabled = false;
         }
@@ -74,7 +82,6 @@ if (registerForm) {
         const password = document.getElementById('password')?.value;
         const confirmPassword = document.getElementById('confirmPassword')?.value;
 
-        // ✅ Password confirmation check
         if (password !== confirmPassword) {
             alert("Passwords do not match!");
             document.getElementById('password').focus();
@@ -100,12 +107,13 @@ if (registerForm) {
                 window.location.href = "login.html";
             } else {
                 alert(data.message || "Registration failed");
+                btn.innerText = originalText;
+                btn.disabled = false;
             }
 
         } catch (error) {
-            console.error(error);
-            alert("Server not responding.");
-        } finally {
+            console.error("Register Error:", error);
+            alert("Server connection failed.");
             btn.innerText = originalText;
             btn.disabled = false;
         }
@@ -113,7 +121,7 @@ if (registerForm) {
 }
 
 /* =============================
-   4. LOGOUT
+   4. LOGOUT FUNCTION
 ============================= */
 function logout() {
     localStorage.removeItem('token');
@@ -122,20 +130,44 @@ function logout() {
 }
 
 /* =============================
-   5. CHECK AUTH STATUS
+   5. CHECK AUTH STATUS (UPDATED UI)
 ============================= */
 function checkAuth() {
     const token = localStorage.getItem('token');
+    const userStr = localStorage.getItem('user');
+    
+    // Navbar Elements
     const loginBtn = document.querySelector('a[href="login.html"]');
     const registerBtn = document.querySelector('a[href="register.html"]');
+    
+    // Profile Page Element (The Admin Button in profile.html)
+    const profileAdminBtn = document.getElementById('profileAdminBtn'); 
 
-    if (token && loginBtn) {
-        loginBtn.innerText = "Logout";
-        loginBtn.href = "#";
-        loginBtn.addEventListener('click', logout);
+    if (token && userStr) {
+        const user = JSON.parse(userStr);
 
-        if (registerBtn) registerBtn.style.display = "none";
+        // 1. Change "Login" button to "Profile"
+        if (loginBtn) {
+            loginBtn.innerHTML = '<i class="fa-regular fa-user"></i> Profile';
+            loginBtn.href = "profile.html"; 
+            loginBtn.classList.remove('btn-outline');
+            
+            // Remove old listeners (clone node trick)
+            const newLoginBtn = loginBtn.cloneNode(true);
+            loginBtn.parentNode.replaceChild(newLoginBtn, loginBtn);
+        }
+
+        // 2. Hide "Join Free" button
+        if (registerBtn) {
+            registerBtn.style.display = "none"; 
+        }
+
+        // 3. PROFILE PAGE LOGIC: Show Admin Button if Admin
+        if (profileAdminBtn && user.role === 'admin') {
+            profileAdminBtn.style.display = "inline-flex"; 
+        }
     }
 }
 
+// Run on load
 document.addEventListener('DOMContentLoaded', checkAuth);

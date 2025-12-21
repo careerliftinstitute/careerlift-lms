@@ -68,35 +68,49 @@
     font-size: 0.95rem;
 }
 
-/* --- 4. TOGGLE SWITCH (LOGIN) --- */
-.login-toggle {
-    display: flex;
+/* --- 4. PREMIUM SLIDING TOGGLE (UPDATED) --- */
+.login-toggle-container {
+    position: relative;
     background: rgba(15, 23, 42, 0.6);
-    padding: 4px;
     border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px;
     margin-bottom: 30px;
-    border: 1px solid rgba(255,255,255,0.05);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
-.toggle-btn {
-    flex: 1;
-    padding: 10px;
+/* The Sliding Background */
+.toggle-glider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px); /* Half width minus padding */
+    height: calc(100% - 8px);
+    background: var(--color-primary);
+    border-radius: 8px;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth bounce effect */
+    z-index: 1;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+}
+
+/* The Buttons */
+.toggle-option {
+    position: relative;
+    z-index: 2; /* Above the glider */
     text-align: center;
+    padding: 10px;
+    font-weight: 500;
+    font-size: 0.95rem;
     cursor: pointer;
     color: #94a3b8;
-    font-weight: 500;
-    font-size: 0.9rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
 }
 
-.toggle-btn:hover { color: #fff; }
-
-.toggle-btn.active {
-    background: var(--color-primary);
-    color: #fff; /* White text on blue bg */
+/* Active Text Color */
+.toggle-option.active-text {
+    color: #fff;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
 }
 
 /* --- 5. FORM LAYOUTS --- */

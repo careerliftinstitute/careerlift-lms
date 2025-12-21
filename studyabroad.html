@@ -3,164 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Abroad | CareerLift</title>
+    <title>Global Visa Consultancy | CareerLift Skill Development Institute</title>
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/nav-footer.css">
     
     <style>
-        /* --- PAGE SPECIFIC STYLES --- */
-        .hero-study {
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), 
-                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            padding-top: 160px;
-            padding-bottom: 80px;
-        }
+       /* --- 1. HERO SECTION --- */
+       .hero-study {
+           background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8)), 
+                       url('https://lh3.googleusercontent.com/d/1RU4xPi2CllFjjWRbe4hOpkfxXjvLVbjz');
+           background-size: cover;
+           background-position: center;
+           background-attachment: fixed;
+           padding-top: 160px;
+           padding-bottom: 100px;
+       }
 
+        /* --- 2. DESTINATION CARDS --- */
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
         .destination-card {
-            height: 250px;
-            border-radius: 16px;
+            height: 320px;
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255,255,255,0.1);
             cursor: pointer;
-            transition: 0.4s;
+            transition: 0.4s ease;
         }
-        .destination-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+        .destination-card img { 
+            width: 100%; height: 100%; object-fit: cover; transition: 0.4s ease; 
+        }
         .destination-overlay {
             position: absolute; bottom: 0; left: 0; width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            padding: 20px;
+            background: linear-gradient(to top, rgba(2, 6, 23, 1), rgba(2, 6, 23, 0.7), transparent);
+            padding: 25px 20px;
+            z-index: 2;
         }
         .destination-card:hover img { transform: scale(1.1); }
-        .destination-card:hover { border-color: var(--color-primary); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2); }
-
-        details { margin-bottom: 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; overflow: hidden; transition: 0.3s; }
-        details[open] { border-color: var(--color-primary); }
-        summary { padding: 20px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
-        summary::after { content: '\f078'; font-family: "Font Awesome 6 Free"; transition: 0.3s; }
-        details[open] summary::after { transform: rotate(180deg); color: var(--color-primary); }
-        .details-content { padding: 20px; border-top: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); }
-        .details-content ul { list-style: none; }
-        .details-content li { margin-bottom: 10px; display: flex; gap: 10px; color: var(--color-text-muted); }
-        .details-content li i { color: var(--color-primary); margin-top: 5px; }
-
-        .glass-input, .glass-select {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 20px;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
+        .destination-card:hover { 
+            border-color: var(--color-primary); 
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2); 
+            transform: translateY(-5px);
         }
-        .glass-select option { background: #0f172a; color: #fff; }
-        
+        .country-tag {
+            background: var(--color-primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        /* --- 3. ACCORDION (VISA GUIDES) --- */
+        details { 
+            margin-bottom: 15px; 
+            background: rgba(30, 41, 59, 0.6); 
+            border: 1px solid rgba(255,255,255,0.05); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            transition: 0.3s; 
+        }
+        details[open] { 
+            border-color: var(--color-primary); 
+            background: rgba(30, 41, 59, 0.9);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        summary { 
+            padding: 18px 25px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            list-style: none; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: #fff;
+        }
+        summary::after { 
+            content: '\f078'; font-family: "Font Awesome 6 Free"; transition: 0.3s; font-size: 0.9rem; color: var(--color-text-muted);
+        }
+        details[open] summary::after { transform: rotate(180deg); color: var(--color-primary); }
+        .details-content { 
+            padding: 20px 25px; border-top: 1px solid rgba(255,255,255,0.05); background: rgba(15, 23, 42, 0.4); 
+        }
+        .details-content li { margin-bottom: 10px; display: flex; gap: 12px; color: var(--color-text-muted); font-size: 0.95rem; }
+        .details-content li i { color: var(--color-primary); margin-top: 4px; }
+
+        /* --- 4. FORM STYLES --- */
+        .glass-input {
+            width: 100%; padding: 12px 16px; background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff;
+            outline: none; transition: all 0.3s ease; font-family: inherit;
+        }
+        .glass-input:focus {
+            background: rgba(15, 23, 42, 0.9); border-color: var(--color-primary);
+        }
         .country-select-group { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
         .country-checkbox { display: none; }
         .country-label {
-            padding: 10px 20px;
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            background: rgba(255,255,255,0.05);
-            color: var(--color-text-muted);
-            display: flex; align-items: center; gap: 8px;
+            padding: 8px 18px; border: 1px solid rgba(255,255,255,0.1); border-radius: 50px;
+            cursor: pointer; font-size: 0.9rem; transition: 0.3s; background: rgba(255,255,255,0.05);
+            color: var(--color-text-muted); display: flex; align-items: center; gap: 8px; user-select: none;
         }
+        .country-label:hover { background: rgba(255,255,255,0.1); }
         .country-checkbox:checked + .country-label {
-            background: var(--color-primary); color: #000; border-color: var(--color-primary); font-weight: 600;
+            background: var(--color-primary); color: #fff; border-color: var(--color-primary); font-weight: 500;
         }
 
-        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; }
-        .popup-content { background: var(--color-bg); border: 1px solid var(--color-primary); padding: 40px; border-radius: 20px; text-align: center; max-width: 400px; }
-
-        /* Responsive Form Layout */
-        .form-row {
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 20px;
+        /* --- 5. POPUP --- */
+        #successPopup {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); z-index: 2000;
+            display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
         }
-
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr; /* Stack inputs vertically on mobile */
-                gap: 0;
-            }
-            .glass-panel {
-                padding: 30px !important; /* Reduce padding on mobile */
-            }
+        #successPopup.active { opacity: 1; pointer-events: all; }
+        .popup-content {
+            background: rgba(30, 41, 59, 0.95); padding: 40px; border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1); text-align: center; max-width: 400px; width: 90%;
+            transform: scale(0.9); transition: transform 0.3s ease; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
+        #successPopup.active .popup-content { transform: scale(1); }
     </style>
 </head>
 <body>
 
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
-            <a href="index.html" class="logo"><i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span></a>
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+            </a>
             <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navMenu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="courses.html">Courses</a></li>
                 <li><a href="studyabroad.html" class="active">Study Abroad</a></li>
                 <li><a href="services.html">Services</a></li>
-                <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px;">Login</a></li>
-                <li><a href="register.html" class="btn btn-primary" style="padding: 8px 24px;">Join Free</a></li>
+                <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
+                <li><a href="register.html" class="join-btn" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
             </ul>
         </div>
     </nav>
 
     <section class="hero-study text-center">
         <div class="container">
-            <span style="color: var(--color-primary); font-weight: 600; letter-spacing: 2px;">GLOBAL EDUCATION</span>
-            <h1 style="font-size: 3.5rem; margin: 10px 0;">Your Gateway to the <span class="text-primary">World</span></h1>
-            
-            <p style="color: #cbd5e1; max-width: 600px; margin: 0 auto 30px;">
-                Expert guidance for UK, Canada, Australia & Europe. <br>
-                <strong>No assessment fee</strong> for Bangladeshi students.
-            </p>
-            <a href="#assessment-form" class="btn btn-primary">Start Free Assessment</a>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-globe"></i> GLOBAL CONSULTANCY
+                </div>
+                <h1 class="hero-title">Your Dream of Studying <br><span class="text-primary">Abroad Starts Here</span></h1>
+                
+                <p class="hero-subtitle" style="font-size: 1.1rem;">
+                    We provide expert guidance for student visas in UK, Canada, Malaysia, Sri Lanka, China, Japan & more. 
+                    <strong style="color: #fff;">File opening charge is FREE</strong> for limited time.
+                </p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="#assessment-form" class="btn btn-primary">Free Profile Assessment</a>
+                    <a href="#destinations" class="btn btn-outline">Explore Countries</a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="section-padding">
+    <section style="background: rgba(15, 23, 42, 0.8); padding: 30px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
         <div class="container">
-            <h2 style="margin-bottom: 40px;">Top <span class="text-primary">Destinations</span></h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; text-align: center;">
+                <div><i class="fa-solid fa-user-tie" style="color: var(--color-primary); margin-right: 8px;"></i> Expert Counseling</div>
+                <div><i class="fa-solid fa-file-circle-check" style="color: var(--color-secondary); margin-right: 8px;"></i> Visa Processing</div>
+                <div><i class="fa-solid fa-university" style="color: var(--color-accent); margin-right: 8px;"></i> University Admission</div>
+                <div><i class="fa-solid fa-plane-departure" style="color: #fbbf24; margin-right: 8px;"></i> Pre-Departure Support</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="destinations">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <h2 style="font-size: 2.2rem;">Top <span class="text-primary">Destinations</span></h2>
+                <p style="color: var(--color-text-muted);">Choose your dream country. We handle the rest.</p>
+            </div>
+            
+            <div class="destination-grid">
                 <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop" alt="UK">
+                    <img src="https://drive.google.com/thumbnail?id=1FZYnHIGd5TqclqyV3yM2djnak9-e2ys4&sz=w1000" alt="UK" referrerpolicy="no-referrer">
                     <div class="destination-overlay">
-                        <h3>United Kingdom</h3>
-                        <p style="font-size:0.85rem; color:#cbd5e1;">Masters with Spouse Allowed</p>
+                        <span class="country-tag">Top Choice</span>
+                        <h3 style="color: #fff; font-size: 1.3rem;">United Kingdom</h3>
+                        <p style="font-size:0.9rem; color:#cbd5e1;">Masters with Spouse & Work Permit.</p>
                     </div>
                 </div>
+
                 <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?q=80&w=1965&auto=format&fit=crop" alt="Canada">
+                    <img src="https://drive.google.com/thumbnail?id=1v0hUAKU9Fz5K1a3JAZSpXJkaus9Q6HVJ&sz=w1000" alt="Canada" referrerpolicy="no-referrer">
                     <div class="destination-overlay">
-                        <h3>Canada</h3>
-                        <p style="font-size:0.85rem; color:#cbd5e1;">PR Pathway Opportunities</p>
+                        <span class="country-tag">PR Pathway</span>
+                        <h3 style="color: #fff; font-size: 1.3rem;">Canada</h3>
+                        <p style="font-size:0.9rem; color:#cbd5e1;">Best for settlement & career.</p>
                     </div>
                 </div>
+
                 <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=2030&auto=format&fit=crop" alt="Australia">
+                    <img src="https://drive.google.com/thumbnail?id=1b4Vo6nfkiy5Q_9T1io4-7mImfRwa9k3_&sz=w1000" alt="Malaysia" referrerpolicy="no-referrer">
                     <div class="destination-overlay">
-                        <h3>Australia</h3>
-                        <p style="font-size:0.85rem; color:#cbd5e1;">Partner Visa Available</p>
+                        <span class="country-tag" style="background: #fbbf24; color: #000;">Affordable</span>
+                        <h3 style="color: #fff; font-size: 1.3rem;">Malaysia</h3>
+                        <p style="font-size:0.9rem; color:#cbd5e1;">No Bank Pressure. Easy Visa.</p>
                     </div>
                 </div>
+
                 <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1499856871940-a09627c6d7db?q=80&w=2070&auto=format&fit=crop" alt="Europe">
+                    <img src="https://drive.google.com/thumbnail?id=14OnZenoiQ0lrOUjXAlBnczXx-zGcevYA&sz=w1000" alt="Sri Lanka" referrerpolicy="no-referrer">
                     <div class="destination-overlay">
-                        <h3>Europe (Schengen)</h3>
-                        <p style="font-size:0.85rem; color:#cbd5e1;">Low Tuition Fees</p>
+                        <span class="country-tag" style="background: #fbbf24; color: #000;">Scholarships</span>
+                        <h3 style="color: #fff; font-size: 1.3rem;">Sri Lanka</h3>
+                        <p style="font-size:0.9rem; color:#cbd5e1;">Quality Education at Low Cost.</p>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://drive.google.com/thumbnail?id=1J6vc-UqXWwzCuH-sDXusuz6lBfPHUp6f&sz=w1000" alt="China" referrerpolicy="no-referrer">
+                    <div class="destination-overlay">
+                        <span class="country-tag">Full Free</span>
+                        <h3 style="color: #fff; font-size: 1.3rem;">China</h3>
+                        <p style="font-size:0.9rem; color:#cbd5e1;">Scholarships with Stipend available.</p>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://drive.google.com/thumbnail?id=1WhbqXjVPkRApSfSs7QOC8CrrMpxRZbRN&sz=w1000" alt="Japan" referrerpolicy="no-referrer">
+                    <div class="destination-overlay">
+                        <span class="country-tag">Job Visa</span>
+                        <h3 style="color: #fff; font-size: 1.3rem;">Japan</h3>
+                        <p style="font-size:0.9rem; color:#cbd5e1;">Study and earn high salary.</p>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://drive.google.com/thumbnail?id=14nW0QaoqiyS8tV8YpX35l4XC45ZG0y1t&sz=w1000" alt="Europe" referrerpolicy="no-referrer">
+                    <div class="destination-overlay">
+                        <span class="country-tag">Schengen</span>
+                        <h3 style="color: #fff; font-size: 1.3rem;">Europe</h3>
+                        <p style="font-size:0.9rem; color:#cbd5e1;">Germany, France, Finland, Italy.</p>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://drive.google.com/thumbnail?id=19EGgTlOp8og4V5_Ttsg4uQuKNulXIo8H&sz=w1000" alt="Australia" referrerpolicy="no-referrer">
+                    <div class="destination-overlay">
+                        <span class="country-tag">Work Rights</span>
+                        <h3 style="color: #fff; font-size: 1.3rem;">Australia</h3>
+                        <p style="font-size:0.9rem; color:#cbd5e1;">High Salary Part-time jobs.</p>
                     </div>
                 </div>
             </div>
@@ -169,134 +268,235 @@
 
     <section class="section-padding" style="padding-top: 0;">
         <div class="container">
-            <h2 style="margin-bottom: 30px;">Visa Guidelines</h2>
-            <details open>
-                <summary><span class="text-primary">📄 General Requirements</span></summary>
-                <div class="details-content">
-                    <ul>
-                        <li><i class="fa-solid fa-check"></i> <strong>Passport:</strong> Must have at least 1 year validity.</li>
-                        <li><i class="fa-solid fa-check"></i> <strong>Visa History:</strong> Disclose previous rejections.</li>
-                        <li><i class="fa-solid fa-check"></i> <strong>Academics:</strong> SSC & HSC Certificates + Gap explanation.</li>
-                    </ul>
-                </div>
-            </details>
-            <details>
-                <summary><span>🇬🇧 United Kingdom</span></summary>
-                <div class="details-content">
-                    <ul>
-                        <li><i class="fa-solid fa-language"></i> <strong>Language:</strong> IELTS 6.0 overall (min 5.5). MOI accepted.</li>
-                        <li><i class="fa-solid fa-user-group"></i> <strong>Spouse:</strong> Allowed for Masters/PhD. Not for Undergrad.</li>
-                        <li><i class="fa-solid fa-sterling-sign"></i> <strong>Bank Solvency:</strong> Min £21,000 kept for 28 days.</li>
-                        <li><i class="fa-solid fa-school"></i> <strong>Tuition:</strong> Approx £12,000+ per year.</li>
-                    </ul>
-                </div>
-            </details>
-            <details>
-                <summary><span>🇨🇦 Canada & 🇦🇺 Australia</span></summary>
-                <div class="details-content">
-                    <ul>
-                        <li><i class="fa-brands fa-canadian-maple-leaf"></i> <strong>Canada:</strong> Spouse Open Work Permit allowed for Post-grad.</li>
-                        <li><i class="fa-solid fa-earth-oceania"></i> <strong>Australia:</strong> Partner visa allowed for Undergrad students too.</li>
-                    </ul>
-                </div>
-            </details>
-            <details>
-                <summary><span>🇪🇺 Europe & No IELTS</span></summary>
-                <div class="details-content">
-                    <ul>
-                        <li><i class="fa-solid fa-ban"></i> <strong>No IELTS:</strong> Possible in Cyprus, Malaysia, Sri Lanka.</li>
-                        <li><i class="fa-solid fa-check-double"></i> <strong>Spouse Allowed:</strong> Netherlands, France, Italy.</li>
-                    </ul>
-                </div>
-            </details>
+            <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 30px;">
+                <h2 class="text-center">Visa <span class="text-primary">Requirements</span></h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div style="max-width: 900px; margin: 0 auto;">
+                <details open>
+                    <summary><span class="text-primary">📄 General Documents (Required for All)</span></summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><i class="fa-solid fa-check"></i> <strong>Passport:</strong> Must be valid for at least 1 year.</li>
+                            <li><i class="fa-solid fa-check"></i> <strong>Photos:</strong> 35x45mm Lab Print (White Background).</li>
+                            <li><i class="fa-solid fa-check"></i> <strong>Academic:</strong> All Original Certificates & Transcripts (SSC, HSC, Bachelor).</li>
+                            <li><i class="fa-solid fa-check"></i> <strong>Financials:</strong> Bank Statement (Parent's or Self) & Solvency Certificate.</li>
+                            <li><i class="fa-solid fa-check"></i> <strong>Other:</strong> NID/Birth Certificate, Police Clearance.</li>
+                        </ul>
+                    </div>
+                </details>
+                
+                <details>
+                    <summary><span>🇲🇾 Malaysia Guidelines</span></summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><i class="fa-solid fa-graduation-cap"></i> <strong>Eligibility:</strong> Min GPA 2.5 in SSC & HSC.</li>
+                            <li><i class="fa-solid fa-language"></i> <strong>IELTS:</strong> Not mandatory for all universities. MOI accepted.</li>
+                            <li><i class="fa-solid fa-money-check-dollar"></i> <strong>Bank:</strong> Usually not required for EMGS approval (depends on University).</li>
+                            <li><i class="fa-solid fa-check"></i> <strong>Success Rate:</strong> Almost 99% if EMGS is approved.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span>🇱🇰 Sri Lanka Guidelines</span></summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><i class="fa-solid fa-passport"></i> <strong>Visa Type:</strong> Entry Visa first, then Resident Visa.</li>
+                            <li><i class="fa-solid fa-money-bill-wave"></i> <strong>Cost:</strong> Very affordable (Living cost ~15k-20k BDT/month).</li>
+                            <li><i class="fa-solid fa-clock"></i> <strong>Processing:</strong> Quick Offer Letter (7-10 days).</li>
+                            <li><i class="fa-solid fa-check"></i> <strong>Requirements:</strong> Basic English skills, HSC pass.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span>🇨🇳 China Guidelines</span></summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><i class="fa-solid fa-file-contract"></i> <strong>Documents:</strong> JW202 Form is mandatory.</li>
+                            <li><i class="fa-solid fa-notes-medical"></i> <strong>Medical:</strong> Physical Examination Record for Foreigner.</li>
+                            <li><i class="fa-solid fa-gift"></i> <strong>Scholarship:</strong> CSC and Provincial scholarships available (Full Free + Stipend).</li>
+                            <li><i class="fa-solid fa-ban"></i> <strong>IELTS:</strong> Not required for most programs.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span>🇯🇵 Japan Guidelines</span></summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><i class="fa-solid fa-language"></i> <strong>Language:</strong> NAT/JLPT N5 level recommended.</li>
+                            <li><i class="fa-solid fa-briefcase"></i> <strong>Sponsor:</strong> Strong financial sponsor (Tax papers required).</li>
+                            <li><i class="fa-solid fa-piggy-bank"></i> <strong>Bank:</strong> Show approx 15-18 Lac BDT liquid money.</li>
+                            <li><i class="fa-solid fa-handshake"></i> <strong>Career:</strong> Part-time job allowed (28 hours/week).</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span>🇬🇧 United Kingdom</span></summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><i class="fa-solid fa-language"></i> <strong>Language:</strong> IELTS 6.0 overall. OIETC/Duolingo accepted by some.</li>
+                            <li><i class="fa-solid fa-user-group"></i> <strong>Spouse:</strong> Allowed for Masters (Research) & PhD.</li>
+                            <li><i class="fa-solid fa-sterling-sign"></i> <strong>Bank Solvency:</strong> Keep funds for 28 days strictly.</li>
+                            <li><i class="fa-solid fa-video"></i> <strong>Interview:</strong> Credibility interview is key.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span>🇨🇦 Canada</span></summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><i class="fa-solid fa-star"></i> <strong>Profile:</strong> Strong academic background required (Min GPA 3.5+ recommended).</li>
+                            <li><i class="fa-solid fa-language"></i> <strong>IELTS:</strong> 6.0 or 6.5 Overall (No band less than 6.0).</li>
+                            <li><i class="fa-solid fa-file-invoice-dollar"></i> <strong>Funds:</strong> Show 1 year tuition + 1 year living cost (GIC preferred).</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
         </div>
     </section>
 
     <section id="assessment-form" class="section-padding" style="background: linear-gradient(to top, #020617, var(--color-bg));">
         <div class="container">
-            <div class="glass-panel" style="padding: 50px; max-width: 800px; margin: 0 auto; border-top: 2px solid var(--color-primary);">
+            <div class="glass-panel" style="padding: 50px; max-width: 800px; margin: 0 auto; border-top: 4px solid var(--color-primary); box-shadow: 0 0 40px rgba(14, 165, 233, 0.1);">
                 <div class="text-center" style="margin-bottom: 30px;">
-                    <h2>Free Profile <span class="text-primary">Assessment</span></h2>
-                    <p style="color: var(--color-text-muted);">Fill out the form below. We will analyze your profile and contact you.</p>
+                    <h2 style="font-size: 2rem;">Free Profile <span class="text-primary">Assessment</span></h2>
+                    <p style="color: var(--color-text-muted);">Fill out the form. Our consultants will analyze and contact you within 24 hours.</p>
                 </div>
 
                 <form id="visaForm">
-                    <input type="hidden" name="access_key" value="fe6348e1-d356-4537-a346-75732d424439">
+                    <input type="hidden" name="access_key" value="743412d6-f3d2-438c-a846-8d8e2a6ef8cb">
+                    
+                    <input type="hidden" name="subject" value="CareerLift: New Visa Assessment">
                     
                     <div class="form-row">
-                        <div>
+                        <div style="flex:1;">
                             <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Your Name</label>
                             <input type="text" name="name" placeholder="Full Name" class="glass-input" required>
                         </div>
-                        <div>
+                        <div style="flex:1;">
                             <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Email Address</label>
                             <input type="email" name="email" placeholder="example@email.com" class="glass-input" required>
                         </div>
                     </div>
 
-                    <div style="margin-top: 10px;">
+                    <div style="margin-top: 15px;">
                         <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Phone Number</label>
                         <input type="tel" name="phone" placeholder="+880..." class="glass-input" required>
                     </div>
 
                     <div style="margin-top: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">What type of Visa?</label>
-                        <select name="visa_type" class="glass-select" required>
-                            <option value="" disabled selected>Select Visa Type</option>
-                            <option value="Student Visa">Student Visa</option>
-                            <option value="Visit Visa">Visit Visa</option>
-                            <option value="Study Visit Visa">Study Visit Visa (Short Course)</option>
+                        <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Current Education Qualification</label>
+                        <select name="education" class="glass-input" style="cursor: pointer;" required>
+                            <option value="" disabled selected>Select Last Degree</option>
+                            <option value="SSC/O-Level">SSC / O-Level</option>
+                            <option value="HSC/A-Level">HSC / A-Level / Diploma</option>
+                            <option value="Bachelor">Bachelor / Honours</option>
+                            <option value="Masters">Masters</option>
                         </select>
                     </div>
 
-                    <div style="margin-top: 20px;">
-                        <label style="display: block; margin-bottom: 15px; font-size: 0.9rem;">Which Country do you want to go? (Select multiple)</label>
+                    <div style="margin-top: 25px;">
+                        <label style="display: block; margin-bottom: 15px; font-size: 0.9rem; color: #cbd5e1;">Interested Countries (Select multiple)</label>
                         
                         <div class="country-select-group">
                             <input type="checkbox" name="country[]" value="UK" id="uk" class="country-checkbox">
                             <label for="uk" class="country-label"><img src="https://flagcdn.com/w20/gb.png" width="20"> UK</label>
                             
-                            <input type="checkbox" name="country[]" value="USA" id="usa" class="country-checkbox">
-                            <label for="usa" class="country-label"><img src="https://flagcdn.com/w20/us.png" width="20"> USA</label>
-
                             <input type="checkbox" name="country[]" value="Canada" id="can" class="country-checkbox">
                             <label for="can" class="country-label"><img src="https://flagcdn.com/w20/ca.png" width="20"> Canada</label>
 
-                            <input type="checkbox" name="country[]" value="Australia" id="aus" class="country-checkbox">
-                            <label for="aus" class="country-label"><img src="https://flagcdn.com/w20/au.png" width="20"> Australia</label>
+                            <input type="checkbox" name="country[]" value="Malaysia" id="my" class="country-checkbox">
+                            <label for="my" class="country-label"><img src="https://flagcdn.com/w20/my.png" width="20"> Malaysia</label>
+
+                            <input type="checkbox" name="country[]" value="Sri Lanka" id="lk" class="country-checkbox">
+                            <label for="lk" class="country-label"><img src="https://flagcdn.com/w20/lk.png" width="20"> Sri Lanka</label>
+
+                            <input type="checkbox" name="country[]" value="China" id="cn" class="country-checkbox">
+                            <label for="cn" class="country-label"><img src="https://flagcdn.com/w20/cn.png" width="20"> China</label>
+
+                            <input type="checkbox" name="country[]" value="Japan" id="jp" class="country-checkbox">
+                            <label for="jp" class="country-label"><img src="https://flagcdn.com/w20/jp.png" width="20"> Japan</label>
 
                             <input type="checkbox" name="country[]" value="Europe" id="eu" class="country-checkbox">
                             <label for="eu" class="country-label"><i class="fa-solid fa-earth-europe"></i> Europe</label>
+
+                            <input type="checkbox" name="country[]" value="Australia" id="au" class="country-checkbox">
+                            <label for="au" class="country-label"><img src="https://flagcdn.com/w20/au.png" width="20"> Australia</label>
                         </div>
                     </div>
 
                     <div style="margin-top: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Additional Message (Optional)</label>
-                        <textarea name="message" rows="3" placeholder="Tell us about your education gap or specific needs..." class="glass-input"></textarea>
+                        <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Additional Message</label>
+                        <textarea name="message" rows="3" placeholder="Tell us about your IELTS score, gap, or specific needs..." class="glass-input"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
-                        Submit for Assessment <i class="fa-solid fa-paper-plane"></i>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+                        Submit for Free Assessment <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
                     </button>
                 </form>
             </div>
         </div>
     </section>
 
-    <div id="successPopup" class="popup-overlay">
+    <div id="successPopup">
         <div class="popup-content">
             <i class="fa-solid fa-check-circle" style="font-size: 4rem; color: var(--color-primary); margin-bottom: 20px;"></i>
-            <h2>Assessment Received!</h2>
-            <p style="color: var(--color-text-muted); margin-bottom: 20px;">
-                Our experts will analyze your profile and contact you via email shortly.
+            <h2 style="color:white; margin-bottom:10px;">Request Received!</h2>
+            <p style="color: var(--color-text-muted); margin-bottom: 25px;">
+                Thank you for choosing CareerLift Consultancy. <br>
+                Our expert will call you on <strong>Whatsapp</strong> shortly.
             </p>
             <button class="btn btn-outline" onclick="closePopup()">Close</button>
         </div>
     </div>
 
     <footer>
-        <div class="container text-center" style="padding: 40px 0;">
-            <p>&copy; 2025 CareerLift Institute. All Rights Reserved.</p>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo" style="margin-bottom: 20px; display:inline-block;">
+                    <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+                </a>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem;">
+                    Global Education & Migration Services. <br> NSDA Recognized.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Student Visa</a></li>
+                    <li><a href="#">Immigration</a></li>
+                    <li><a href="#">IELTS Prep</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Social</h4>
+                <div style="display: flex; gap: 15px;">
+                    <a href="https://www.facebook.com/careerliftskill/" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                    <a href="https://www.youtube.com/@CareerliftInstitute" class="social-icon" title="YouTube"><i class="fa-brands fa-youtube fa-lg"></i></a>
+                    <a href="#" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    <a href="#" class="social-icon" title="X (Twitter)"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                    <a href="https://wa.me/8801814304081" target="_blank" class="social-icon" title="WhatsApp" style="color: #25D366;">
+                        <i class="fa-brands fa-whatsapp fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 CareerLift Skill Development Institute. All Rights Reserved.
         </div>
     </footer>
 
@@ -305,26 +505,39 @@
         const form = document.getElementById('visaForm');
         const popup = document.getElementById('successPopup');
 
+        function closePopup() {
+            popup.classList.remove('active');
+        }
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // Show loading state
+            const btn = form.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+            
             const formData = new FormData(e.target);
             
-            const res = await fetch("https://api.web3forms.com/submit", {
-                method: "POST",
-                headers: { "Content-Type": "application/json", Accept: "application/json" },
-                body: JSON.stringify(Object.fromEntries(formData))
-            }).then(r => r.json());
+            try {
+                const res = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", Accept: "application/json" },
+                    body: JSON.stringify(Object.fromEntries(formData))
+                }).then(r => r.json());
 
-            if (res.success) {
-                form.reset();
-                popup.style.display = "flex";
-            } else {
-                alert("Something went wrong. Please try again.");
+                if (res.success) {
+                    form.reset();
+                    popup.classList.add('active'); 
+                } else {
+                    alert("Something went wrong. Please try again.");
+                }
+            } catch (err) {
+                alert("Network error.");
+            } finally {
+                btn.innerHTML = originalText;
             }
         });
-
-        function closePopup() { popup.style.display = "none"; }
-        popup.addEventListener('click', (e) => { if (e.target === popup) closePopup(); });
     </script>
 </body>
 </html>

@@ -11,13 +11,31 @@ const successTitle = document.getElementById('successTitle');
 const successMessage = document.getElementById('successMessage');
 
 let allCourses = [];
-let myEnrolledCourseIds = []; 
+let myEnrollments = []; // Changed from ID array to Object Array
+
+// ==========================================
+// [NEW] GOOGLE DRIVE MAGIC LINK HELPER
+// ==========================================
+function processDriveLink(url) {
+    if (url && url.includes('drive.google.com')) {
+        try {
+            const idPart = url.split('/d/')[1];
+            const imageId = idPart.split('/')[0];
+            // Magic Link Format
+            return `https://lh3.googleusercontent.com/d/${imageId}`;
+        } catch (err) {
+            console.error("Link conversion failed", err);
+            return url;
+        }
+    }
+    return url;
+}
 
 // ====================
 // 1. AUTH HELPERS
 // ====================
 function isLoggedIn() {
-    return localStorage.getItem('user') !== null && localStorage.getItem('token') !== null;
+    return localStorage.getItem('user') !== null;
 }
 
 function getUserId() {
@@ -33,21 +51,21 @@ function getUserId() {
 }
 
 // ====================
-// 2. FETCH DATA (Sequential Loading)
+// 2. FETCH DATA
 // ====================
 async function loadPageData() {
     if (!grid) return;
     grid.innerHTML = '<h3 style="color:white; text-align:center;">Loading Courses...</h3>';
 
     try {
-        // Step A: If logged in, fetch enrollments FIRST
+        // Step A: Fetch Enrollments (if logged in)
         if (isLoggedIn()) {
             const userId = getUserId();
             if (userId) {
                 try {
                     const enrollRes = await fetch(`${API_URL}/enrollments/my-enrollments/${userId}`);
                     if (enrollRes.ok) {
-                        myEnrolledCourseIds = await enrollRes.json(); // ["id1", "id2"]
+                        myEnrollments = await enrollRes.json(); // [{ id: "...", status: "..." }]
                     }
                 } catch (err) {
                     console.error("Failed to fetch enrollments", err);
@@ -70,7 +88,7 @@ async function loadPageData() {
 }
 
 // ====================
-// 3. RENDER COURSES (Smart Buttons)
+// 3. RENDER COURSES (UPDATED LOGIC + IMG FIX)
 // ====================
 function renderCourses(data) {
     grid.innerHTML = '';
@@ -83,33 +101,46 @@ function renderCourses(data) {
         const card = document.createElement('div');
         card.className = 'course-card';
 
+        // [FIX] Process the thumbnail link here
+        const thumbUrl = processDriveLink(course.thumbnail);
+
         const badgeClass = course.type === 'free' ? 'badge free' : 'badge';
         let actionButtons = '';
 
-        // Check if user owns this course
-        const isEnrolled = myEnrolledCourseIds.includes(course._id);
+        // Find user's specific enrollment for this course
+        const enrollment = myEnrollments.find(e => e.id === course._id);
 
-        if (isEnrolled) {
-            // CASE 1: ALREADY ENROLLED -> VIEW BUTTON
+        // --- LOGIC START ---
+        if (enrollment && enrollment.status === 'active') {
+            // CASE 1: ACTIVE -> View Course
             actionButtons = `
                 <button class="btn-enroll" style="width:100%; background: #8b5cf6;" onclick="window.location.href='course-view.html?id=${course._id}'">
                     View Course <i class="fa-solid fa-arrow-right"></i>
                 </button>`;
         } else {
-            // CASE 2: NOT ENROLLED
+            // CASE 2: NOT ACTIVE (Free or Paid)
             if (course.type === 'free') {
                 actionButtons = `<button class="btn-enroll" style="width:100%; background:#22c55e;" onclick="handleFreeEnroll('${course._id}')">Enroll Free</button>`;
             } else {
+                // Paid Course Logic
+                let prebookBtn = `<button class="btn-prebook" onclick="openPrebook('${course._id}')">Pre-book</button>`;
+                
+                // If already prebooked, disable the Pre-book button
+                if (enrollment && enrollment.status === 'prebooked') {
+                    prebookBtn = `<button class="btn-prebook" style="opacity:0.6; cursor:not-allowed; background:#fbbf24; color:#000;">Request Sent</button>`;
+                }
+
                 actionButtons = `
                     <div class="btn-group">
-                        <button class="btn-prebook" onclick="openPrebook('${course._id}')">Pre-book</button>
-                        <button class="btn-enroll" onclick="openPaidEnroll('${course._id}')">Enroll</button>
+                        ${prebookBtn}
+                        <button class="btn-enroll" onclick="openPaidEnroll('${course._id}')">Enroll (Code)</button>
                     </div>`;
             }
         }
+        // --- LOGIC END ---
 
         card.innerHTML = `
-            <img src="${course.thumbnail}" alt="${course.title}" class="course-image">
+            <img src="${thumbUrl}" alt="${course.title}" class="course-image" referrerpolicy="no-referrer" loading="lazy">
             <div class="${badgeClass}">${course.category}</div>
             <div class="course-info">
                 <h3>${course.title}</h3>
@@ -128,7 +159,7 @@ function renderCourses(data) {
 }
 
 // ====================
-// 4. FILTERS & SEARCH
+// 4. FILTERS
 // ====================
 function filterCourses() {
     const searchText = searchInput.value.toLowerCase();
@@ -176,7 +207,7 @@ function showSuccess(title, message) {
 }
 
 // ====================
-// 6. ENROLLMENT HANDLERS
+// 6. HANDLERS
 // ====================
 
 // FREE ENROLL
@@ -196,13 +227,10 @@ window.handleFreeEnroll = async function (courseId) {
             showSuccess("Enrolled Successfully!", "Redirecting...");
             setTimeout(() => { window.location.href = `course-view.html?id=${courseId}`; }, 1500);
         } else {
-            // If duplicate, just redirect
             if(data.message.includes("already")) window.location.href = `course-view.html?id=${courseId}`;
             else alert(data.message);
         }
-    } catch (err) {
-        showSuccess("Error", "Connection failed.");
-    }
+    } catch (err) { showSuccess("Error", "Connection failed."); }
 };
 
 // PRE-BOOK SUBMIT
@@ -210,24 +238,21 @@ document.getElementById('prebookForm')?.addEventListener('submit', async e => {
     e.preventDefault();
     const courseId = document.getElementById('prebookCourseId').value;
     const userId = getUserId();
-    const contactName = document.getElementById('pbName').value;
-    const contactPhone = document.getElementById('pbPhone').value;
 
     try {
         const res = await fetch(`${API_URL}/enrollments`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId, courseId, contactName, contactPhone, status: 'prebooked' })
+            body: JSON.stringify({ userId, courseId, status: 'prebooked' })
         });
         const data = await res.json();
         
         if (res.ok) {
             closeModals();
-            showSuccess("Pre-book Successful", "We will contact you at " + contactPhone);
-            // Reload to update UI if needed
-            loadPageData();
+            showSuccess("Request Received!", "We will contact you shortly.");
+            loadPageData(); // Refresh to show "Request Sent" button
         } else {
-            alert(data.message);
+            alert(data.message || "Failed");
         }
     } catch (err) { alert("Error connecting to server"); }
 });
@@ -251,11 +276,10 @@ document.getElementById('enrollPaidForm')?.addEventListener('submit', async e =>
         
         if (res.ok) {
             closeModals();
-            showSuccess("Enrollment Successful", "Redirecting to course...");
+            showSuccess("Enrollment Successful", "Redirecting...");
             setTimeout(() => { window.location.href = `course-view.html?id=${courseId}`; }, 1500);
         } else {
-            if(data.message.includes("already")) window.location.href = `course-view.html?id=${courseId}`;
-            else alert(data.message);
+            alert(data.message || "Invalid Code");
         }
     } catch (err) { alert("Error connecting to server"); }
 });

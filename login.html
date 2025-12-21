@@ -11,6 +11,38 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/nav-footer.css">
     <link rel="stylesheet" href="css/auth.css">
+
+    <style>
+        /* Extra styles for the Admin Transition */
+        .auth-card {
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        /* Admin Mode Styling */
+        .auth-card.admin-mode {
+            border: 1px solid #ef4444; /* Red Border for Admin */
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+        }
+
+        .auth-card.admin-mode .btn-primary {
+            background: #ef4444; /* Red Button for Admin */
+            border-color: #ef4444;
+        }
+
+        .admin-trigger {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-top: 20px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+        .admin-trigger:hover {
+            opacity: 1;
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
@@ -23,24 +55,21 @@
     </nav>
 
     <div class="auth-wrapper">
-        <div class="auth-card">
+        <div class="auth-card" id="loginCard">
             
-            <div class="login-toggle">
-                <div class="toggle-btn active" id="tab-student" onclick="switchTab('student')">Student</div>
-                <div class="toggle-btn" id="tab-admin" onclick="switchTab('admin')">Admin</div>
-            </div>
-
             <div class="auth-header">
-                <h2 id="form-title">Welcome Back</h2>
-                <p style="color: var(--color-text-muted);">Enter your credentials to access your account.</p>
+                <h2 id="form-title">Student Login</h2>
+                <p id="form-subtitle" style="color: var(--color-text-muted);">Enter your credentials to access your courses.</p>
             </div>
 
             <form id="loginForm">
+                <input type="hidden" id="loginType" value="student">
+
                 <div class="form-group">
                     <label>Email Address</label>
-                    <div style="position: relative;">
-                        <input type="email" id="email" class="form-control" placeholder="name@example.com" required style="padding-left: 45px;">
-                        <i class="fa-solid fa-envelope" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:#64748b;"></i>
+                    <div class="password-wrapper"> 
+                        <input type="email" id="email" class="form-control" placeholder="student@example.com" required style="padding-left: 45px;">
+                        <i class="fa-solid fa-envelope toggle-password" style="left:15px; right:auto; pointer-events:none;"></i>
                     </div>
                 </div>
                 
@@ -48,38 +77,29 @@
                     <label>Password</label>
                     <div class="password-wrapper">
                         <input type="password" id="password" class="form-control" placeholder="••••••••" required style="padding-left: 45px;">
-                        <i class="fa-solid fa-lock" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:#64748b;"></i>
+                        <i class="fa-solid fa-lock toggle-password" style="left:15px; right:auto; pointer-events:none;"></i>
                         <i class="fa-solid fa-eye toggle-password" onclick="toggleVisibility('password', this)"></i>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Login to Account</button>
+                <button type="submit" class="btn btn-primary" id="loginBtn">Login as Student</button>
             </form>
 
             <div class="auth-footer">
                 <p>New to CareerLift? <a href="register.html">Create an account</a></p>
+                
+                <div class="admin-trigger" onclick="activateAdminMode()">
+                    <i class="fa-solid fa-user-shield"></i> Admin Access
+                </div>
             </div>
         </div>
     </div>
 
     <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    
     <script>
-        function switchTab(type) {
-            const studentBtn = document.getElementById('tab-student');
-            const adminBtn = document.getElementById('tab-admin');
-            const title = document.getElementById('form-title');
-
-            if(type === 'admin') {
-                adminBtn.classList.add('active');
-                studentBtn.classList.remove('active');
-                title.innerText = "Admin Portal";
-            } else {
-                studentBtn.classList.add('active');
-                adminBtn.classList.remove('active');
-                title.innerText = "Welcome Back";
-            }
-        }
-
+        // 1. Password Visibility
         function toggleVisibility(inputId, icon) {
             const input = document.getElementById(inputId);
             if (input.type === "password") {
@@ -91,6 +111,63 @@
                 icon.classList.remove("fa-eye-slash");
                 icon.classList.add("fa-eye");
             }
+        }
+
+        // 2. ADMIN ACCESS LOGIC
+        function activateAdminMode() {
+            // Check if already in admin mode, if so, switch back to student
+            const loginType = document.getElementById('loginType').value;
+            
+            if (loginType === 'admin') {
+                // Switch back to Student
+                resetToStudent();
+                return;
+            }
+
+            // Ask for Code
+            const code = prompt("Enter Admin Security Code:");
+            
+            // HARDCODED SECURITY CODE (Change this to whatever you want)
+            const SECRET_CODE = "2025"; 
+
+            if (code === SECRET_CODE) {
+                enableAdminUI();
+            } else if (code !== null) {
+                alert("⛔ Access Denied: Invalid Code");
+            }
+        }
+
+        function enableAdminUI() {
+            const card = document.getElementById('loginCard');
+            const title = document.getElementById('form-title');
+            const subtitle = document.getElementById('form-subtitle');
+            const btn = document.getElementById('loginBtn');
+            const typeInput = document.getElementById('loginType');
+
+            // Apply Visual Changes
+            card.classList.add('admin-mode');
+            title.innerText = "Admin Portal";
+            title.style.color = "#ef4444"; // Red text
+            subtitle.innerText = "Secure Admin Login Area";
+            btn.innerText = "Login to Dashboard";
+            
+            // Set logic flag
+            typeInput.value = "admin";
+        }
+
+        function resetToStudent() {
+            const card = document.getElementById('loginCard');
+            const title = document.getElementById('form-title');
+            const subtitle = document.getElementById('form-subtitle');
+            const btn = document.getElementById('loginBtn');
+            const typeInput = document.getElementById('loginType');
+
+            card.classList.remove('admin-mode');
+            title.innerText = "Student Login";
+            title.style.color = "#fff";
+            subtitle.innerText = "Enter your credentials to access your courses.";
+            btn.innerText = "Login as Student";
+            typeInput.value = "student";
         }
     </script>
 </body>

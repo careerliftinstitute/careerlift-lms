@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
     }
 
     try {
-        // --- SECURITY CHECK ---
+        // --- SECURITY CHECK (Only for Active Paid Enrollment) ---
         if (status === 'active') { 
             const course = await Course.findById(courseId);
             if (!course) return res.status(404).json({ message: "Course not found" });
@@ -22,23 +22,17 @@ router.post('/', async (req, res) => {
                 const dbCode = course.specialCode ? course.specialCode.trim() : "";
                 const inputCode = code ? code.trim() : "";
 
-                // --- DEBUG LOG (Check your VS Code Terminal when you click Enroll) ---
-                console.log("------------------------------------------------");
-                console.log(`🔍 ENROLLMENT DEBUG:`);
-                console.log(`👉 User Typed:  '${inputCode}'`);
-                console.log(`👉 Database Has: '${dbCode}'`);
-                console.log("------------------------------------------------");
-
                 if (!inputCode || inputCode.toLowerCase() !== dbCode.toLowerCase()) {
                     return res.status(403).json({ message: "❌ Invalid Special Code. Access Denied." });
                 }
             }
         }
 
-        // Check if already enrolled
+        // --- CHECK IF ALREADY ENROLLED ---
         const existingEnrollment = await Enrollment.findOne({ user: userId, course: courseId });
         
         if (existingEnrollment) {
+            // Upgrade Prebooked -> Active
             if (existingEnrollment.status === 'prebooked' && status === 'active') {
                 existingEnrollment.status = 'active';
                 await existingEnrollment.save();
@@ -47,12 +41,12 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ message: "You have already requested this course." });
         }
 
-        // Create new enrollment
+        // --- CREATE NEW ENROLLMENT ---
         const newEnrollment = new Enrollment({
             user: userId,
             course: courseId,
             status: status || 'active', 
-            contactName,
+            contactName, 
             contactPhone
         });
 
@@ -65,17 +59,22 @@ router.post('/', async (req, res) => {
     }
 });
 
-// 2. GET MY ENROLLMENTS
+// 2. GET MY ENROLLMENTS (UPDATED: Returns ID AND STATUS)
 router.get('/my-enrollments/:userId', async (req, res) => {
     try {
         const enrollments = await Enrollment.find({ user: req.params.userId });
-        res.json(enrollments.map(e => e.course.toString())); 
+        // Return array of objects: [{ id: "...", status: "active/prebooked" }]
+        const data = enrollments.map(e => ({
+            id: e.course.toString(),
+            status: e.status
+        }));
+        res.json(data); 
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
 
-// 3. GET ALL ENROLLMENTS
+// 3. GET ALL ENROLLMENTS (Admin)
 router.get('/all', async (req, res) => {
     try {
         const enrollments = await Enrollment.find()
@@ -88,7 +87,19 @@ router.get('/all', async (req, res) => {
     }
 });
 
-// 4. UPDATE STATUS
+// 4. GET FULL ENROLLED COURSE DETAILS (Profile)
+router.get('/user/:userId', async (req, res) => {
+    try {
+        const enrollments = await Enrollment.find({ user: req.params.userId })
+            .populate('course')
+            .sort({ enrolledAt: -1 });
+        res.json(enrollments);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// 5. UPDATE STATUS (Admin)
 router.put('/:id', async (req, res) => {
     try {
         const { status } = req.body;
@@ -101,7 +112,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// 5. DELETE ENROLLMENT
+// 6. DELETE ENROLLMENT (Admin)
 router.delete('/:id', async (req, res) => {
     try {
         await Enrollment.findByIdAndDelete(req.params.id);

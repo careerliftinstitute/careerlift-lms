@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | CareerLift Skill Development Institute</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nav-footer.css">
+    
+    <style>
+        /* --- PROFILE HEADER --- */
+        .profile-header {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .profile-header::before {
+            content: ''; position: absolute; top: -50px; right: -50px;
+            width: 200px; height: 200px; background: var(--color-primary);
+            filter: blur(100px); opacity: 0.15; border-radius: 50%;
+        }
+        .profile-avatar {
+            width: 110px; height: 110px;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem; font-weight: 700; color: #fff;
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
+            border: 4px solid rgba(255,255,255,0.1);
+            z-index: 1;
+        }
+        .profile-info { flex: 1; z-index: 1; }
+        .profile-info h2 { margin-bottom: 8px; color: #fff; font-size: 2.2rem; letter-spacing: -0.5px; }
+        .profile-info p { color: var(--color-text-muted); font-size: 1rem; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+        
+        .logout-btn { 
+            padding: 10px 24px; 
+            background: rgba(239, 68, 68, 0.1); 
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #ef4444; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: 0.3s;
+            font-weight: 600;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .logout-btn:hover { background: #ef4444; color: #fff; }
+
+        /* --- DASHBOARD GRID SYSTEM --- */
+        .section-title-row {
+            display: flex; align-items: center; gap: 15px; margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;
+        }
+        .title-bar { width: 6px; height: 32px; background: var(--color-primary); border-radius: 4px; }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+        }
+
+        .dash-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .dash-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .dash-img-wrapper {
+            height: 180px; width: 100%; position: relative;
+        }
+        .dash-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .dash-badge {
+            position: absolute; top: 15px; right: 15px;
+            padding: 6px 12px; border-radius: 50px;
+            font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; backdrop-filter: blur(4px);
+        }
+        .badge-active { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-pending { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+        .dash-body { padding: 25px; flex: 1; display: flex; flex-direction: column; }
+        .dash-cat { color: var(--color-primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; }
+        .dash-title { color: #fff; font-size: 1.15rem; font-weight: 600; margin-bottom: 15px; line-height: 1.4; flex: 1; }
+        
+        .dash-meta {
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 15px; margin-top: 10px; margin-bottom: 20px;
+            font-size: 0.85rem; color: #94a3b8;
+        }
+
+        .dash-btn {
+            width: 100%; padding: 12px; border-radius: 8px;
+            font-weight: 600; text-align: center; text-decoration: none;
+            transition: 0.3s; border: none; font-size: 0.95rem; cursor: pointer;
+        }
+        .btn-start { background: var(--color-primary); color: #fff; }
+        .btn-start:hover { background: #0284c7; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3); }
+        .btn-lock { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #64748b; cursor: not-allowed; }
+
+        @media(max-width: 768px) {
+            .profile-header { flex-direction: column; text-align: center; padding: 30px; }
+            .profile-info p { justify-content: center; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="studyabroad.html">Study Abroad</a></li>
+                <li><a href="services.html">Services</a></li>
+                
+                <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
+                <li><a href="register.html" class="join-btn" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="section-padding" style="padding-top: 140px;">
+        <div class="container">
+            
+            <div class="profile-header">
+                <div class="profile-avatar" id="pAvatar">U</div>
+                <div class="profile-info">
+                    <h2 id="pName">Loading...</h2>
+                    <p><i class="fa-solid fa-envelope"></i> <span id="pEmail">...</span></p>
+                    <p><i class="fa-solid fa-phone"></i> <span id="pPhone">...</span></p>
+                    
+                    <div style="margin-top: 25px; display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
+                        <a href="admin.html" id="profileAdminBtn" style="display: none; padding: 10px 24px; background: #ef4444; color: white; border-radius: 8px; text-decoration: none; font-weight: 600; align-items: center; gap: 8px; border: 1px solid #dc2626; transition:0.3s;">
+                            <i class="fa-solid fa-shield-halved"></i> Admin Panel
+                        </a>
+
+                        <button class="logout-btn" onclick="logout()" style="margin-top: 0;">
+                            <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title-row">
+                <div class="title-bar"></div>
+                <h2 style="margin: 0; color: #fff; font-size: 1.8rem;">My Learning Dashboard</h2>
+            </div>
+
+            <div id="myCourseGrid" class="dashboard-grid">
+                <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--color-text-muted);">
+                    <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2.5rem; color: var(--color-primary);"></i>
+                    <p style="margin-top: 20px; font-size: 1.1rem;">Syncing your courses...</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo" style="margin-bottom: 20px; display:inline-block;">
+                    <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+                </a>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem;">
+                    A Place to Build Your Dreams. <br> NSDA Recognized.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="studyabroad.html">Visa Guide</a></li>
+                    <li><a href="services.html">Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Social</h4>
+                <div style="display: flex; gap: 15px;">
+                    <a href="https://www.facebook.com/careerliftskill/" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                    <a href="https://www.youtube.com/@CareerliftInstitute" class="social-icon" title="YouTube"><i class="fa-brands fa-youtube fa-lg"></i></a>
+                    <a href="#" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    <a href="#" class="social-icon" title="X (Twitter)"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                    <a href="https://wa.me/8801814304081" target="_blank" class="social-icon" title="WhatsApp" style="color: #25D366;">
+                        <i class="fa-brands fa-whatsapp fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 CareerLift Skill Development Institute. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script> 
+    
+    <script>
+        const API_URL_PROF = 'http://localhost:5000/api';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userStr = localStorage.getItem('user');
+            if (!userStr) { window.location.href = 'login.html'; return; }
+            
+            const user = JSON.parse(userStr);
+            
+            // Populate Info
+            document.getElementById('pName').innerText = user.name;
+            document.getElementById('pEmail').innerText = user.email;
+            document.getElementById('pPhone').innerText = user.phone || 'No phone added';
+            document.getElementById('pAvatar').innerText = user.name.charAt(0).toUpperCase();
+
+            // Fetch Courses
+            try {
+                const res = await fetch(`${API_URL_PROF}/enrollments/user/${user.id || user._id}`);
+                const enrollments = await res.json();
+                
+                const grid = document.getElementById('myCourseGrid');
+                grid.innerHTML = '';
+
+                if (enrollments.length === 0) {
+                    grid.innerHTML = `
+                        <div class="dash-card" style="grid-column: 1/-1; text-align: center; padding: 60px; background: rgba(30, 41, 59, 0.4);">
+                            <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fa-solid fa-book-open" style="font-size: 2.5rem; color: var(--color-text-muted);"></i>
+                            </div>
+                            <h3 style="margin-bottom: 10px; color: #fff;">No Active Enrollments</h3>
+                            <p style="color: var(--color-text-muted); margin-bottom: 30px; max-width: 400px; margin-left: auto; margin-right: auto;">
+                                You haven't enrolled in any courses yet. Explore our catalog to start learning.
+                            </p>
+                            <a href="courses.html" class="btn btn-primary" style="display:inline-block; width:auto; padding: 12px 30px;">Browse Courses</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                enrollments.forEach(item => {
+                    const course = item.course;
+                    if(!course) return;
+
+                    const isActive = item.status === 'active';
+                    const badgeClass = isActive ? 'badge-active' : 'badge-pending';
+                    const badgeText = isActive ? 'In Progress' : 'Pending';
+                    const badgeIcon = isActive ? '<i class="fa-solid fa-play-circle"></i>' : '<i class="fa-solid fa-clock"></i>';
+                    const btnClass = isActive ? 'dash-btn btn-start' : 'dash-btn btn-lock';
+                    const btnText = isActive ? 'Continue Learning' : 'Awaiting Approval';
+                    const link = isActive ? `course-view.html?id=${course._id}` : '#';
+                    const clickEvent = isActive ? '' : 'onclick="return false;"';
+                    const date = new Date(item.enrolledAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                    const card = `
+                        <div class="dash-card">
+                            <div class="dash-img-wrapper">
+                                <img src="${course.thumbnail}" alt="${course.title}">
+                                <div class="dash-badge ${badgeClass}">
+                                    ${badgeIcon} ${badgeText}
+                                </div>
+                            </div>
+                            <div class="dash-body">
+                                <div class="dash-cat">${course.category}</div>
+                                <div class="dash-title">${course.title}</div>
+                                <div class="dash-meta">
+                                    <span><i class="fa-regular fa-calendar"></i> Enrolled: ${date}</span>
+                                </div>
+                                <a href="${link}" class="${btnClass}" ${clickEvent}>
+                                    ${btnText} ${isActive ? '<i class="fa-solid fa-arrow-right" style="margin-left:5px;"></i>' : ''}
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += card;
+                });
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('myCourseGrid').innerHTML = '<p style="color:#ef4444; text-align:center; grid-column:1/-1;">Failed to load courses. Is the server running?</p>';
+            }
+        });
+    </script>
+</body>
+</html>

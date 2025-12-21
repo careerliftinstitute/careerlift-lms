@@ -1,26 +1,33 @@
 /* js/main.js */
 
-// 1. SELECT ELEMENTS
+/* ================================
+   1. DOM ELEMENTS
+================================ */
 const navbar = document.getElementById('navbar');
 const menuToggle = document.getElementById('mobile-menu');
-const navLinksContainer = document.querySelector('.nav-links'); // Renamed for clarity
+const navMenu = document.getElementById('navMenu');
 
-// 2. STICKY NAVBAR LOGIC
+/* ================================
+   2. STICKY NAVBAR
+================================ */
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
+    if (navbar && window.scrollY > 50) {
         navbar.classList.add('scrolled');
-    } else {
+    } else if (navbar) {
         navbar.classList.remove('scrolled');
     }
 });
 
-// 3. MOBILE MENU TOGGLE
-if(menuToggle) {
+/* ================================
+   3. MOBILE MENU TOGGLE
+================================ */
+if (menuToggle && navMenu) {
     menuToggle.addEventListener('click', () => {
-        navLinksContainer.classList.toggle('active');
-        
+        navMenu.classList.toggle('active');
+
+        // Toggle icon bars <-> X
         const icon = menuToggle.querySelector('i');
-        if(navLinksContainer.classList.contains('active')) {
+        if (navMenu.classList.contains('active')) {
             icon.classList.remove('fa-bars');
             icon.classList.add('fa-xmark');
         } else {
@@ -30,74 +37,103 @@ if(menuToggle) {
     });
 }
 
-// 4. USER PROFILE LOGIC (The New Part)
-function updateUserNavbar() {
+/* ================================
+   4. AUTH NAVBAR SWITCHER
+================================ */
+function updateNavbarAuth() {
     const userStr = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
+    
+    // Only try to update if navMenu exists (avoids errors on blank pages)
+    if (!navMenu) return;
 
-    // Only run if user is logged in
-    if (userStr && token) {
-        const user = JSON.parse(userStr);
-        
-        // 1. Find the Login and Register buttons to hide them
-        const loginBtn = document.querySelector('a[href="login.html"]');
-        const registerBtn = document.querySelector('a[href="register.html"]');
+    if (userStr) {
+        try {
+            const user = JSON.parse(userStr);
 
-        // Hide the parent <li> elements if the buttons exist
-        if (loginBtn) loginBtn.parentElement.style.display = 'none';
-        if (registerBtn) registerBtn.parentElement.style.display = 'none';
+            /* A. Hide Login + Register */
+            const loginBtn = document.querySelector('a[href="login.html"]');
+            const registerBtn = document.querySelector('a[href="register.html"]');
 
-        // 2. Create the Profile Element
-        // We check if it already exists to avoid duplicates
-        if (!document.getElementById('user-profile-li')) {
-            const profileLi = document.createElement('li');
-            profileLi.id = 'user-profile-li';
-            
-            // Get first letter of name for Avatar
-            const initial = user.name ? user.name.charAt(0).toUpperCase() : 'U';
+            if (loginBtn && loginBtn.parentElement)
+                loginBtn.parentElement.style.display = 'none';
+            if (registerBtn && registerBtn.parentElement)
+                registerBtn.parentElement.style.display = 'none';
 
-            // Style matches your Glassmorphism theme
-            profileLi.innerHTML = `
-                <div class="user-badge" style="display: flex; align-items: center; gap: 10px; padding: 5px 15px; background: rgba(255,255,255,0.1); border-radius: 50px; border: 1px solid var(--glass-border);">
-                    <div style="width: 32px; height: 32px; background: var(--color-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #0f172a; font-weight: bold;">
-                        ${initial}
-                    </div>
-                    <span style="color: #fff; font-size: 0.9rem; font-weight: 500;">${user.name}</span>
-                    <button onclick="handleLogout()" style="background: none; border: none; color: var(--color-text-muted); cursor: pointer; margin-left: 5px;" title="Logout">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </button>
-                </div>
-            `;
+            /* =============================================
+               B. Add Smart Profile Badge
+            ============================================= */
+            if (!document.getElementById('nav-profile-item')) {
+                const li = document.createElement('li');
+                li.id = 'nav-profile-item';
 
-            // Append to the navbar
-            navLinksContainer.appendChild(profileLi);
+                // 1. First name only
+                let firstName = user.name ? user.name.split(' ')[0] : 'User';
+
+                // 2. Capitalize first letter
+                firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+
+                // 3. Smart icon + name
+                li.innerHTML = `
+                    <a href="profile.html" class="nav-profile-smart">
+                        <i class="fa-regular fa-user"></i>
+                        <span>${firstName}</span>
+                    </a>
+                `;
+
+                navMenu.appendChild(li);
+            }
+
+        } catch (e) {
+            console.error("Error loading user profile:", e);
+            localStorage.removeItem('user');
         }
     }
 }
 
-// 5. LOGOUT FUNCTION
-window.handleLogout = function() {
-    if(confirm("Are you sure you want to logout?")) {
-        localStorage.removeItem('token');
+/* ================================
+   5. GLOBAL LOGOUT FUNCTION
+================================ */
+window.handleLogout = function () {
+    if (confirm("Are you sure you want to logout?")) {
         localStorage.removeItem('user');
-        window.location.href = 'index.html'; // Redirect to home
+        localStorage.removeItem('token');
+        window.location.href = 'index.html';
     }
 };
 
-// 6. INITIALIZE
+/* ================================
+   6. INITIALIZE
+================================ */
 document.addEventListener('DOMContentLoaded', () => {
-    updateUserNavbar();
+    updateNavbarAuth();
     
-    // Close mobile menu when link clicked
-    const navItems = document.querySelectorAll('.nav-links li a');
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            if(navLinksContainer.classList.contains('active')) {
-                navLinksContainer.classList.remove('active');
-                const icon = menuToggle.querySelector('i');
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            }
-        });
-    });
+    // Trigger Fade In on load (Part of Page Transitions)
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+    }, 50);
+});
+
+/* js/main.js - Section 7 (Update just this part) */
+
+/* ================================
+   7. PAGE TRANSITION HANDLER
+================================ */
+document.addEventListener('click', (e) => {
+    const anchor = e.target.closest('a');
+    
+    if (anchor && anchor.href && anchor.target !== '_blank') {
+        const targetUrl = new URL(anchor.href);
+        
+        if (targetUrl.origin === window.location.origin && !anchor.getAttribute('href').startsWith('#')) {
+            e.preventDefault();
+            
+            // Fade Out
+            document.body.classList.remove('loaded');
+            
+            // Wait just 200ms now (was 400ms)
+            setTimeout(() => {
+                window.location.href = anchor.href;
+            }, 200); 
+        }
+    }
 });

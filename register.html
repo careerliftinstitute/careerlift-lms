@@ -14,15 +14,15 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+    <nav class="navbar" id="navbar">
+        <div class="nav_container">
+            <a href="index.html" class="logo" style="color:#fff; font-size:1.4rem; font-weight:700; text-decoration:none;">
+                <i class="fa-solid fa-arrow-trend-up" style="color:#0ea5e9;"></i> Career<span>Lift</span>
             </a>
-        </div>
+            </div>
     </nav>
 
-    <div class="auth-wrapper">
+    <div class="auth-wrapper" style="padding-top: 100px;">
         <div class="auth-card wide">
             <div class="auth-header">
                 <h2>Create Account</h2>
@@ -34,11 +34,11 @@
                 <div class="form-grid-2">
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" id="name" class="form-control" placeholder="e.g. Full Name" required>
+                        <input type="text" id="name" class="form-control" placeholder="Full Name" required>
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" id="email" class="form-control" placeholder="bangladesh@example.com" required>
+                        <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
                     </div>
                 </div>
 
@@ -82,12 +82,14 @@
             </form>
 
             <div class="auth-footer">
-                <p>Already have an account? <a href="login.html">Login here</a></p>
+                <p>Already have an account? <a href="login.html">Login Here</a></p>
             </div>
         </div>
     </div>
 
+    <script src="js/main.js"></script> 
     <script src="js/auth.js"></script>
+
     <script>
         function toggleVisibility(inputId, icon) {
             const input = document.getElementById(inputId);

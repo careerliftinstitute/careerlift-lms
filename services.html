@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services | CareerLift</title>
+    <title>Services | CareerLift Skill Development Institute</title>
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/nav-footer.css">
@@ -14,8 +14,8 @@
     <style>
         /* Services Hero Override */
         .hero-services {
-            background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)), 
-                        url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop');
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.8)), 
+                        url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -23,25 +23,15 @@
             padding-bottom: 80px;
         }
 
-        /* Feature Icon Box */
-        .icon-box {
-            width: 70px; height: 70px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px; /* Slight rounded square matches theme better */
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
         /* Custom List Styles */
-        .service-list ul { list-style: none; margin-top: 15px; }
+        .service-list ul { list-style: none; margin-top: 15px; padding: 0; }
         .service-list li { 
             margin-bottom: 12px; 
             padding-left: 25px; 
             position: relative; 
             color: var(--color-text-muted);
             font-size: 0.95rem;
+            text-align: left;
         }
         .service-list li::before {
             content: '\f00c'; /* FontAwesome Check Icon */
@@ -68,7 +58,7 @@
                 <li><a href="studyabroad.html">Study Abroad</a></li>
                 <li><a href="services.html" class="active">Services</a></li>
                 <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
-                <li><a href="register.html" class="btn btn-primary" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
+                <li><a href="register.html" class="join-btn" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
             </ul>
         </div>
     </nav>
@@ -76,13 +66,11 @@
     <section class="hero-services text-center">
         <div class="container">
             <div style="max-width: 800px; margin: 0 auto;">
-                <div style="display: inline-block; padding: 6px 16px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 50px; margin-bottom: 20px;">
-                    <span style="color: var(--color-primary); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.5px;">
-                        WHAT WE OFFER
-                    </span>
+                <div class="hero-badge">
+                    WHAT WE OFFER
                 </div>
-                <h1 style="font-size: 3rem; margin-bottom: 15px;">Comprehensive <span class="text-primary">Solutions</span></h1>
-                <p style="color: var(--color-text-muted); font-size: 1.1rem; line-height: 1.6;">
+                <h1 class="hero-title">Comprehensive <span class="text-primary">Solutions</span></h1>
+                <p class="hero-subtitle" style="font-size: 1.1rem;">
                     From Skill Development to Global Career Management. Supporting students, entrepreneurs, and employers.
                 </p>
             </div>
@@ -91,16 +79,16 @@
 
     <section class="section-padding">
         <div class="container">
-            <h2 style="margin-bottom: 40px; font-size: 2rem;">For Learners & Professionals</h2>
+            <h2 class="text-center" style="margin-bottom: 50px;">For Learners & Professionals</h2>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+            <div class="services-grid">
                 
-                <div class="glass-panel service-list" style="padding: 40px;">
-                    <div class="icon-box" style="color: var(--color-primary); background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.2);">
+                <div class="glass-panel service-list">
+                    <div class="service-icon icon-blue">
                         <i class="fa-solid fa-chalkboard-user"></i>
                     </div>
-                    <h3 style="margin-bottom: 10px;">Skill Development</h3>
-                    <p style="font-size: 0.95rem; color: #fff; margin-bottom: 15px; font-weight: 500;">NSDA Recognized Training.</p>
+                    <h3 style="text-align: center;">Skill Development</h3>
+                    <p style="text-align: center; margin-bottom: 20px; color: var(--color-text-muted);">NSDA Recognized Training.</p>
                     <ul>
                         <li><strong>Practical Training:</strong> Caregiving, Medical Scribing, IT.</li>
                         <li><strong>Financial Independence:</strong> Learn skills that pay immediately.</li>
@@ -109,17 +97,31 @@
                     </ul>
                 </div>
 
-                <div class="glass-panel service-list" style="padding: 40px;">
-                    <div class="icon-box" style="color: var(--color-secondary); background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.2);">
+                <div class="glass-panel service-list">
+                    <div class="service-icon icon-purple">
                         <i class="fa-solid fa-plane-circle-check"></i>
                     </div>
-                    <h3 style="margin-bottom: 10px;">Study Abroad</h3>
-                    <p style="font-size: 0.95rem; color: #fff; margin-bottom: 15px; font-weight: 500;">End-to-end support for UK, Canada & Europe.</p>
+                    <h3 style="text-align: center;">Study Abroad</h3>
+                    <p style="text-align: center; margin-bottom: 20px; color: var(--color-text-muted);">End-to-end support for UK, Canada & Europe.</p>
                     <ul>
                         <li>Career counseling & Course selection.</li>
                         <li>University Shortlisting & Application.</li>
                         <li>SOP, LOR & CV guidance.</li>
                         <li>Visa guidance & Interview preparation.</li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel service-list">
+                    <div class="service-icon icon-pink">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3 style="text-align: center;">Freelancing</h3>
+                    <p style="text-align: center; margin-bottom: 20px; color: var(--color-text-muted);">Start earning from home.</p>
+                    <ul>
+                        <li>Digital Marketing & Graphics Design.</li>
+                        <li>Marketplace profile optimization (Upwork/Fiverr).</li>
+                        <li>Portfolio development assistance.</li>
+                        <li>Direct mentorship from top-rated freelancers.</li>
                     </ul>
                 </div>
 
@@ -129,8 +131,8 @@
 
     <section class="section-padding" style="padding-top: 0;">
         <div class="container">
-            <h2 style="margin-bottom: 30px; font-size: 2rem;">For Employers</h2>
-            <div class="glass-panel" style="padding: 50px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center;">
+            <h2 class="text-center" style="margin-bottom: 40px;">For Employers</h2>
+            <div class="glass-panel" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center;">
                 <div>
                     <h3 style="color: var(--color-accent); margin-bottom: 15px; font-size: 1.5rem;">Corporate Partnership</h3>
                     <p style="color: var(--color-text-muted); margin-bottom: 25px; line-height: 1.7;">
@@ -153,29 +155,35 @@
 
     <section class="section-padding" style="background: rgba(0,0,0,0.2);">
         <div class="container">
-            <h2 style="margin-bottom: 40px; font-size: 2rem;">Entrepreneurship Support</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+            <h2 class="text-center" style="margin-bottom: 50px;">Entrepreneurship Support</h2>
+            <div class="services-grid">
                 
-                <div class="glass-panel" style="padding: 30px; text-align: center;">
-                    <i class="fa-solid fa-seedling" style="color: #22c55e; font-size: 2.5rem; margin-bottom: 15px;"></i>
-                    <h4 style="color: #fff; font-size: 1.2rem;">Start Your Business</h4>
-                    <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.6;">
+                <div class="glass-panel service-card text-center">
+                    <div class="service-icon icon-blue">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h4>Start Your Business</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.95rem;">
                         Guidance on business planning, strategy, and securing funding.
                     </p>
                 </div>
 
-                <div class="glass-panel" style="padding: 30px; text-align: center;">
-                    <i class="fa-solid fa-user-tie" style="color: var(--color-primary); font-size: 2.5rem; margin-bottom: 15px;"></i>
-                    <h4 style="color: #fff; font-size: 1.2rem;">Expert Mentorship</h4>
-                    <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.6;">
+                <div class="glass-panel service-card text-center">
+                    <div class="service-icon icon-purple">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <h4>Expert Mentorship</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.95rem;">
                         Learn directly from experienced entrepreneurs and industry leaders.
                     </p>
                 </div>
 
-                <div class="glass-panel" style="padding: 30px; text-align: center;">
-                    <i class="fa-solid fa-globe" style="color: var(--color-secondary); font-size: 2.5rem; margin-bottom: 15px;"></i>
-                    <h4 style="color: #fff; font-size: 1.2rem;">Import/Export</h4>
-                    <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.6;">
+                <div class="glass-panel service-card text-center">
+                    <div class="service-icon icon-pink">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <h4>Import/Export</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.95rem;">
                         Basic understanding of global trade logistics and regulations.
                     </p>
                 </div>
@@ -209,16 +217,22 @@
                     <li><a href="#">Terms of Service</a></li>
                 </ul>
             </div>
+            
             <div class="footer-col">
                 <h4>Social</h4>
                 <div style="display: flex; gap: 15px;">
-                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-facebook fa-lg"></i></a>
-                    <a href="#" style="color: #cbd5e1; transition:0.3s;"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    <a href="https://www.facebook.com/careerliftskill/" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                    <a href="https://www.youtube.com/@CareerliftInstitute" class="social-icon" title="YouTube"><i class="fa-brands fa-youtube fa-lg"></i></a>
+                    <a href="#" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    <a href="#" class="social-icon" title="X (Twitter)"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                    <a href="https://wa.me/8801814304081" target="_blank" class="social-icon" title="WhatsApp" style="color: #25D366;">
+                        <i class="fa-brands fa-whatsapp fa-lg"></i>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; 2025 CareerLift Institute. All Rights Reserved.
+            &copy; 2025 CareerLift Skill Development Institute. All Rights Reserved.
         </div>
     </footer>
 
