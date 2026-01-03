@@ -176,7 +176,9 @@
             border-radius: 50%;
             background: rgba(255,255,255,0.1);
             color: #fff;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: 0.3s;
             font-size: 1rem;
             border: 1px solid rgba(255,255,255,0.1);
@@ -189,11 +191,46 @@
             box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
         }
 
-        @media (max-width: 900px) {
-            .about-grid, .ceo-section, .ed-card { flex-direction: column; text-align: center; }
-            .about-image { height: 250px; }
-            .ceo-section, .ed-card { padding: 30px; }
-            .ceo-quote { border-left: none; border-top: 4px solid var(--color-primary); padding-top: 20px; padding-left: 0; }
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 991px) {
+            .about-grid { 
+                grid-template-columns: 1fr; /* Stack columns */
+                gap: 40px; 
+            }
+            
+            .about-image { 
+                height: 300px; /* Smaller image height */
+                order: -1; /* Move image to top on mobile */
+            }
+
+            .ceo-section, .ed-card { 
+                flex-direction: column; 
+                text-align: center;
+                padding: 30px;
+                gap: 30px;
+            }
+
+            .ceo-quote { 
+                border-left: none; 
+                border-top: 4px solid var(--color-primary); 
+                padding-top: 20px; 
+                padding-left: 0; 
+            }
+
+            /* Center align social icons on mobile */
+            .ceo-section .ceo-content > div > div, 
+            .ed-card > div > div {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-about h1 { font-size: 2.2rem; }
+            
+            .ceo-image-wrapper { width: 150px; height: 150px; }
+            .ed-img { width: 150px; height: 150px; }
+            
+            .about-image { height: 200px; }
         }
     </style>
 </head>
@@ -265,7 +302,6 @@
         <div class="container">
             <div class="ceo-section">
                 <div class="ceo-image-wrapper">
-                    <!-- Restored Director Image -->
                     <img src="https://drive.google.com/thumbnail?id=1NgVpCGCN4vfG2tOnbolHzGiWjbUyTJLd&sz=w500" alt="Principal" class="ceo-img">
                 </div>
                 <div class="ceo-content">
@@ -279,7 +315,6 @@
                     <div style="margin-top: 20px;">
                         <span style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--color-primary); display:block;">Dr. Mostafizur Rahman Faisal</span>
                         
-                        <!-- Socials + Email for Director -->
                         <div style="display:flex; align-items:center; gap:15px; margin-top:15px;">
                             <a href="mailto:careerliftinstitute@gmail.com" class="social-btn" style="width:40px; height:40px; background:rgba(255,255,255,0.05);" title="Send Email"><i class="fa-regular fa-envelope"></i></a>
                             <a href="#" class="social-btn" style="width:40px; height:40px; background:rgba(255,255,255,0.05);" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
@@ -298,9 +333,7 @@
                 <p style="color: var(--color-text-muted);">The experts driving our success.</p>
             </div>
 
-            <!-- EXECUTIVE DIRECTOR CARD -->
             <div class="ed-card">
-                <!-- Placeholder for ED since no specific ID was given, but kept structure -->
                 <img src="https://drive.google.com/thumbnail?id=1FZI2E9jd72O26XJsrqqWGpZVIlgyKOp3&sz=w500" alt="Executive Director" class="ed-img">
                 <div>
                     <h2 style="font-size: 1.8rem; color: #fff; margin-bottom: 5px;">Sumaiya Tabassum</h2>
@@ -311,7 +344,6 @@
                         "Ensuring quality education and operational excellence is my top priority. At CareerLift, we strive to create a learning environment that fosters innovation."
                     </p>
                     
-                    <!-- Socials for ED -->
                     <div style="display:flex; align-items:center; gap:15px;">
                         <a href="mailto:ed@careerlift.com" class="social-btn" style="width:40px; height:40px; background:rgba(255,255,255,0.05);" title="Send Email"><i class="fa-regular fa-envelope"></i></a>
                         <a href="#" class="social-btn" style="width:40px; height:40px; background:rgba(255,255,255,0.05);" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
@@ -320,72 +352,56 @@
                 </div>
             </div>
 
-            <!-- TEAM GRID (UPDATED) -->
             <div class="team-grid">
                 
-                <!-- Member 1: Nur Mohammad -->
                 <div class="team-card">
-                    <!-- Blur Overlay (Quote) -->
                     <div class="team-quote-overlay">
                         <p class="hover-quote">"Guiding students to the right career path is not just my job, it's my passion. Every student's success is a milestone for us."</p>
                     </div>
 
-                    <!-- Static Info -->
                     <div class="team-static-content">
-                        <!-- Restored Google Drive Image -->
                         <img src="https://drive.google.com/thumbnail?id=1YCubNPgGZKI8QElJoneux3eOkZn_f6Kt&sz=w500" alt="Nur Mohammad" class="member-img">
                         <h3 class="member-name">Nur Mohammad</h3>
                         <span class="member-role">Course Coordinator</span>
                         <a href="mailto:nurmdpt@gmail.com" class="member-email-btn">nurmdpt@gmail.com</a>
                     </div>
 
-                    <!-- Static Socials (Always Clickable) -->
                     <div class="team-socials-static">
                         <a href="#" target="_blank" class="social-btn" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
                         <a href="#" target="_blank" class="social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                     </div>
                 </div>
 
-                <!-- Member 2: Sirajis Salehin -->
                 <div class="team-card">
-                    <!-- Blur Overlay (Quote) -->
                     <div class="team-quote-overlay">
                         <p class="hover-quote">"Operational excellence ensures our students get the best learning environment. We are committed to quality and discipline."</p>
                     </div>
 
-                    <!-- Static Info -->
                     <div class="team-static-content">
-                        <!-- Restored Google Drive Image -->
                         <img src="https://drive.google.com/thumbnail?id=1MsGdoLHqqu_90NSxBm7i7XQCT8n1KORC&sz=w500" alt="Sirajis Salehin" class="member-img">
                         <h3 class="member-name">Sirajis Salehin</h3>
                         <span class="member-role">Operations Manager</span>
                         <a href="mailto:sirajissalehin98@gmail.com" class="member-email-btn">sirajissalehin98@gmail.com</a>
                     </div>
 
-                    <!-- Static Socials -->
                     <div class="team-socials-static">
                         <a href="#" target="_blank" class="social-btn" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
                         <a href="#" target="_blank" class="social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                     </div>
                 </div>
 
-                <!-- Member 3: Md. Shakawat Hossain Faravi -->
                 <div class="team-card">
-                    <!-- Blur Overlay (Quote) -->
                     <div class="team-quote-overlay">
                         <p class="hover-quote">"Building the digital infrastructure for future leaders. Technology is the tool, but your ambition is the fuel."</p>
                     </div>
 
-                    <!-- Static Info -->
                     <div class="team-static-content">
-                        <!-- Restored Google Drive Image -->
                         <img src="https://drive.google.com/thumbnail?id=1kvkiWFr-upfOtz9jkQWwQfGmQ_gZhSd2&sz=w500" alt="Md. Shakawat Hossain Faravi" class="member-img">
                         <h3 class="member-name">Md. Shakawat Hossain Faravi</h3>
                         <span class="member-role">IT Executive & Developer</span>
                         <a href="mailto:alfaravi17@gmail.com" class="member-email-btn">alfaravi17@gmail.com</a>
                     </div>
 
-                    <!-- Static Socials -->
                     <div class="team-socials-static">
                         <a href="#" target="_blank" class="social-btn" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
                         <a href="https://www.linkedin.com/in/md-shakawat-hossain-faravi-1876bb211/" target="_blank" class="social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
