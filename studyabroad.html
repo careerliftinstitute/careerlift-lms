@@ -12,18 +12,40 @@
     <link rel="stylesheet" href="css/nav-footer.css">
     
     <style>
-       /* --- 1. HERO SECTION --- */
-       .hero-study {
-           background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8)), 
-                       url('https://lh3.googleusercontent.com/d/1RU4xPi2CllFjjWRbe4hOpkfxXjvLVbjz');
-           background-size: cover;
-           background-position: center;
-           background-attachment: fixed;
-           padding-top: 160px;
-           padding-bottom: 100px;
-       }
+        /* --- 1. HERO SECTION --- */
+        .hero-study {
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8)), 
+                        url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding-top: 160px;
+            padding-bottom: 100px;
+        }
 
-        /* --- 2. DESTINATION CARDS --- */
+        /* --- 2. SMART PROCESS SECTION (New) --- */
+        .process-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+        }
+        .process-card:hover {
+            transform: translateY(-5px);
+            background: rgba(30, 41, 59, 0.8);
+            border-color: var(--color-primary);
+        }
+        .step-number {
+            width: 35px; height: 35px;
+            background: var(--color-primary); color: #000;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; margin: 0 auto 15px; font-size: 1rem;
+        }
+
+        /* --- 3. DESTINATION CARDS --- */
         .destination-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -64,7 +86,7 @@
             margin-bottom: 5px;
         }
 
-        /* --- 3. ACCORDION (VISA GUIDES) --- */
+        /* --- 4. ACCORDION (VISA GUIDES) --- */
         details { 
             margin-bottom: 15px; 
             background: rgba(30, 41, 59, 0.6); 
@@ -96,7 +118,7 @@
         .details-content li { margin-bottom: 10px; display: flex; gap: 12px; color: var(--color-text-muted); font-size: 0.95rem; }
         .details-content li i { color: var(--color-primary); margin-top: 4px; }
 
-        /* --- 4. FORM STYLES --- */
+        /* --- 5. FORM STYLES --- */
         .glass-input {
             width: 100%; padding: 12px 16px; background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff;
@@ -117,7 +139,7 @@
             background: var(--color-primary); color: #fff; border-color: var(--color-primary); font-weight: 500;
         }
 
-        /* --- 5. POPUP --- */
+        /* --- 6. POPUP --- */
         #successPopup {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); z-index: 2000;
@@ -134,33 +156,36 @@
 </head>
 <body>
 
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
-            </a>
-            <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
-            <ul class="nav-links" id="navMenu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="courses.html">Courses</a></li>
-                <li><a href="studyabroad.html" class="active">Study Abroad</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
-                <li><a href="register.html" class="join-btn" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
-            </ul>
-        </div>
-    </nav>
+<nav class="navbar" id="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+        </a>
+        <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+        <ul class="nav-links" id="navMenu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="studyabroad.html" class="active">Study Abroad</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            
+            <li class="auth-item"><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
+            <li class="auth-item"><a href="register.html" class="join-btn" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
+        </ul>
+    </div>
+</nav>
 
     <section class="hero-study text-center">
         <div class="container">
             <div style="max-width: 800px; margin: 0 auto;">
-                <div class="hero-badge">
-                    <i class="fa-solid fa-globe"></i> GLOBAL CONSULTANCY
+                <div style="display: inline-block; padding: 6px 16px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 50px; margin-bottom: 20px;">
+                    <span style="color: var(--color-primary); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.5px;">
+                        <i class="fa-solid fa-globe"></i> GLOBAL CONSULTANCY
+                    </span>
                 </div>
-                <h1 class="hero-title">Your Dream of Studying <br><span class="text-primary">Abroad Starts Here</span></h1>
+                <h1 style="font-size: 3rem; margin-bottom: 15px;">Your Dream of Studying <br><span class="text-primary">Abroad Starts Here</span></h1>
                 
-                <p class="hero-subtitle" style="font-size: 1.1rem;">
+                <p style="color: var(--color-text-muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
                     We provide expert guidance for student visas in UK, Canada, Malaysia, Sri Lanka, China, Japan & more. 
                     <strong style="color: #fff;">File opening charge is FREE</strong> for limited time.
                 </p>
@@ -172,13 +197,38 @@
         </div>
     </section>
 
-    <section style="background: rgba(15, 23, 42, 0.8); padding: 30px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <section class="section-padding" style="background: rgba(15, 23, 42, 0.5); border-bottom: 1px solid rgba(255,255,255,0.05);">
         <div class="container">
-            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; text-align: center;">
-                <div><i class="fa-solid fa-user-tie" style="color: var(--color-primary); margin-right: 8px;"></i> Expert Counseling</div>
-                <div><i class="fa-solid fa-file-circle-check" style="color: var(--color-secondary); margin-right: 8px;"></i> Visa Processing</div>
-                <div><i class="fa-solid fa-university" style="color: var(--color-accent); margin-right: 8px;"></i> University Admission</div>
-                <div><i class="fa-solid fa-plane-departure" style="color: #fbbf24; margin-right: 8px;"></i> Pre-Departure Support</div>
+            <div class="text-center" style="margin-bottom: 40px;">
+                <h2 style="font-size: 2.2rem;">Simple <span class="text-primary">Process</span></h2>
+                <p style="color: var(--color-text-muted);">Your journey from application to flight in 4 steps.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                <div class="process-card">
+                    <div class="step-number">1</div>
+                    <i class="fa-solid fa-file-pen" style="font-size: 2rem; color: #fff; margin-bottom: 15px;"></i>
+                    <h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 8px;">Free Assessment</h3>
+                    <p style="color: var(--color-text-muted); font-size: 0.9rem;">Submit your profile. We analyze eligibility.</p>
+                </div>
+                <div class="process-card">
+                    <div class="step-number">2</div>
+                    <i class="fa-solid fa-university" style="font-size: 2rem; color: #fff; margin-bottom: 15px;"></i>
+                    <h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 8px;">Apply & Offer</h3>
+                    <p style="color: var(--color-text-muted); font-size: 0.9rem;">We apply to universities & get your Offer Letter.</p>
+                </div>
+                <div class="process-card">
+                    <div class="step-number">3</div>
+                    <i class="fa-solid fa-passport" style="font-size: 2rem; color: #fff; margin-bottom: 15px;"></i>
+                    <h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 8px;">Visa Processing</h3>
+                    <p style="color: var(--color-text-muted); font-size: 0.9rem;">We prepare your bank & embassy file perfectly.</p>
+                </div>
+                <div class="process-card">
+                    <div class="step-number">4</div>
+                    <i class="fa-solid fa-plane-departure" style="font-size: 2rem; color: #fff; margin-bottom: 15px;"></i>
+                    <h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 8px;">Fly Abroad</h3>
+                    <p style="color: var(--color-text-muted); font-size: 0.9rem;">Visa received! We help with tickets & housing.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -496,7 +546,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            © 2025 CareerLift Skill Development Institute. All Rights Reserved.
+            &copy; 2025 CareerLift Skill Development Institute. All Rights Reserved.
         </div>
     </footer>
 

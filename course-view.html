@@ -3,253 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Classroom | CareerLift</title>
+    <title>Classroom | CareerLift</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            /* Palette - Matching Main Theme */
-            --bg-body: #0f172a;       /* Deepest Slate */
-            --bg-panel: #1e293b;      /* Card Background */
-            --bg-element: #334155;    /* Hover/Input Background */
-            
-            --primary: #38bdf8;       /* Sky Blue */
-            --primary-dim: rgba(56, 189, 248, 0.15);
-            --accent: #8b5cf6;        /* Violet */
-            
-            /* Typography Colors - Optimized for Reading */
-            --text-heading: #f1f5f9;  /* Bright for titles */
-            --text-body: #cbd5e1;     /* Soft Grey for reading (prevents eye strain) */
-            --text-muted: #94a3b8;    /* Darker grey for metadata */
-            
+            --bg-body: #0f172a;
+            --bg-panel: #1e293b;
+            --primary: #38bdf8;
+            --accent: #8b5cf6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
             --border: 1px solid rgba(255, 255, 255, 0.08);
-            --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            
+            /* Brand Colors */
+            --brand-youtube: #ef4444;
+            --brand-meet: #22c55e;
+            --brand-zoom: #3b82f6;
+            --brand-default: #a855f7;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
             background-color: var(--bg-body); 
-            color: var(--text-body); 
-            font-family: 'Inter', sans-serif; /* Inter is better for long-form reading */
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, .logo, .btn-dash { font-family: 'Outfit', sans-serif; }
+        h1, h2, h3, .btn-font { font-family: 'Outfit', sans-serif; }
 
         /* --- Navbar --- */
         .navbar {
             background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(10px);
             border-bottom: var(--border);
             height: 70px;
-            position: fixed;
-            top: 0; width: 100%; z-index: 1000;
+            position: fixed; top: 0; width: 100%; z-index: 1000;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 5%;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
-
-        .logo { 
-            font-size: 1.5rem; font-weight: 700; color: var(--text-heading); text-decoration: none; 
-            display: flex; align-items: center; gap: 10px;
-        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
         .logo i { color: var(--primary); }
-
-        .btn-dash {
-            padding: 8px 24px;
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            color: var(--primary); 
-            border-radius: 50px;
-            text-decoration: none; font-size: 0.9rem; font-weight: 500;
-            transition: 0.3s;
+        .back-btn { 
+            color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; 
+            transition: 0.3s; display: flex; align-items: center; gap: 8px;
+            padding: 8px 16px; border-radius: 50px; border: 1px solid transparent;
         }
-        .btn-dash:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary-dim); }
+        .back-btn:hover { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; }
 
-        /* --- Layout --- */
-        .classroom-grid {
-            display: grid;
-            grid-template-columns: 3fr 1.2fr; /* More space for content */
-            gap: 40px;
-            max-width: 1440px;
-            margin: 100px auto 60px;
+        /* --- Layout Grid --- */
+        .main-container {
+            max-width: 1500px; margin: 90px auto 40px;
+            display: grid; grid-template-columns: 1fr 400px; gap: 30px;
             padding: 0 30px;
         }
 
-        /* --- Left Column: Content Area --- */
-        .content-area { display: flex; flex-direction: column; gap: 30px; }
+        /* --- Left Side: Hero & Tabs --- */
+        .content-wrapper { display: flex; flex-direction: column; gap: 25px; }
 
-        .back-link {
-            color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500;
-            display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
-            width: fit-content;
-        }
-        .back-link:hover { color: var(--primary); transform: translateX(-5px); }
-
-        /* Course Header Card */
-        .course-hero {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: var(--border);
-            border-left: 4px solid var(--accent);
+        /* HERO BANNER (Clean & Focused) */
+        .hero-banner {
+            position: relative;
             border-radius: 16px;
-            padding: 35px;
-            box-shadow: var(--glass-shadow);
-        }
-
-        .badge-pill {
-            display: inline-block; padding: 5px 14px; border-radius: 20px;
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
-            background: var(--primary-dim); color: var(--primary); border: 1px solid rgba(56, 189, 248, 0.2);
-            margin-bottom: 12px;
-        }
-
-        h1.course-title { 
-            font-size: 2.4rem; margin-bottom: 15px; line-height: 1.2; 
-            color: var(--text-heading);
-        }
-        
-        .course-desc { color: var(--text-muted); line-height: 1.6; font-size: 1.05rem; max-width: 90%; }
-
-        /* Notes & Resources Section (Reading Optimized) */
-        .notes-card {
-            background: var(--bg-panel); /* Solid background for better text rendering */
-            border: var(--border);
-            border-radius: 16px;
-            padding: 40px; /* Generous padding */
-            box-shadow: var(--glass-shadow);
-        }
-
-        .section-header { 
-            display: flex; align-items: center; gap: 12px; margin-bottom: 25px; padding-bottom: 15px;
-            color: var(--text-heading); font-size: 1.4rem; border-bottom: var(--border);
-        }
-        .section-header i { color: var(--primary); }
-
-        .note-content {
-            font-family: 'Inter', sans-serif;
-            color: #e2e8f0; /* Soft white - easier on eyes than pure white */
-            line-height: 1.8; /* Higher line height for readability */
-            font-size: 1.05rem;
-            white-space: pre-line; /* Preserves paragraphs */
-        }
-        
-        /* Highlight specific boxes inside notes if needed */
-        .note-content strong { color: var(--primary); font-weight: 600; }
-
-        /* --- Right Column: Sidebar --- */
-        .sidebar {
-            position: sticky; top: 100px;
-            height: calc(100vh - 140px);
+            overflow: hidden;
             background: var(--bg-panel);
             border: var(--border);
-            border-radius: 16px;
-            display: flex; flex-direction: column;
-            overflow: hidden;
-            box-shadow: var(--glass-shadow);
+            min-height: 250px;
+            display: flex; align-items: flex-end;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            filter: blur(4px) brightness(0.3);
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative; z-index: 1;
+            padding: 40px; width: 100%;
+            background: linear-gradient(to top, var(--bg-body) 0%, transparent 100%);
+        }
+        .course-badge {
+            display: inline-block; padding: 5px 12px; background: var(--primary); color: #000;
+            border-radius: 6px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase;
+            margin-bottom: 15px; letter-spacing: 0.5px;
+        }
+        .hero-title { font-size: 2.2rem; line-height: 1.2; margin-bottom: 5px; color: #fff; }
+
+        /* TAB SYSTEM */
+        .tabs { display: flex; gap: 30px; border-bottom: var(--border); margin-bottom: 10px; }
+        .tab-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            font-size: 1rem; font-weight: 500; padding: 12px 0; cursor: pointer;
+            position: relative; transition: 0.3s;
+        }
+        .tab-btn:hover { color: #fff; }
+        .tab-btn.active { color: var(--primary); }
+        .tab-btn.active::after {
+            content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px;
+            background: var(--primary);
         }
 
-        .sidebar-header {
-            padding: 20px 25px; border-bottom: var(--border);
-            background: rgba(0,0,0,0.2);
+        /* CONTENT CARD (Reading Area) */
+        .content-card {
+            background: var(--bg-panel); border: var(--border); border-radius: 16px;
+            padding: 40px; min-height: 400px;
         }
-        .sidebar-header h3 { font-size: 1.1rem; font-weight: 600; color: var(--text-heading); display:flex; align-items:center; gap:10px; }
-
-        .lecture-list {
-            overflow-y: auto;
-            flex: 1;
-            padding: 15px;
-        }
+        .tab-content { display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
         
-        /* Custom Scrollbar */
-        .lecture-list::-webkit-scrollbar { width: 5px; }
-        .lecture-list::-webkit-scrollbar-thumb { background: var(--bg-element); border-radius: 10px; }
-        .lecture-list::-webkit-scrollbar-track { background: transparent; }
-
-        .lecture-item {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 16px;
-            margin-bottom: 10px;
-            background: var(--bg-body); /* Darker than sidebar for contrast */
-            border: 1px solid transparent;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        /* Note Styling */
+        .text-content { 
+            line-height: 1.8; color: #e2e8f0; font-size: 1.05rem; white-space: pre-line; 
         }
 
-        .lecture-item:hover {
-            background: var(--bg-element);
-            border-color: rgba(56, 189, 248, 0.3);
+        /* --- Right Side: Smart Playlist --- */
+        .playlist-sidebar {
+            background: var(--bg-panel); border: var(--border); border-radius: 16px;
+            height: calc(100vh - 120px); position: sticky; top: 90px;
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .playlist-header {
+            padding: 20px 25px; border-bottom: var(--border);
+            background: rgba(15, 23, 42, 0.3);
+        }
+        .playlist-header h3 { font-size: 1.1rem; color: #fff; display: flex; align-items: center; gap: 10px; }
+        
+        .module-list { flex: 1; overflow-y: auto; padding: 15px; }
+
+        /* SMART MODULE ITEM */
+        .module-item {
+            display: flex; align-items: center; gap: 15px;
+            padding: 16px; margin-bottom: 10px;
+            background: rgba(15, 23, 42, 0.6); 
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px; cursor: pointer; transition: 0.2s;
+            position: relative; overflow: hidden;
+        }
+        .module-item:hover { 
+            background: rgba(30, 41, 59, 0.8); 
+            border-color: rgba(255,255,255,0.1); 
             transform: translateX(5px);
         }
-
-        .lec-info { display: flex; flex-direction: column; gap: 5px; }
-        .lec-title { font-size: 0.95rem; font-weight: 500; color: var(--text-heading); }
-        .lec-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
         
-        .lec-icon { 
-            width: 32px; height: 32px; 
-            background: var(--primary-dim); 
-            color: var(--primary);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 0.9rem;
+        .icon-box {
+            width: 42px; height: 42px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; flex-shrink: 0;
+            background: rgba(255,255,255,0.05);
         }
 
-        /* Responsive */
+        .module-info { flex: 1; min-width: 0; }
+        .module-title { font-size: 0.95rem; font-weight: 500; color: #f1f5f9; display: block; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .module-type { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+        
+        /* Brand Specific Styles */
+        .brand-youtube .icon-box { color: var(--brand-youtube); background: rgba(239, 68, 68, 0.1); }
+        .brand-meet .icon-box { color: var(--brand-meet); background: rgba(34, 197, 94, 0.1); }
+        .brand-zoom .icon-box { color: var(--brand-zoom); background: rgba(59, 130, 246, 0.1); }
+        .brand-default .icon-box { color: var(--brand-default); background: rgba(168, 85, 247, 0.1); }
+
+        .brand-youtube:hover { border-color: rgba(239, 68, 68, 0.3); }
+        .brand-meet:hover { border-color: rgba(34, 197, 94, 0.3); }
+        .brand-zoom:hover { border-color: rgba(59, 130, 246, 0.3); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+
         @media (max-width: 1024px) {
-            .classroom-grid { grid-template-columns: 1fr; gap: 30px; }
-            .sidebar { height: auto; max-height: 500px; position: static; margin-bottom: 40px; }
+            .main-container { grid-template-columns: 1fr; }
+            .playlist-sidebar { height: auto; max-height: 500px; position: static; }
         }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="index.html" class="logo"><i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span></a>
-        <a href="courses.html" class="btn-dash">Dashboard</a>
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+        </a>
+        <a href="courses.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Courses
+        </a>
     </nav>
 
-    <div class="classroom-grid">
+    <div class="main-container">
         
-        <div class="content-area">
-            <a href="courses.html" class="back-link">
-                <i class="fa-solid fa-arrow-left"></i> Back to Courses
-            </a>
+        <div class="content-wrapper">
+            
+            <div class="hero-banner">
+                <div id="heroBg" class="hero-bg"></div>
+                <div class="hero-content">
+                    <span id="cBadge" class="course-badge">Loading...</span>
+                    <h1 id="cTitle" class="hero-title">Loading Course...</h1>
+                </div>
+            </div>
 
-            <div class="course-hero">
-                <div style="display:flex; justify-content:space-between; align-items:start;">
-                    <div>
-                        <span id="cBadge" class="badge-pill">Loading...</span>
-                        <h1 id="cTitle" class="course-title">Loading Course...</h1>
-                        <p id="cOverview" class="course-desc">Please wait while we retrieve the course syllabus and materials from the server.</p>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('notes')"><i class="fa-solid fa-book-open"></i> Study Notes</button>
+                <button class="tab-btn" onclick="switchTab('overview')"><i class="fa-solid fa-circle-info"></i> Overview</button>
+            </div>
+
+            <div id="tab-notes" class="tab-content active content-card">
+                <div id="cNote" class="text-content">
+                    <div style="text-align:center; padding: 60px; color: var(--text-muted);">
+                        <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                        <p style="margin-top:15px;">Loading materials...</p>
                     </div>
                 </div>
             </div>
 
-            <div class="notes-card">
-                <div class="section-header">
-                    <i class="fa-solid fa-book-open-reader"></i>
-                    <h3>Classroom Notes & Instructions</h3>
-                </div>
-                <div id="cNote" class="note-content">
-                    <div style="text-align:center; padding: 40px; color: var(--text-muted);">
-                        <i class="fa-regular fa-file-lines" style="font-size: 3rem; opacity: 0.5; margin-bottom: 15px;"></i>
-                        <p>No notes available for this course.</p>
-                    </div>
-                </div>
+            <div id="tab-overview" class="tab-content content-card">
+                <h3 style="margin-bottom:15px; color:#fff; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">About this Course</h3>
+                <p id="cOverview" class="text-content">No overview provided.</p>
             </div>
+
         </div>
 
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h3><i class="fa-solid fa-layer-group" style="color: var(--primary);"></i> Course Modules</h3>
+        <div class="playlist-sidebar">
+            <div class="playlist-header">
+                <h3><i class="fa-solid fa-list-check" style="color:var(--primary);"></i> Class Modules</h3>
             </div>
-            <div id="lectureList" class="lecture-list">
-                <div style="padding: 30px; text-align: center; color: var(--text-muted);">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading...
+            
+            <div id="lectureList" class="module-list">
+                <div style="padding:30px; text-align:center; color:var(--text-muted);">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Syncing...
                 </div>
             </div>
         </div>
@@ -257,71 +242,85 @@
     </div>
 
     <script>
-        const API_URL = 'https://careerlift-lms.onrender.com/api/courses';
-        
-        document.addEventListener('DOMContentLoaded', async () => {
-            // 1. Check Auth
-            const user = localStorage.getItem('user');
-            if(!user) {
-                window.location.href = 'login.html';
-                return;
-            }
+        const API_URL = 'https://careerlift-lms.onrender.com/api/courses'; 
 
-            // 2. Get Course ID
+        // Helper: Drive Image Fix
+        function processDriveLink(url) {
+            if (url && url.includes('drive.google.com')) {
+                try {
+                    const idPart = url.split('/d/')[1];
+                    const imageId = idPart.split('/')[0];
+                    return `https://lh3.googleusercontent.com/d/${imageId}`;
+                } catch (err) { return url; }
+            }
+            return url;
+        }
+
+        // 🔥 SMART ICON DETECTOR
+        function getLinkMetadata(link) {
+            if (!link) return { icon: 'fa-lock', type: 'Locked', brand: 'brand-default' };
+            
+            const lowerLink = link.toLowerCase();
+            
+            if (lowerLink.includes('meet.google.com')) {
+                return { icon: 'fa-video', type: 'Google Meet', brand: 'brand-meet' };
+            }
+            if (lowerLink.includes('zoom.us')) {
+                return { icon: 'fa-video', type: 'Zoom Meeting', brand: 'brand-zoom' };
+            }
+            if (lowerLink.includes('youtube.com') || lowerLink.includes('youtu.be')) {
+                return { icon: 'fa-youtube', type: 'YouTube Video', brand: 'brand-youtube' };
+            }
+            if (lowerLink.includes('drive.google.com')) {
+                return { icon: 'fa-google-drive', type: 'Drive Resource', brand: 'brand-meet' }; // reusing green
+            }
+            
+            return { icon: 'fa-play-circle', type: 'Class Link', brand: 'brand-default' };
+        }
+
+        // Tab Logic
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = localStorage.getItem('user');
+            if(!user) { window.location.href = 'login.html'; return; }
+
             const urlParams = new URLSearchParams(window.location.search);
             const courseId = urlParams.get('id');
+            if(!courseId) { window.location.href = 'courses.html'; return; }
 
-            if(!courseId) {
-                alert("No course selected");
-                window.location.href = 'courses.html';
-                return;
-            }
-
-            // 3. Fetch Data
             try {
                 const res = await fetch(`${API_URL}`); 
                 const courses = await res.json();
                 const course = courses.find(c => c._id === courseId);
 
-                if(course) {
-                    renderCourseDetails(course);
-                } else {
-                    alert("Course not found!");
-                    window.location.href = 'courses.html';
-                }
+                if(course) renderCourseDetails(course);
+                else window.location.href = 'courses.html';
             } catch(err) {
                 console.error(err);
-                alert("Error loading course data.");
+                alert("Connection Error");
             }
         });
 
         function renderCourseDetails(course) {
-            // Fill Basic Info
+            // Hero
             document.getElementById('cTitle').innerText = course.title;
-            document.getElementById('cOverview').innerText = course.overview || "No overview provided for this course.";
+            document.getElementById('cBadge').innerText = course.category || "General";
             
-            // Notes - Check if empty
-            const noteText = course.classNote || course.paidNote;
-            if(noteText) {
-                document.getElementById('cNote').innerText = noteText;
-            }
+            const imgUrl = processDriveLink(course.thumbnail);
+            document.getElementById('heroBg').style.backgroundImage = `url('${imgUrl}')`;
 
-            // Badge Logic
-            const badge = document.getElementById('cBadge');
-            badge.innerText = course.category || "General";
-            
-            if(course.type === 'free') {
-                badge.style.borderColor = '#22c55e';
-                badge.style.color = '#22c55e';
-                badge.style.background = 'rgba(34, 197, 94, 0.1)';
-            } else {
-                // Keep default primary color for Paid
-                badge.style.borderColor = '#38bdf8';
-                badge.style.color = '#38bdf8';
-                badge.style.background = 'rgba(56, 189, 248, 0.15)';
-            }
+            // Content
+            document.getElementById('cOverview').innerText = course.overview || "No overview available.";
+            const noteText = course.classNote || course.paidNote || "No notes available currently.";
+            document.getElementById('cNote').innerHTML = noteText.replace(/\n/g, '<br>');
 
-            // Fill Sidebar (Lectures)
+            // Sidebar List
             const list = document.getElementById('lectureList');
             list.innerHTML = ''; 
 
@@ -335,29 +334,17 @@
         function renderFreeContent(course, list) {
             let html = '';
             
-            // 1. Main Resource Link
-            if(course.videoLink) {
-                html += `
-                    <div class="lecture-item" onclick="openLink('${course.videoLink}')">
-                        <div class="lec-info">
-                            <span class="lec-title">Class Resource Link</span>
-                            <span class="lec-meta"><i class="fa-solid fa-link"></i> External Resource</span>
-                        </div>
-                        <div class="lec-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
-                    </div>
-                `;
-            } else {
-                html += `<div style="padding:20px; text-align:center; color:#64748b; font-size:0.9rem;">No external link provided.</div>`;
+            // Syllabus
+            if(course.syllabus) {
+                html += createSmartItem('Syllabus & Outline', '#', 'Syllabus', 'fa-list-ul', 'brand-default', false);
             }
 
-            // 2. Syllabus (Text)
-            if(course.syllabus) {
-                html += `
-                    <div style="padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 15px;">
-                        <h4 style="color:#f1f5f9; font-size:0.95rem; margin-bottom:10px;"><i class="fa-solid fa-list-ul"></i> Syllabus Outline</h4>
-                        <p style="color:#94a3b8; font-size:0.9rem; line-height:1.6; white-space:pre-line;">${course.syllabus}</p>
-                    </div>
-                `;
+            // Video Link (Smart Detection)
+            if(course.videoLink) {
+                const meta = getLinkMetadata(course.videoLink);
+                html += createSmartItem('Free Class Resource', course.videoLink, meta.type, meta.icon, meta.brand, true);
+            } else {
+                html += `<div style="text-align:center; padding:20px; color:#64748b; font-size:0.9rem;">No resources added yet.</div>`;
             }
 
             list.innerHTML = html;
@@ -365,31 +352,39 @@
 
         function renderPaidContent(course, list) {
             if(!course.lectures || course.lectures.length === 0) {
-                list.innerHTML = `<div style="padding:20px; text-align:center; color:#64748b;">No lectures scheduled yet.</div>`;
+                list.innerHTML = `<div style="text-align:center; padding:20px; color:#64748b; font-size:0.9rem;">No lectures scheduled.</div>`;
                 return;
             }
 
             course.lectures.forEach((lec, index) => {
-                const lectureHtml = `
-                    <div class="lecture-item" onclick="openLink('${lec.link}')">
-                        <div class="lec-info">
-                            <span class="lec-title">Lecture ${index + 1}: ${lec.title}</span>
-                            <span class="lec-meta"><i class="fa-solid fa-video"></i> Video Class</span>
-                        </div>
-                        <div class="lec-icon">
-                            <i class="fa-solid fa-play"></i>
-                        </div>
-                    </div>
-                `;
-                list.innerHTML += lectureHtml;
+                const meta = getLinkMetadata(lec.link);
+                const title = lec.title || `Lecture ${index + 1}`;
+                
+                list.innerHTML += createSmartItem(title, lec.link, meta.type, meta.icon, meta.brand, true);
             });
+        }
+
+        function createSmartItem(title, link, typeText, iconClass, brandClass, isClickable) {
+            const clickAttr = isClickable ? `onclick="openLink('${link}')"` : '';
+            const arrow = isClickable ? '<i class="fa-solid fa-chevron-right" style="color:var(--text-muted); font-size:0.8rem;"></i>' : '';
+
+            return `
+                <div class="module-item ${brandClass}" ${clickAttr}>
+                    <div class="icon-box">
+                        <i class="fa-solid ${iconClass}"></i>
+                    </div>
+                    <div class="module-info">
+                        <span class="module-title">${title}</span>
+                        <span class="module-type">${typeText}</span>
+                    </div>
+                    ${arrow}
+                </div>
+            `;
         }
 
         function openLink(link) {
             if(link && link !== '#') {
                 window.open(link, '_blank');
-            } else {
-                alert("The link for this item is not available yet.");
             }
         }
     </script>

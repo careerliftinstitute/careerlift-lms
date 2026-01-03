@@ -3,105 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareerLift Skill Development Institute</title>
+    <title>CareerLift | Skill Development & Study Abroad</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/nav-footer.css">
     <link rel="stylesheet" href="css/courses.css">
 
     <style>
-        /* Forces the circle behind the logo to be white */
-        .cert-icon-wrapper {
-            background-color: #ffffff !important; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            width: 80px;  /* Ensure fixed size */
-            height: 80px; /* Ensure fixed size */
-            border-radius: 50%;
-            margin-bottom: 15px;
+        /* --- GENERAL HELPERS --- */
+        .section-header-flex {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 20px;
         }
-        
-        /* Controls the logo size inside the white circle */
-        .cert-icon-wrapper img.cert-logo-img {
-            width: 70%; 
-            height: auto;
-            object-fit: contain;
-            display: block;
+
+        /* --- HERO SECTION --- */
+        .hero-home {
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)), 
+                        url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            min-height: 90vh; display: flex; align-items: center; position: relative; padding-top: 80px;
+        }
+        .hero-content-wrapper { max-width: 800px; }
+        .hero-badge-pill {
+            background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--color-primary); padding: 8px 20px; border-radius: 50px;
+            font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; display: inline-block;
+            margin-bottom: 20px; backdrop-filter: blur(5px);
+        }
+        .hero-title-large { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; font-weight: 700; color: #fff; }
+
+        /* --- FLOATING STATS --- */
+        .floating-stats {
+            background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 40px 0; margin-top: -60px; position: relative; z-index: 10;
+        }
+        .stats-container { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; text-align: center; }
+        .stat-box h3 { font-size: 2.5rem; color: #fff; margin: 0; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-box p { color: var(--color-primary); font-size: 0.95rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- LOGO CIRCLE --- */
+        .cert-icon-wrapper {
+            background-color: #ffffff !important; display: flex; align-items: center; justify-content: center;
+            width: 80px; height: 80px; border-radius: 50%; margin-bottom: 15px; box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+        .cert-icon-wrapper img.cert-logo-img { width: 70%; height: auto; object-fit: contain; display: block; }
+
+        /* --- SLIDER & CARDS CSS --- */
+        .slider-wrapper {
+            position: relative; overflow: hidden; padding: 20px 0 40px 0;
+        }
+        .slider-track {
+            display: flex; gap: 30px; overflow-x: auto; scroll-behavior: smooth;
+            padding: 0 10px; scrollbar-width: none;
+        }
+        .slider-track::-webkit-scrollbar { display: none; }
+
+        .slider-card {
+            flex: 0 0 360px; /* Fixed Width */
+            height: 460px;   /* Fixed Height */
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
+            padding: 40px 30px; display: flex; flex-direction: column; justify-content: flex-start;
+            position: relative; transition: all 0.4s ease;
+        }
+        .slider-card:hover {
+            transform: translateY(-10px); background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 1));
+            border-color: var(--color-primary); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Service Specifics */
+        .service-icon-box {
+            width: 70px; height: 70px; border-radius: 15px; display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; margin-bottom: 25px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+        .slider-card:hover .service-icon-box { background: var(--color-primary); color: #000 !important; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+        .card-title { color: #fff; font-size: 1.4rem; font-weight: 700; margin-bottom: 15px; }
+        .card-desc { color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.7; flex-grow: 1; }
+        .card-link { margin-top: 20px; color: var(--color-primary); font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .card-link:hover { gap: 12px; color: #fff; }
+
+        /* Testimonial Specifics */
+        .quote-icon { font-size: 2rem; color: rgba(255,255,255,0.1); margin-bottom: 15px; }
+        .review-text { color: #cbd5e1; font-style: italic; font-size: 1rem; line-height: 1.8; flex-grow: 1; }
+        .user-profile {
+            display: flex; align-items: center; gap: 15px; margin-top: 25px; padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .user-avatar {
+            width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; color: #000; font-size: 1.1rem; border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        /* Navigation Buttons */
+        .slider-nav { display: flex; gap: 15px; }
+        .nav-btn {
+            width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+        }
+        .nav-btn:hover { background: var(--color-primary); border-color: var(--color-primary); color: #000; transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            .hero-title-large { font-size: 2.5rem; }
+            .floating-stats { margin-top: 0; }
+            .section-header-flex { flex-direction: column; align-items: flex-start; }
+            .slider-card { flex: 0 0 300px; height: 420px; padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
-            </a>
-            <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
-            <ul class="nav-links" id="navMenu">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="courses.html">Courses</a></li>
-                <li><a href="studyabroad.html">Study Abroad</a></li>
-                <li><a href="services.html">Services</a></li>
-                
-                <li><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
-                <li><a href="register.html" class="join-btn" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
-            </ul>
-        </div>
-    </nav>
+<nav class="navbar" id="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+        </a>
+        <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+        <ul class="nav-links" id="navMenu">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="studyabroad.html">Study Abroad</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            
+            <li class="auth-item"><a href="login.html" class="btn btn-outline" style="padding: 8px 24px; font-size:0.9rem;">Login</a></li>
+            <li class="auth-item"><a href="register.html" class="join-btn" style="padding: 8px 24px; font-size:0.9rem;">Join Free</a></li>
+        </ul>
+    </div>
+</nav>
 
     <section class="hero-home">
         <div class="container">
-            <div class="hero-grid">
+            <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center;">
                 
-                <div class="hero-text">
-                    <div class="hero-badge">
-                        <i class="fa-solid fa-check-circle"></i> NSDA Recognized Institute
+                <div class="hero-content-wrapper">
+                    <div class="hero-badge-pill">
+                        <i class="fa-solid fa-certificate"></i> NSDA Recognized Institute
                     </div>
-                    
-                    <h1 class="hero-title">
-                        CareerLift <span class="text-primary">Skill Development Institute</span>
+                    <h1 class="hero-title-large">
+                        Launch Your <span class="text-primary">Global Career</span> With Us.
                     </h1>
-                    <h3 class="hero-subtitle">A Place to Build Your Dreams</h3>
-                    
-                    <p class="hero-description">
-                        We bridge the gap between education and employment. Expert training in Caregiving, Medical Scribing, and Visa Consultancy.
+                    <p style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.7; margin-bottom: 30px;">
+                        CareerLift bridges the gap between education and employment. Expert training in <strong>Caregiving</strong>, <strong>IT Skills</strong>, and complete <strong>Visa Solutions</strong>.
                     </p>
-                    
-                    <div class="hero-buttons">
-                        <a href="courses.html" class="btn btn-primary">Explore Courses</a>
-                        <a href="#contact" class="btn btn-outline">Contact Us</a>
-                    </div>
-
-                    <div class="stats-bar">
-                        <div class="stat-item">
-                            <i class="fa-solid fa-calendar-check"></i>
-                            <div><strong>1+</strong><span>Year Exp.</span></div>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fa-solid fa-user-graduate"></i>
-                            <div><strong>500+</strong><span>Students</span></div>
-                        </div>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <a href="courses.html" class="btn btn-primary" style="padding: 12px 30px; font-size: 1rem;">Explore Courses</a>
+                        <a href="studyabroad.html" class="btn btn-outline" style="padding: 12px 30px; font-size: 1rem;">Visa Consultancy</a>
                     </div>
                 </div>
 
-                <div class="glass-panel cert-box">
-                    <div class="cert-icon-wrapper">
-                        <img src="https://drive.google.com/thumbnail?id=1vhq3Ez34Iyu1jrFhbM3XXnghdagRZfMj&sz=w500" 
-                             alt="CareerLift Logo" 
-                             class="cert-logo-img" 
-                             referrerpolicy="no-referrer">
+                <div class="glass-panel cert-box" style="text-align: center; padding: 40px; border-top: 4px solid var(--color-primary);">
+                    <div style="display: flex; justify-content: center;">
+                        <div class="cert-icon-wrapper">
+                            <img src="https://drive.google.com/thumbnail?id=1vhq3Ez34Iyu1jrFhbM3XXnghdagRZfMj&sz=w500" 
+                                 alt="CareerLift Logo" class="cert-logo-img" referrerpolicy="no-referrer">
+                        </div>
                     </div>
-                    <h3>Skill to Success</h3>
-                    <p>Govt. Recognized Certification</p>
-                    <div class="cert-divider"></div>
-                    <p class="cert-quote">"Empowering careers through practical skills and global opportunities."</p>
+                    <h3 style="color: #fff; font-size: 1.5rem;">CareerLift Institute</h3>
+                    <p style="color: var(--color-text-muted); margin-bottom: 20px;">Skill to Success</p>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                        <p style="font-style: italic; color: #cbd5e1;">"Empowering 500+ students to find careers in UK, Japan & Canada."</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="floating-stats">
+        <div class="container stats-container">
+            <div class="stat-box">
+                <h3>500+</h3>
+                <p>Students Trained</p>
+            </div>
+            <div class="stat-box">
+                <h3>98%</h3>
+                <p>Success Rate</p>
+            </div>
+<div class="stat-box">
+    <h3><i class="fa-solid fa-earth-americas"></i></h3>
+    <p>Global Partners</p>
+</div>
+            <div class="stat-box">
+                <h3>100%</h3>
+                <p>Job Assistance</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header-flex">
+                <div>
+                    <h2>Our Premium <span class="text-primary">Services</span></h2>
+                    <p style="color: var(--color-text-muted);">Comprehensive solutions designed for your career growth.</p>
+                </div>
+                <div class="slider-nav">
+                    <button class="nav-btn" onclick="scrollSlider('serviceTrack', -390)"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="nav-btn" onclick="scrollSlider('serviceTrack', 390)"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="slider-wrapper">
+                <div class="slider-track" id="serviceTrack">
+                    
+                    <div class="slider-card">
+                        <div class="service-icon-box" style="color: #38bdf8;">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h3 class="card-title">Skill Development</h3>
+                        <p class="card-desc">
+                            Professional training in IT, Caregiving, and Languages. We follow the official NSDA curriculum to ensure you are job-ready for both local and global markets.
+                        </p>
+                        <a href="courses.html" class="card-link">Explore Courses <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="slider-card">
+                        <div class="service-icon-box" style="color: #a855f7;">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="card-title">OTHM (UK Diploma)</h3>
+                        <p class="card-desc">
+                            <strong>Pathway to UK University:</strong> Complete your Level 3-5 Diploma here at a low cost, then transfer to a UK university for the final year to earn a full degree.
+                        </p>
+                        <a href="#" class="card-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="slider-card">
+                        <div class="service-icon-box" style="color: #22c55e;">
+                            <i class="fa-solid fa-plane-departure"></i>
+                        </div>
+                        <h3 class="card-title">Study Abroad</h3>
+                        <p class="card-desc">
+                            End-to-end Visa processing for UK, Canada, Malaysia & Japan. We handle university admission, bank solvency, and file processing with a high success rate.
+                        </p>
+                        <a href="studyabroad.html" class="card-link">Visa Guide <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="slider-card">
+                        <div class="service-icon-box" style="color: #f97316;">
+                            <i class="fa-solid fa-user-doctor"></i>
+                        </div>
+                        <h3 class="card-title">Skilled Worker</h3>
+                        <p class="card-desc">
+                            We supply trained Caregivers and Medical Assistants to international hospitals and clinics. Bridging the gap between skilled Bangladeshi workers and global employers.
+                        </p>
+                        <a href="#" class="card-link">Contact Us <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: rgba(0,0,0,0.2);">
+        <div class="container">
+            <div class="section-header-flex">
+                <div>
+                    <h2>Featured <span class="text-primary">Courses</span></h2>
+                    <p style="color: var(--color-text-muted);">Start learning today, start earning tomorrow.</p>
+                </div>
+                <a href="courses.html" class="btn btn-outline">View All Courses <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="course-grid-home">
+                
+                <div class="glass-panel course-preview">
+                    <img src="https://drive.google.com/thumbnail?id=1P5kYmDfKsZTpjY_BhEnKlt45EBLz96Ok&sz=w600" alt="Caregiving L2" referrerpolicy="no-referrer">
+                    <div class="course-content">
+                        <span class="badge badge-blue">Beginner</span>
+                        <h3 style="margin-top: 10px;">Care Giving Level-2</h3>
+                        <div class="course-meta">
+                            <span><i class="fa-solid fa-star text-yellow"></i> 5.0</span>
+                            <span><i class="fa-solid fa-certificate"></i> NSDA Certified</span>
+                        </div>
+                        <a href="courses.html" class="btn btn-primary" style="width:100%; text-align:center; margin-top: 15px;">View Details</a>
+                    </div>
+                </div>
+
+                <div class="glass-panel course-preview">
+                    <img src="https://drive.google.com/thumbnail?id=1UZkykmZxf6K8_YQUc-HH2N5B9uAAwmgn&sz=w600" alt="Computer Op" referrerpolicy="no-referrer">
+                    <div class="course-content">
+                        <span class="badge badge-purple">IT Skills</span>
+                        <h3 style="margin-top: 10px;">Computer Operation Level-3</h3>
+                        <div class="course-meta">
+                            <span><i class="fa-solid fa-star text-yellow"></i> 4.9</span>
+                            <span><i class="fa-solid fa-laptop-code"></i> Office Mgmt</span>
+                        </div>
+                        <a href="courses.html" class="btn btn-primary" style="width:100%; text-align:center; margin-top: 15px;">View Details</a>
+                    </div>
+                </div>
+
+                <div class="glass-panel course-preview">
+                    <img src="https://drive.google.com/thumbnail?id=1MCMI9M8gzGK-NdMI8u44f4JBTsSWJsD4&sz=w600" alt="Caregiving L3" referrerpolicy="no-referrer">
+                    <div class="course-content">
+                        <span class="badge badge-pink">Advanced</span>
+                        <h3 style="margin-top: 10px;">Care Giving Level-3</h3>
+                        <div class="course-meta">
+                            <span><i class="fa-solid fa-star text-yellow"></i> 5.0</span>
+                            <span><i class="fa-solid fa-user-nurse"></i> Job Ready</span>
+                        </div>
+                        <a href="courses.html" class="btn btn-primary" style="width:100%; text-align:center; margin-top: 15px;">View Details</a>
+                    </div>
                 </div>
 
             </div>
@@ -110,135 +317,115 @@
 
     <section class="section-padding">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 60px;">
-                <h2>Our Core <span class="text-primary">Services</span></h2>
-                <p style="color: var(--color-text-muted);">Comprehensive solutions for Students & Professionals.</p>
-            </div>
-
-            <div class="services-grid">
-                <div class="glass-panel service-card">
-                    <div class="service-icon icon-blue">
-                        <i class="fa-solid fa-user-nurse"></i>
-                    </div>
-                    <h3>Medical & Care</h3>
-                    <p>Caregiving (Level 2 & 3) and Medical Scribing for high-paying jobs abroad.</p>
-                    <a href="courses.html" class="link-arrow">View Courses <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-
-                <div class="glass-panel service-card">
-                    <div class="service-icon icon-purple">
-                        <i class="fa-solid fa-plane-departure"></i>
-                    </div>
-                    <h3>Study Abroad</h3>
-                    <p>No assessment fee. Visa guidance for UK, Canada, Australia & Europe.</p>
-                    <a href="studyabroad.html" class="link-arrow">Visa Guide <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-
-                <div class="glass-panel service-card">
-                    <div class="service-icon icon-pink">
-                        <i class="fa-solid fa-laptop-code"></i>
-                    </div>
-                    <h3>Freelancing</h3>
-                    <p>Digital Marketing & Graphics Design courses with marketplace support.</p>
-                    <a href="courses.html" class="link-arrow">Start Earning <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-padding" style="background: rgba(0,0,0,0.2);">
-        <div class="container">
-            <div class="section-header" style="display:flex; justify-content:space-between; align-items:end; margin-bottom:40px; flex-wrap:wrap; gap:20px;">
+            <div class="section-header-flex">
                 <div>
-                    <h2>Featured <span class="text-primary">Programs</span></h2>
-                    <p style="color: var(--color-text-muted);">In-demand skills with certificate.</p>
+                    <h2>Student <span class="text-primary">Success Stories</span></h2>
+                    <p style="color: var(--color-text-muted);">Real stories from our graduates working globally.</p>
                 </div>
-                <a href="courses.html" class="btn btn-outline view-all-btn">View All</a>
+                <div class="slider-nav">
+                    <button class="nav-btn" onclick="scrollSlider('reviewTrack', -390)"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="nav-btn" onclick="scrollSlider('reviewTrack', 390)"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
             </div>
 
-            <div class="course-grid-home">
-                
-                <div class="glass-panel course-preview">
-                    <img src="https://drive.google.com/thumbnail?id=1P5kYmDfKsZTpjY_BhEnKlt45EBLz96Ok&sz=w600" alt="Caregiving" referrerpolicy="no-referrer">
-                    <div class="course-content">
-                        <span class="badge badge-blue">Job Ready</span>
-                        <h3>Caregiving (Level 2 & 3)</h3>
-                        <div class="course-meta">
-                            <span><i class="fa-solid fa-star text-yellow"></i> 5.0</span>
-                            <span>Elderly Care</span>
+            <div class="slider-wrapper">
+                <div class="slider-track" id="reviewTrack">
+                    
+                    <div class="slider-card">
+                        <i class="fa-solid fa-quote-left quote-icon"></i>
+                        <p class="review-text">
+                            "CareerLift changed my life. The Caregiving course was so practical. I got my visa for the UK within 3 months of completing the course. The instructors are amazing!"
+                        </p>
+                        <div class="user-profile">
+                            <div class="user-avatar" style="background:#38bdf8;">RA</div>
+                            <div>
+                                <h4 style="color: #fff; font-size: 1rem; margin: 0;">Rahim Ahmed</h4>
+                                <span style="font-size: 0.85rem; color: var(--color-primary);">Care Worker, UK</span>
+                            </div>
                         </div>
-                        <a href="courses.html" class="btn btn-primary" style="width:100%; text-align:center;">View Details</a>
                     </div>
-                </div>
 
-                <div class="glass-panel course-preview">
-                    <img src="https://drive.google.com/thumbnail?id=1UZkykmZxf6K8_YQUc-HH2N5B9uAAwmgn&sz=w600" alt="Medical Scribing" referrerpolicy="no-referrer">
-                    <div class="course-content">
-                        <span class="badge badge-purple">Hot Career</span>
-                        <h3>Medical Scribing</h3>
-                        <div class="course-meta">
-                            <span><i class="fa-solid fa-star text-yellow"></i> 4.9</span>
-                            <span>Dr. Assistant</span>
+                    <div class="slider-card">
+                        <i class="fa-solid fa-quote-left quote-icon"></i>
+                        <p class="review-text">
+                            "I completed Computer Operation Level-3 here. The lab facilities are great. Now I am working as an Admin Officer in a reputed company in Dhaka."
+                        </p>
+                        <div class="user-profile">
+                            <div class="user-avatar" style="background:#a855f7;">SJ</div>
+                            <div>
+                                <h4 style="color: #fff; font-size: 1rem; margin: 0;">Sadia Jahan</h4>
+                                <span style="font-size: 0.85rem; color: var(--color-secondary);">Admin Officer, Dhaka</span>
+                            </div>
                         </div>
-                        <a href="courses.html" class="btn btn-primary" style="width:100%; text-align:center;">View Details</a>
                     </div>
-                </div>
 
-                <div class="glass-panel course-preview">
-                    <img src="https://drive.google.com/thumbnail?id=1MCMI9M8gzGK-NdMI8u44f4JBTsSWJsD4&sz=w600" alt="Diplomas" referrerpolicy="no-referrer">
-                    <div class="course-content">
-                        <span class="badge badge-pink">UK Level-3</span>
-                        <h3>Intl. Diplomas</h3>
-                        <div class="course-meta">
-                            <span><i class="fa-solid fa-star text-yellow"></i> 5.0</span>
-                            <span>Health/IT</span>
+                    <div class="slider-card">
+                        <i class="fa-solid fa-quote-left quote-icon"></i>
+                        <p class="review-text">
+                            "The OTHM program guidance was excellent. I finished my Diploma here and now I am applying for my final year at a UK University. Highly recommended!"
+                        </p>
+                        <div class="user-profile">
+                            <div class="user-avatar" style="background:#f97316;">TI</div>
+                            <div>
+                                <h4 style="color: #fff; font-size: 1rem; margin: 0;">Tanvir Islam</h4>
+                                <span style="font-size: 0.85rem; color: #f97316;">Student, UK Pathway</span>
+                            </div>
                         </div>
-                        <a href="courses.html" class="btn btn-primary" style="width:100%; text-align:center;">View Details</a>
                     </div>
-                </div>
 
+                    <div class="slider-card">
+                        <i class="fa-solid fa-quote-left quote-icon"></i>
+                        <p class="review-text">
+                            "I got my Skilled Worker Visa for Japan through CareerLift. Their language training and processing support were 10/10. Thank you CareerLift family!"
+                        </p>
+                        <div class="user-profile">
+                            <div class="user-avatar" style="background:#22c55e;">MK</div>
+                            <div>
+                                <h4 style="color: #fff; font-size: 1rem; margin: 0;">Mitu Khanom</h4>
+                                <span style="font-size: 0.85rem; color: #22c55e;">Caregiver, Japan</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="section-padding">
+    <section id="contact" class="section-padding" style="background: linear-gradient(to top, #020617, rgba(30, 41, 59, 0.5));">
         <div class="container contact-grid">
-            
             <div>
-                <h1>Let's Start Your <br> <span class="text-primary">Journey Today</span></h1>
+                <h1 style="font-size: 2.5rem;">Have Questions? <br> <span class="text-primary">Let's Talk.</span></h1>
                 <p style="color: var(--color-text-muted); margin: 20px 0; max-width: 450px; line-height: 1.6;">
-                    Have questions about courses or visa processing? Fill out the form and our team will get back to you within 24 hours.
+                    Whether you need career advice, course details, or visa assistance, our team is here to help you 24/7.
                 </p>
-                
                 <div class="contact-info-box" style="margin-top:30px; display:flex; flex-direction:column; gap:20px;">
-                    <div class="contact-row">
+                    <div class="contact-row" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px;">
                         <div class="icon-circle icon-blue"><i class="fa-solid fa-phone"></i></div>
                         <div>
-                            <span class="label">Phone / WhatsApp</span>
-                            <strong style="color:#fff;">+880 1814304081</strong>
+                            <span class="label">Call / WhatsApp</span>
+                            <strong style="color:#fff; display: block;">+880 1814304081</strong>
                         </div>
                     </div>
-                    <div class="contact-row">
+                    <div class="contact-row" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px;">
                         <div class="icon-circle icon-purple"><i class="fa-solid fa-envelope"></i></div>
                         <div>
-                            <span class="label">Email</span>
-                            <strong style="color:#fff;">careerliftinstitute@gmail.com</strong>
+                            <span class="label">Email Us</span>
+                            <strong style="color:#fff; display: block;">careerliftinstitute@gmail.com</strong>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-panel" style="padding: 40px;">
-                <h3 style="margin-bottom: 20px; color:#fff;">Send a Message</h3>
+            <div class="glass-panel" style="padding: 40px; border-top: 4px solid var(--color-primary);">
+                <h3 style="margin-bottom: 20px; color:#fff;">Request Free Consultation</h3>
                 <form id="contactForm">
                     <input type="hidden" name="access_key" value="743412d6-f3d2-438c-a846-8d8e2a6ef8cb">
-                    
                     <input type="hidden" name="subject" value="CareerLift: New Home Contact">
-                    
                     <input type="checkbox" name="botcheck" style="display: none;">
 
-                    <input type="text" name="name" placeholder="Your Name" class="glass-input" required>
-                    <input type="email" name="email" placeholder="Your Email" class="glass-input" required>
+                    <input type="text" name="name" placeholder="Your Full Name" class="glass-input" required>
+                    <input type="email" name="email" placeholder="Your Email Address" class="glass-input" required>
                     <input type="tel" name="phone" placeholder="Phone Number" class="glass-input" required>
                     
                     <textarea name="message" rows="4" placeholder="How can we help you?" class="glass-input" required></textarea>
@@ -276,18 +463,13 @@
                     <li><a href="#">Terms of Service</a></li>
                 </ul>
             </div>
-            
             <div class="footer-col">
                 <h4>Social</h4>
                 <div style="display: flex; gap: 15px;">
                     <a href="https://www.facebook.com/careerliftskill/" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook fa-lg"></i></a>
                     <a href="https://www.youtube.com/@CareerliftInstitute" class="social-icon" title="YouTube"><i class="fa-brands fa-youtube fa-lg"></i></a>
                     <a href="#" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin fa-lg"></i></a>
-                    
-                    <a href="#" class="social-icon" title="X (Twitter)">
-                        <i class="fa-brands fa-x-twitter fa-lg"></i>
-                    </a>
-                    
+                    <a href="#" class="social-icon" title="X (Twitter)"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
                     <a href="https://wa.me/8801814304081" target="_blank" class="social-icon" title="WhatsApp" style="color: #25D366;">
                         <i class="fa-brands fa-whatsapp fa-lg"></i>
                     </a>
@@ -302,7 +484,7 @@
     <div id="successPopup">
         <div class="popup-content">
             <i class="fa-solid fa-check-circle" style="font-size: 4rem; color: var(--color-primary); margin-bottom: 20px;"></i>
-            <h2>Message Sent!</h2>
+            <h2 style="color: #fff;">Message Sent!</h2>
             <p style="color: var(--color-text-muted); margin-bottom: 20px;">
                 Thank you for contacting us. We will get back to you shortly.
             </p>
@@ -314,9 +496,14 @@
     <script src="js/auth.js"></script> 
     
     <script>
+        // Form Logic
         const contactForm = document.getElementById('contactForm');
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const btn = contactForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
             const formData = new FormData(e.target);
             try {
                 const res = await fetch("https://api.web3forms.com/submit", {
@@ -324,12 +511,25 @@
                     headers: { "Content-Type": "application/json", Accept: "application/json" },
                     body: JSON.stringify(Object.fromEntries(formData))
                 }).then(r => r.json());
+                
                 if (res.success) {
                     contactForm.reset();
                     document.getElementById('successPopup').classList.add('active');
-                } else { alert("Failed to send message."); }
-            } catch (err) { alert("Network error."); }
+                } else { 
+                    alert("Failed to send message."); 
+                }
+            } catch (err) { 
+                alert("Network error."); 
+            } finally {
+                btn.innerHTML = originalText;
+            }
         });
+
+        // SLIDER LOGIC
+        function scrollSlider(id, amount) {
+            const container = document.getElementById(id);
+            container.scrollBy({ left: amount, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
