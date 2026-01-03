@@ -1,17 +1,19 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/about", "destination": "/about.html" },
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/course-view", "destination": "/course-view.html" },
     { "source": "/courses", "destination": "/courses.html" },
     { "source": "/login", "destination": "/login.html" },
-    { "source": "/profile", "destination": "/profile.html" },
     { "source": "/register", "destination": "/register.html" },
+    { "source": "/profile", "destination": "/profile.html" },
     { "source": "/services", "destination": "/services.html" },
     { "source": "/studyabroad", "destination": "/studyabroad.html" },
-
-    
-    { "source": "/:path*", "destination": "/:path*.html" }
+    { "source": "/course-view", "destination": "/course-view.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/js/(.*)", "destination": "/js/$1" },
+    { "source": "/css/(.*)", "destination": "/css/$1" },
+    { "source": "/assets/(.*)", "destination": "/assets/$1" }
   ]
 }
