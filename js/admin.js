@@ -1,417 +1,292 @@
 /* js/admin.js */
 
-// 🔥 FIX: Renamed variable to avoid conflict with auth.js
-/* js/admin.js */
+ const ADMIN_API = "https://careerlift-lms.onrender.com/api";
+//const ADMIN_API = "http://localhost:5000/api";
+let allCoursesList = []; // ডাটা স্টোর করার জন্য গ্লোবাল ভেরিয়েবল
 
-// আগের localhost লিংকটি মুছে নিচেরটি বসান:
-const ADMIN_API = "https://careerlift-lms.onrender.com/api";
-
-// ==========================================
-// GOOGLE DRIVE MAGIC LINK
-// ==========================================
+// Google Drive Link Helper
 function processDriveLink(url) {
     if (url && url.includes('drive.google.com')) {
         try {
-            const idPart = url.split('/d/')[1];
-            const imageId = idPart.split('/')[0];
-            return `https://lh3.googleusercontent.com/d/${imageId}`;
-        } catch (err) {
-            console.error("Link conversion failed", err);
-            return url;
-        }
+            const id = url.split('/d/')[1].split('/')[0];
+            return `https://lh3.googleusercontent.com/d/${id}`;
+        } catch (err) { return url; }
     }
     return url;
 }
 
-// ==============================
-// ADMIN AUTH CHECK & INIT
-// ==============================
+// INIT
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Check Login
     const userStr = localStorage.getItem("user");
-    if (!userStr) {
-        window.location.href = "login.html";
-        return;
-    }
-
-    // 2. Check Admin Role
+    if (!userStr) { window.location.href = "login.html"; return; }
     const user = JSON.parse(userStr);
-    if (user.role !== "admin") {
-        alert("Access Denied: Admins only!");
-        window.location.href = "index.html";
-        return;
-    }
-
-    // 3. Load Data
-    console.log("Admin Loaded. Fetching data...");
+    if (user.role !== "admin") { alert("Access Denied!"); window.location.href = "index.html"; return; }
+    
     fetchUsers();
     fetchCourses();
     fetchEnrollments();
 });
 
-// ===========================
-// SECTION NAVIGATION
-// ===========================
-function showSection(id) {
-    // Hide all sections
+// GLOBAL FUNCTIONS
+window.showSection = function(id) {
     document.querySelectorAll(".admin-section").forEach(s => s.classList.remove("active"));
-    // Show clicked section
-    const activeSection = document.getElementById(id);
-    if (activeSection) activeSection.classList.add("active");
-
-    // Update Menu Active State
-    // (We use a simple approach to find the clicked menu item based on text or icon logic is hard from JS alone, 
-    // so we rely on the HTML onclick to handle the visual toggle if needed, or simply reset all)
     document.querySelectorAll(".menu li").forEach(li => li.classList.remove("active"));
     
-    // Attempt to highlight the clicked item if event exists
-    if(window.event && window.event.currentTarget) {
-        window.event.currentTarget.classList.add("active");
-    }
-}
+    const activeSection = document.getElementById(id);
+    if (activeSection) activeSection.classList.add("active");
+    
+    if(event && event.currentTarget) event.currentTarget.classList.add("active");
+};
 
-// ===========================
-// TOGGLE PAID/FREE FIELDS
-// ===========================
-function toggleCourseFields() {
+window.toggleCourseFields = function() {
     const type = document.getElementById("cType").value;
     document.getElementById("freeFields").style.display = type === "free" ? "block" : "none";
     document.getElementById("paidFields").style.display = type === "paid" ? "block" : "none";
-}
+};
 
-// ===========================
-// ADD LECTURE INPUT
-// ===========================
-function addLectureField() {
+window.addLectureField = function() {
     const container = document.getElementById("lectureContainer");
     const div = document.createElement("div");
     div.className = "lecture-row form-row"; 
-    div.innerHTML = `
-        <input type="text" class="lec-title" placeholder="Lecture Title">
-        <input type="text" class="lec-link" placeholder="Meeting Link">
-    `;
+    div.innerHTML = `<input type="text" class="lec-title" placeholder="Title"><input type="text" class="lec-link" placeholder="Link">`;
     container.appendChild(div);
-}
+};
 
-// ===========================
-// ADD COURSE
-// ===========================
-const addCourseForm = document.getElementById("addCourseForm");
-if (addCourseForm) {
-    addCourseForm.addEventListener("submit", async e => {
-        e.preventDefault();
-
-        const type = document.getElementById("cType").value;
-        const rawThumb = document.getElementById("cThumb").value;
-        const processedThumb = processDriveLink(rawThumb);
-
-        const courseData = {
-            title: document.getElementById("cTitle").value,
-            category: document.getElementById("cCategory").value,
-            thumbnail: processedThumb,
-            type,
-            price: type === "free" ? "Free" : document.getElementById("cPrice").value,
-        };
-
-        if (type === "free") {
-            courseData.syllabus = document.getElementById("cSyllabus").value;
-            courseData.classNote = document.getElementById("cNote").value;
-            courseData.videoLink = document.getElementById("cVideo").value;
-        } else {
-            courseData.overview = document.getElementById("cOverview").value;
-            courseData.paidNote = document.getElementById("cPaidNote").value;
-            courseData.specialCode = document.getElementById("cCode").value;
-
-            courseData.lectures = [];
-            const titles = document.querySelectorAll(".lec-title");
-            const links = document.querySelectorAll(".lec-link");
-
-            titles.forEach((t, i) => {
-                if (t.value.trim() !== "") {
-                    courseData.lectures.push({ title: t.value, link: links[i].value });
-                }
-            });
-        }
-
-        try {
-            // 🔥 FIX: Use ADMIN_API
-            const res = await fetch(`${ADMIN_API}/courses`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(courseData)
-            });
-
-            if (res.ok) {
-                alert("Course added successfully!");
-                fetchCourses();
-                e.target.reset();
-                showSection('manage-courses'); // Auto switch to list
-            } else {
-                alert("Failed to add course.");
-            }
-        } catch (err) {
-            console.error("Add course error:", err);
-            alert("Error adding course.");
-        }
-    });
-}
-
-// ===========================
-// FETCH COURSES
-// ===========================
+// === 1. FETCH COURSES ===
 async function fetchCourses() {
     try {
-        // 🔥 FIX: Use ADMIN_API
         const res = await fetch(`${ADMIN_API}/courses`);
         const data = await res.json();
+        
+        allCoursesList = data; // Save locally
+
+        if(document.getElementById('statCourses')) {
+            document.getElementById('statCourses').innerText = data.length;
+        }
 
         const grid = document.getElementById("adminCourseGrid");
-        if (!grid) return;
-        
-        grid.innerHTML = "";
-
-        data.forEach(c => {
-            grid.innerHTML += `
-                <div class="dash-card" style="flex-direction:row; align-items:center; padding:10px; gap:15px; height:auto;">
-                    <img src="${c.thumbnail || ''}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" referrerpolicy="no-referrer">
+        if(grid) {
+            grid.innerHTML = data.map(c => `
+                <div class="dash-card" style="flex-direction:row; align-items:center; gap:15px; padding:10px;">
+                    <img src="${processDriveLink(c.thumbnail)}" style="width:70px; height:50px; border-radius:5px; object-fit:cover;">
                     <div style="flex:1;">
-                        <h4 style="margin:0; color:#fff;">${c.title}</h4>
-                        <p style="margin:0; font-size:0.8rem; color:#94a3b8;">${c.type} • ${c.category}</p>
+                        <h4 style="margin:0; color:#fff; font-size:1rem;">${c.title}</h4>
+                        <small style="color:#94a3b8;">${c.category} • ${c.type.toUpperCase()}</small>
                     </div>
-                    <div style="display:flex; gap:8px;">
-                        <button class="btn-small" onclick='openEditModal(${JSON.stringify(c)})'>Edit</button>
-                        <button class="btn-small" style="color:#ef4444; border-color:#ef4444;" onclick="deleteCourse('${c._id}')">Delete</button>
-                    </div>
+                    <button class="btn-small" onclick="openEditModal('${c._id}')">Edit</button>
+                    <button class="btn-small" style="color:#ef4444; border-color:#ef4444;" onclick="deleteCourse('${c._id}')">Del</button>
                 </div>
-            `;
-        });
-    } catch (err) {
-        console.error("Error fetching courses:", err);
-    }
-}
-
-// ===========================
-// DELETE COURSE
-// ===========================
-async function deleteCourse(id) {
-    if (!confirm("Delete this course?")) return;
-    try {
-        await fetch(`${ADMIN_API}/courses/${id}`, { method: "DELETE" });
-        fetchCourses();
-    } catch (err) {
-        console.error("Delete course error:", err);
-    }
-}
-
-// ===========================
-// EDIT COURSE LOGIC
-// ===========================
-function openEditModal(course) {
-    document.getElementById('editId').value = course._id;
-    document.getElementById('editTitle').value = course.title;
-    document.getElementById('editCategory').value = course.category;
-    document.getElementById('editThumb').value = course.thumbnail;
-    document.getElementById('editPrice').value = course.price;
-    document.getElementById('editOverview').value = course.overview || course.syllabus || "";
-
-    document.getElementById('editCourseModal').style.display = 'flex';
-}
-
-function closeEditModal() {
-    document.getElementById('editCourseModal').style.display = 'none';
-}
-
-const editForm = document.getElementById('editCourseForm');
-if (editForm) {
-    editForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const id = document.getElementById('editId').value;
-        const rawThumb = document.getElementById('editThumb').value;
-        const processedThumb = processDriveLink(rawThumb);
-
-        const updatedData = {
-            title: document.getElementById('editTitle').value,
-            category: document.getElementById('editCategory').value,
-            thumbnail: processedThumb,
-            price: document.getElementById('editPrice').value,
-            overview: document.getElementById('editOverview').value
-        };
-
-        try {
-            const res = await fetch(`${ADMIN_API}/courses/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedData)
-            });
-
-            if (res.ok) {
-                alert("Course Updated Successfully!");
-                closeEditModal();
-                fetchCourses();
-            } else {
-                alert("Update failed.");
-            }
-        } catch (err) {
-            console.error("Update error:", err);
+            `).join('');
         }
-    });
+    } catch(e) { console.error(e); }
 }
 
-// ===========================
-// FETCH USERS
-// ===========================
+// === 2. EDIT LOGIC (FIXED) ===
+window.openEditModal = function(id) {
+    const c = allCoursesList.find(course => course._id === id);
+    if (!c) { alert("Course data not found!"); return; }
+
+    // Populate Basic Fields
+    document.getElementById('editId').value = c._id;
+    document.getElementById('editTitle').value = c.title;
+    document.getElementById('editCategory').value = c.category;
+    document.getElementById('editPrice').value = c.price;
+    document.getElementById('editOldPrice').value = c.oldPrice || "";
+    document.getElementById('editThumb').value = c.thumbnail;
+    
+    // Populate Media & Details
+    document.getElementById('editVideo').value = c.videoLink || "";
+    document.getElementById('editOverview').value = c.overview || "";
+    
+    // 🔥 NEW FIELDS (Duration, Students, Audience)
+    document.getElementById('editDuration').value = c.duration || "";
+    document.getElementById('editStudents').value = c.students || "";
+    document.getElementById('editAudience').value = c.audience || "";
+    
+    // Array Fields (Convert to Text)
+    document.getElementById('editLearnings').value = (c.learnings && c.learnings.length > 0) ? c.learnings.join('\n') : "";
+    document.getElementById('editFeatures').value = (c.features && c.features.length > 0) ? c.features.join('\n') : "";
+    
+    document.getElementById('editCourseModal').style.display = 'flex';
+};
+
+window.closeEditModal = function() {
+    document.getElementById('editCourseModal').style.display = 'none';
+};
+
+// UPDATE SUBMIT
+document.getElementById('editCourseForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('editId').value;
+    
+    const data = {
+        title: document.getElementById('editTitle').value,
+        category: document.getElementById('editCategory').value,
+        thumbnail: processDriveLink(document.getElementById('editThumb').value),
+        price: document.getElementById('editPrice').value,
+        oldPrice: document.getElementById('editOldPrice').value,
+        
+        videoLink: document.getElementById('editVideo').value,
+        overview: document.getElementById('editOverview').value,
+        
+        // 🔥 Sending New Fields
+        duration: document.getElementById('editDuration').value,
+        students: document.getElementById('editStudents').value,
+        audience: document.getElementById('editAudience').value,
+        
+        // Convert Text to Array
+        learnings: document.getElementById('editLearnings').value.split('\n').filter(i=>i.trim()),
+        features: document.getElementById('editFeatures').value.split('\n').filter(i=>i.trim())
+    };
+    
+    try {
+        const res = await fetch(`${ADMIN_API}/courses/${id}`, { 
+            method: 'PUT', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(data) 
+        });
+
+        if (res.ok) {
+            alert("Updated Successfully!"); 
+            closeEditModal(); 
+            fetchCourses(); // Refresh list
+        } else {
+            alert("Update Failed");
+        }
+    } catch(err) { alert("Server Error"); }
+});
+
+// === 3. ADD COURSE LOGIC ===
+document.getElementById("addCourseForm")?.addEventListener("submit", async e => {
+    e.preventDefault();
+    const type = document.getElementById("cType").value;
+    const learningsRaw = document.getElementById("cLearnings").value;
+    const featuresRaw = document.getElementById("cFeatures").value;
+
+    const courseData = {
+        title: document.getElementById("cTitle").value,
+        category: document.getElementById("cCategory").value,
+        thumbnail: processDriveLink(document.getElementById("cThumb").value),
+        type, 
+        price: type === "free" ? "Free" : document.getElementById("cPrice").value,
+        
+        videoLink: document.getElementById("cVideo").value,
+        duration: document.getElementById("cDuration").value,
+        students: document.getElementById("cStudents").value,
+        overview: document.getElementById("cOverview").value,
+        audience: document.getElementById("cAudience").value,
+        
+        learnings: learningsRaw.split('\n').filter(i=>i.trim()),
+        features: featuresRaw.split('\n').filter(i=>i.trim())
+    };
+
+    if (type === "free") {
+        courseData.syllabus = document.getElementById("cSyllabus").value;
+        courseData.classNote = document.getElementById("cNote").value;
+    } else {
+        courseData.oldPrice = document.getElementById("cOldPrice").value;
+        courseData.paidNote = document.getElementById("cPaidNote").value;
+        courseData.specialCode = document.getElementById("cCode").value;
+        
+        courseData.lectures = [];
+        document.querySelectorAll(".lec-title").forEach((t, i) => {
+            if (t.value.trim()) courseData.lectures.push({ title: t.value, link: document.querySelectorAll(".lec-link")[i].value });
+        });
+    }
+
+    try {
+        const res = await fetch(`${ADMIN_API}/courses`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(courseData) });
+        if (res.ok) { alert("Added!"); e.target.reset(); fetchCourses(); showSection('manage-courses'); }
+        else alert("Failed");
+    } catch (err) { alert("Error"); }
+});
+
+// === 4. OTHER HELPERS ===
+window.deleteCourse = async function(id) {
+    if(confirm("Delete?")) { await fetch(`${ADMIN_API}/courses/${id}`, { method: "DELETE" }); fetchCourses(); }
+};
+
+window.approveEnrollment = async function(id) {
+    if(confirm("Approve?")) {
+        await fetch(`${ADMIN_API}/enrollments/${id}`, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({status: 'active'}) });
+        fetchEnrollments();
+    }
+};
+
+window.deleteEnrollment = async function(id) {
+    if(confirm("Delete?")) { await fetch(`${ADMIN_API}/enrollments/${id}`, { method: 'DELETE' }); fetchEnrollments(); }
+};
+
 async function fetchUsers() {
     try {
         const res = await fetch(`${ADMIN_API}/users`);
         const users = await res.json();
+        
+        if(document.getElementById('statUsers')) document.getElementById('statUsers').innerText = users.length + "+";
 
         const tbody = document.getElementById("userTableBody");
-        if (!tbody) return;
-        
-        tbody.innerHTML = "";
-
-        users.forEach(u => {
-            tbody.innerHTML += `
+        if(tbody) {
+            tbody.innerHTML = users.map(u => `
                 <tr>
                     <td>${u.name}</td>
                     <td>${u.email}</td>
-                    <td><span style="padding:3px 8px; background:${u.role==='admin'?'#059669':'#2563eb'}; border-radius:4px; font-size:0.8rem;">${u.role}</span></td>
-                    <td>${u.phone || 'N/A'}</td>
-                    <td>
-                        <button class="btn-small" onclick='openEditUserModal(${JSON.stringify(u)})'>Edit</button>
-                    </td>
+                    <td><span style="background:${u.role==='admin'?'#059669':'#3b82f6'}; padding:2px 8px; border-radius:10px; font-size:0.75rem;">${u.role}</span></td>
+                    <td>${u.phone || '-'}</td>
+                    <td><button class="btn-small" onclick='openEditUserModal(${JSON.stringify(u)})'>Edit</button></td>
                 </tr>
-            `;
-        });
-    } catch (err) {
-        console.error("Error fetching users:", err);
-    }
-}
-
-
-// ===========================
-// EDIT USER LOGIC
-// ===========================
-function openEditUserModal(user) {
-    document.getElementById('editUserId').value = user._id;
-    document.getElementById('editUserName').value = user.name;
-    document.getElementById('editUserEmail').value = user.email;
-    document.getElementById('editUserPhone').value = user.phone || "";
-    document.getElementById('editUserRole').value = user.role;
-    document.getElementById('editUserModal').style.display = 'flex';
-}
-
-function closeEditUserModal() {
-    document.getElementById('editUserModal').style.display = 'none';
-}
-
-const editUserForm = document.getElementById('editUserForm');
-if (editUserForm) {
-    editUserForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const id = document.getElementById('editUserId').value;
-        const updatedData = {
-            name: document.getElementById('editUserName').value,
-            email: document.getElementById('editUserEmail').value,
-            phone: document.getElementById('editUserPhone').value,
-            role: document.getElementById('editUserRole').value
-        };
-
-        try {
-            const res = await fetch(`${ADMIN_API}/users/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedData)
-            });
-
-            if (res.ok) {
-                alert("User Updated Successfully!");
-                closeEditUserModal();
-                fetchUsers();
-            } else {
-                alert("Update failed.");
-            }
-        } catch (err) {
-            console.error("Error updating user:", err);
+            `).join('');
         }
-    });
+    } catch(e) {}
 }
 
-// ===========================
-// ENROLLMENT MANAGEMENT
-// ===========================
 async function fetchEnrollments() {
     try {
         const res = await fetch(`${ADMIN_API}/enrollments/all`);
         const data = await res.json();
+
+        if(document.getElementById('statPending')) {
+            const pendingCount = data.filter(e => e.status === 'prebooked').length;
+            document.getElementById('statPending').innerText = pendingCount;
+        }
+
         const tbody = document.getElementById('enrollmentTableBody');
-        if(!tbody) return;
-
-        tbody.innerHTML = '';
-        data.forEach(e => {
-            let color = e.status === 'prebooked' ? '#fbbf24' : '#22c55e';
-            const name = e.contactName || (e.user ? e.user.name : 'Unknown');
-            const phone = e.contactPhone || (e.user ? e.user.phone : 'N/A');
-
-            let actionButtons = `
-                <button class="btn-small" style="color:#ef4444; border-color:#ef4444;" onclick="deleteEnrollment('${e._id}')">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
-            `;
-
-            if(e.status === 'prebooked') {
-                actionButtons = `
-                    <button class="btn-small" style="color:#22c55e; border-color:#22c55e; margin-right:5px;" onclick="approveEnrollment('${e._id}')">
-                        <i class="fa-solid fa-check"></i> Approve
-                    </button>
-                    ${actionButtons}
-                `;
-            }
-
-            tbody.innerHTML += `
+        if(tbody) {
+            tbody.innerHTML = data.map(e => `
                 <tr>
-                    <td>
-                        <strong style="color:#fff;">${name}</strong><br>
-                        <small style="color:#94a3b8;">${phone}</small>
-                    </td>
-                    <td>${e.course ? e.course.title : 'Unknown'}</td>
-                    <td>
-                        <span style="padding:4px 8px; border:1px solid ${color}; color:${color}; border-radius:4px; font-size:0.75rem; text-transform:uppercase;">
-                            ${e.status}
-                        </span>
-                    </td>
+                    <td><strong style="color:#fff;">${e.contactName || (e.user ? e.user.name : 'Unknown')}</strong><br><small style="color:#94a3b8;">${e.contactPhone || (e.user ? e.user.phone : '-')}</small></td>
+                    <td>${e.course ? e.course.title : '<span style="color:red">Deleted</span>'}</td>
+                    <td><span style="color:${e.status==='active'?'#22c55e':'#fbbf24'}; text-transform:uppercase;">${e.status}</span></td>
                     <td>${new Date(e.enrolledAt).toLocaleDateString()}</td>
-                    <td>${actionButtons}</td>
+                    <td>
+                        ${e.status==='prebooked' ? `<button class="btn-small" style="color:#22c55e;" onclick="approveEnrollment('${e._id}')">Approve</button>` : ''}
+                        <button class="btn-small" style="color:#ef4444;" onclick="deleteEnrollment('${e._id}')">Del</button>
+                    </td>
                 </tr>
-            `;
-        });
-    } catch(err) { console.error(err); }
+            `).join('');
+        }
+    } catch(e) {}
 }
 
-// APPROVE
-async function approveEnrollment(id) {
-    if(!confirm("Approve this student?")) return;
-    try {
-        const res = await fetch(`${ADMIN_API}/enrollments/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status: 'active' })
-        });
-        if(res.ok) {
-            alert("Student Approved!");
-            fetchEnrollments();
-        }
-    } catch(err) { console.error(err); }
-}
+window.openEditUserModal = function(u) {
+    document.getElementById('editUserId').value = u._id;
+    document.getElementById('editUserName').value = u.name;
+    document.getElementById('editUserEmail').value = u.email;
+    document.getElementById('editUserPhone').value = u.phone || "";
+    document.getElementById('editUserRole').value = u.role;
+    document.getElementById('editUserModal').style.display = 'flex';
+};
 
-// DELETE
-async function deleteEnrollment(id) {
-    if(!confirm("Delete enrollment?")) return;
-    try {
-        const res = await fetch(`${ADMIN_API}/enrollments/${id}`, { method: 'DELETE' });
-        if(res.ok) {
-            fetchEnrollments();
-        }
-    } catch(err) { console.error(err); }
-}
+window.closeEditUserModal = function() { document.getElementById('editUserModal').style.display = 'none'; };
+
+document.getElementById('editUserForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('editUserId').value;
+    const data = {
+        name: document.getElementById('editUserName').value,
+        email: document.getElementById('editUserEmail').value,
+        phone: document.getElementById('editUserPhone').value,
+        role: document.getElementById('editUserRole').value
+    };
+    await fetch(`${ADMIN_API}/users/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+    alert("User Updated!"); closeEditUserModal(); fetchUsers();
+});

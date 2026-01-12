@@ -1,6 +1,12 @@
-/* ================================
-   1. ROOT + GLOBAL STYLE
-==================================*/
+/* =======================================================
+   1. FONTS & IMPORTS
+======================================================= */
+/* Import Inter (English) and Hind Siliguri (Bangla) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+
+/* =======================================================
+   2. ROOT VARIABLES (Dark Theme)
+======================================================= */
 :root {
     /* --- Professional Palette --- */
     --color-primary: #0ea5e9;       /* Professional Sky Blue */
@@ -18,7 +24,15 @@
     --radius: 12px;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+/* =======================================================
+   3. RESET & BASE STYLES
+======================================================= */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Inter', sans-serif; /* Default English Font */
+}
 
 body {
     background-color: var(--color-bg);
@@ -39,9 +53,36 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 img { max-width: 100%; display: block; }
 ul { list-style: none; }
 
-/* ================================
-   2. UTILITIES
-==================================*/
+/* =======================================================
+   4. LANGUAGE SUPPORT (Bangla Overrides)
+======================================================= */
+body.bangla-mode {
+    font-family: 'Hind Siliguri', sans-serif !important;
+}
+
+body.bangla-mode h1, 
+body.bangla-mode h2, 
+body.bangla-mode h3, 
+body.bangla-mode h4,
+body.bangla-mode p,
+body.bangla-mode a,
+body.bangla-mode button,
+body.bangla-mode input,
+body.bangla-mode textarea {
+    font-family: 'Hind Siliguri', sans-serif !important;
+}
+
+/* Adjust Line Height for Bangla readability */
+body.bangla-mode h1, 
+body.bangla-mode h2, 
+body.bangla-mode h3 {
+    line-height: 1.5; 
+    letter-spacing: 0;
+}
+
+/* =======================================================
+   5. UTILITIES
+======================================================= */
 .container {
     max-width: 1280px;
     margin: 0 auto;
@@ -53,9 +94,9 @@ ul { list-style: none; }
 .text-primary { color: var(--color-primary); }
 .full-width { width: 100%; text-align: center; }
 
-/* ================================
-   3. BUTTONS
-==================================*/
+/* =======================================================
+   6. BUTTONS
+======================================================= */
 .btn {
     display: inline-block;
     padding: 12px 28px;
@@ -90,9 +131,9 @@ ul { list-style: none; }
     background: rgba(14, 165, 233, 0.1);
 }
 
-/* ================================
-   4. GLASS PANELS + INPUTS
-==================================*/
+/* =======================================================
+   7. GLASS PANELS + INPUTS
+======================================================= */
 .glass-panel {
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
@@ -117,9 +158,9 @@ ul { list-style: none; }
     border-color: var(--color-primary);
 }
 
-/* ================================
-   5. HERO SECTION
-==================================*/
+/* =======================================================
+   8. HERO SECTION
+======================================================= */
 .hero-home {
     background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8)), 
                 url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop');
@@ -130,7 +171,7 @@ ul { list-style: none; }
     padding-bottom: 80px;
 }
 
-/* New Grid Class for Hero */
+/* Grid Class for Hero */
 .hero-grid {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
@@ -141,7 +182,7 @@ ul { list-style: none; }
 .hero-title { font-size: 3rem; font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
 .hero-subtitle { font-size: 1.5rem; font-weight: 400; color: #cbd5e1; margin-bottom: 20px; }
 
-/* New Buttons Container Class */
+/* Buttons Container Class */
 .hero-btns {
     display: flex;
     gap: 15px;
@@ -179,9 +220,9 @@ ul { list-style: none; }
 .stat-item strong { display: block; font-size: 1.2rem; color: white; }
 .stat-item span { font-size: 0.85rem; color: #94a3b8; }
 
-/* ================================
-   6. PROFESSIONAL CERT BOX
-==================================*/
+/* =======================================================
+   9. PROFESSIONAL CERT BOX
+======================================================= */
 .cert-box { text-align: center; padding: 40px; border-top: 4px solid var(--color-primary); }
 .cert-icon-wrapper {
     width: 80px; height: 80px;
@@ -201,9 +242,9 @@ ul { list-style: none; }
 }
 .cert-quote { font-size: 0.85rem; color: #cbd5e1; font-style: italic; }
 
-/* ================================
-   7. GRIDS & CARDS
-==================================*/
+/* =======================================================
+   10. GRIDS & CARDS
+======================================================= */
 .services-grid, .course-grid-home {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -270,9 +311,9 @@ ul { list-style: none; }
 .badge-pink { background: rgba(244, 63, 94, 0.1); color: var(--color-accent); }
 .text-yellow { color: #fbbf24; }
 
-/* ================================
-   8. CONTACT SECTION
-==================================*/
+/* =======================================================
+   11. CONTACT SECTION
+======================================================= */
 .contact-section-bg {
     background: linear-gradient(to top, #020617, rgba(30, 41, 59, 0.5));
 }
@@ -299,9 +340,9 @@ ul { list-style: none; }
     color: var(--color-text-muted);
 }
 
-/* ================================
-   9. SUCCESS POPUP
-==================================*/
+/* =======================================================
+   12. SUCCESS POPUP
+======================================================= */
 #successPopup {
     display: none;
     position: fixed;
@@ -333,9 +374,9 @@ ul { list-style: none; }
     to { transform: scale(1); opacity: 1; }
 }
 
-/* ========================================================
-   10. RESPONSIVE MEDIA QUERIES (UPDATED)
-======================================================== */
+/* =======================================================
+   13. RESPONSIVE MEDIA QUERIES
+======================================================= */
 
 /* --- Tablet / Small Laptops (991px and down) --- */
 @media (max-width: 991px) {

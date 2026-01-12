@@ -6,7 +6,8 @@ const Course = require('../models/Course');
 // ========== 1. GET ALL COURSES (Public) ==========
 router.get('/', async (req, res) => {
     try {
-        const courses = await Course.find();
+        // .sort({ createdAt: -1 }) মানে নতুন কোর্স সবার আগে দেখাবে
+        const courses = await Course.find().sort({ createdAt: -1 });
         res.json(courses);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -27,6 +28,8 @@ router.get('/:id', async (req, res) => {
 // ========== 3. CREATE COURSE (Admin Only) ==========
 router.post('/', async (req, res) => {
     try {
+        // req.body তে অ্যাডমিন প্যানেল থেকে আসা title, price, oldPrice সব থাকে
+        // Mongoose মডেল অনুযায়ী অটোমেটিক ফিল্টার হয়ে সেভ হবে
         const course = new Course(req.body);
         const newCourse = await course.save();
         res.status(201).json(newCourse);
@@ -40,7 +43,7 @@ router.put('/:id', async (req, res) => {
     try {
         const updatedCourse = await Course.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            req.body, // এখানে নতুন ডাটা (oldPrice, duration, etc.) পাস হচ্ছে
             { new: true } // return updated document
         );
         if (!updatedCourse) return res.status(404).json({ message: "Course not found" });
@@ -59,6 +62,5 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-
 
 module.exports = router;

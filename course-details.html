@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details | CareerLift</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nav-footer.css">
+
+    <style>
+        /* --- PAGE SPECIFIC STYLES --- */
+        body { background-color: var(--color-bg); font-family: 'Outfit', sans-serif; }
+        
+        .details-wrapper {
+            padding-top: 140px;
+            padding-bottom: 100px; /* Added padding for mobile bar */
+            min-height: 100vh;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 2fr 1.1fr; 
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* LEFT CONTENT */
+        .video-thumb-wrapper {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+        .video-thumb-wrapper img {
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: 0.3s;
+        }
+        .video-thumb-wrapper:hover img { transform: scale(1.02); opacity: 0.7; }
+        
+        .play-btn {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 70px; height: 70px; background: rgba(239, 68, 68, 0.9);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: #fff; box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+            transition: 0.3s;
+        }
+        .video-thumb-wrapper:hover .play-btn { transform: translate(-50%, -50%) scale(1.1); }
+
+        .course-badge {
+            background: rgba(14, 165, 233, 0.15); color: #38bdf8;
+            padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;
+            display: inline-block; margin-bottom: 15px; border: 1px solid rgba(14, 165, 233, 0.3);
+        }
+
+        .course-title-main { 
+            font-size: 2.2rem; line-height: 1.3; margin-bottom: 15px; color: #fff; font-weight: 700; 
+        }
+        .course-short-desc { 
+            font-size: 1.1rem; color: #cbd5e1; line-height: 1.7; margin-bottom: 30px; 
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        /* INFO BOXES */
+        .info-box {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px; padding: 30px; margin-bottom: 30px;
+        }
+        .info-box h3 { 
+            font-size: 1.4rem; color: #fff; margin-bottom: 20px; 
+            display: flex; align-items: center; gap: 10px; 
+            font-family: 'Hind Siliguri', sans-serif; 
+        }
+        
+        .learning-list { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .learning-item { display: flex; gap: 10px; color: #e2e8f0; font-size: 0.95rem; font-family: 'Hind Siliguri', sans-serif; }
+        .learning-item i { color: #22c55e; margin-top: 5px; flex-shrink: 0; }
+
+        /* RIGHT SIDEBAR (STICKY) */
+        .sticky-card {
+            position: sticky; top: 100px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px; padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .price-area { text-align: center; margin-bottom: 25px; }
+        .price-current { font-size: 2.5rem; font-weight: 700; color: #38bdf8; }
+        .price-current.free { color: #22c55e; }
+        .price-old { text-decoration: line-through; color: #94a3b8; font-size: 1.3rem; margin-left: 10px; font-weight: 500; }
+
+        /* BUTTONS */
+        .btn-primary-lg {
+            width: 100%; padding: 15px; font-size: 1.1rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            color: #fff; border: none; border-radius: 10px; text-decoration: none;
+            cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-primary-lg:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4); }
+
+        .btn-outline-lg {
+            width: 100%; padding: 12px; font-size: 1rem; font-weight: 600;
+            background: transparent; color: var(--color-primary); 
+            border: 1px solid var(--color-primary); border-radius: 10px;
+            cursor: pointer; transition: 0.3s; display: block; text-align: center;
+        }
+        .btn-outline-lg:hover { background: rgba(14, 165, 233, 0.1); }
+
+        .features-list { margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+        .feature-item { display: flex; justify-content: space-between; margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem; }
+        .feature-item i { color: #94a3b8; width: 25px; }
+
+        /* MODALS */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+
+        .modal-content {
+            background: #0f172a; border: 1px solid var(--color-primary);
+            padding: 30px; border-radius: 20px; width: 90%; max-width: 400px;
+            position: relative; box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .video-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 3000;
+            display: none; align-items: center; justify-content: center;
+        }
+        .video-modal-content {
+            width: 90%; max-width: 800px; aspect-ratio: 16/9;
+            background: #000; border-radius: 12px; overflow: hidden; position: relative;
+        }
+        .close-video {
+            position: absolute; top: -40px; right: 0; color: #fff; font-size: 2rem; cursor: pointer;
+        }
+
+        /* MOBILE STICKY BAR */
+        .mobile-bottom-bar {
+            display: none; position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #1e293b; border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 15px 20px; z-index: 1000;
+            justify-content: space-between; align-items: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .details-grid { grid-template-columns: 1fr; }
+            
+            /* SHOW Sidebar content but hide Desktop Price/Action */
+            .sticky-card {
+                display: block; 
+                position: relative; 
+                top: 0;
+                margin-top: 30px;
+                background: rgba(255,255,255,0.03);
+                border: 1px solid rgba(255,255,255,0.1);
+            }
+
+            /* HIDE Price & Large Button in Sidebar (Mobile Uses Bottom Bar) */
+            .sticky-card .price-area, 
+            .sticky-card .action-area {
+                display: none !important;
+            }
+
+            .mobile-bottom-bar { display: flex; }
+            .video-thumb-wrapper { height: 250px; }
+            .learning-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="courses.html" class="active">Courses</a></li>
+                <li><a href="studyabroad.html">Study Abroad</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li class="auth-item"><a href="login.html" class="btn btn-outline">Login</a></li>
+                <li class="auth-item"><a href="register.html" class="join-btn">Join Free</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="details-wrapper">
+        <div class="container">
+            
+            <div id="loader" style="text-align: center; padding: 100px; color: #94a3b8;">
+                <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: var(--color-primary);"></i>
+                <p style="margin-top: 15px;">Loading Course Data...</p>
+            </div>
+
+            <div class="details-grid" id="courseContent" style="display: none;">
+                
+                <div class="left-content">
+                    <div class="video-thumb-wrapper" onclick="openVideoModal()">
+                        <img id="cThumb" src="" alt="Course Thumbnail">
+                        <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                    </div>
+
+                    <span class="course-badge" id="cCategory">Category</span>
+                    <h1 class="course-title-main" id="cTitle">Course Title</h1>
+                    <p class="course-short-desc" id="cOverview">Description loading...</p>
+
+                    <div class="info-box" id="learningsBox">
+                        <h3><i class="fa-solid fa-bullseye" style="color: #f43f5e;"></i> এই কোর্স থেকে যা শিখবেন</h3>
+                        <div class="learning-list" id="cLearnings"></div>
+                    </div>
+
+                    <div class="info-box" id="audienceBox">
+                        <h3><i class="fa-solid fa-user-group" style="color: #8b5cf6;"></i> কোর্সটি কাদের জন্য?</h3>
+                        <p style="color: #cbd5e1; line-height: 1.7; font-family: 'Hind Siliguri';" id="cAudience"></p>
+                    </div>
+
+                    <div class="info-box" id="featuresBox">
+                        <h3><i class="fa-solid fa-star" style="color: #38bdf8;"></i> বিশেষ সুবিধাসমূহ</h3>
+                        <div class="learning-list" id="cFeatures"></div>
+                    </div>
+                </div>
+
+                <div class="right-sidebar">
+                    <div class="sticky-card">
+                        
+                        <div class="price-area">
+                            <span class="price-current" id="cPrice">৳0</span>
+                            <span class="price-old" id="cOldPrice" style="display:none;">৳0</span>
+                        </div>
+
+                        <div class="action-area" id="actionButtons">
+                            <button class="btn-primary-lg"><i class="fa-solid fa-circle-notch fa-spin"></i> Checking...</button>
+                        </div>
+
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <span><i class="fa-solid fa-video"></i> ক্লাস টাইপ</span>
+                                <span>রেকর্ডেড + লাইভ</span>
+                            </div>
+                            <div class="feature-item">
+                                <span><i class="fa-solid fa-clock"></i> সময়সীমা</span>
+                                <span id="cDuration">...</span>
+                            </div>
+                            <div class="feature-item">
+                                <span><i class="fa-solid fa-layer-group"></i> মোট ক্লাস</span>
+                                <span id="cLectureCount">...</span>
+                            </div>
+                            <div class="feature-item">
+                                <span><i class="fa-solid fa-language"></i> ভাষা</span>
+                                <span>বাংলা</span>
+                            </div>
+                            <div class="feature-item">
+                                <span><i class="fa-solid fa-signal"></i> লেভেল</span>
+                                <span>Beginner to Pro</span>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                            <p style="color: #94a3b8; font-size: 0.85rem;">হেল্পলাইন (10AM - 8PM)</p>
+                            <h3 style="color: #fff; font-size: 1.2rem;">+880 1814304081</h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div style="display: none;" class="mobile-bottom-bar" id="mobileActionNav">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div>
+                <span style="font-size: 0.8rem; color: #94a3b8; display: block;">কোর্স ফি</span>
+                <div style="display: flex; gap: 8px; align-items: baseline;">
+                    <span class="price-current" style="font-size: 1.3rem;" id="cPriceMob">৳0</span>
+                    <span class="price-old" style="font-size: 0.9rem; text-decoration: line-through; color: #94a3b8;" id="cOldPriceMob"></span>
+                </div>
+            </div>
+            <div id="mobileActionButtons">
+                </div>
+        </div>
+    </div>
+
+    <div id="videoModal" class="video-modal-overlay" onclick="closeVideoModal()">
+        <div class="video-modal-content" onclick="event.stopPropagation()">
+            <span class="close-video" onclick="closeVideoModal()">×</span>
+            <iframe id="promoVideo" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div id="codeModal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="max-width: 400px; text-align: center;">
+            <span class="modal-close" onclick="closeModals()" style="position:absolute; top:15px; right:20px; font-size:1.5rem; cursor:pointer; color:#fff;">×</span>
+            <h3 style="color:#fff; margin-bottom:10px;">Secret Code</h3>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin-bottom:20px;">অ্যাডমিন থেকে পাওয়া কোডটি প্রবেশ করান।</p>
+            <input type="text" id="specialCode" class="glass-input" placeholder="e.g. CL-2025" style="width:100%; padding:10px; margin-bottom:15px; border-radius:5px; border:1px solid #334155; background:#1e293b; color:white;">
+            <button onclick="enrollWithCode()" class="btn-primary-lg" style="width:100%; padding:10px;">Confirm & Enroll</button>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="text-align:center; border: 1px solid #22c55e;">
+            <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #22c55e; margin-bottom: 15px;"></i>
+            <h3 style="color:#fff;">সফল হয়েছে!</h3>
+            <p style="color:#cbd5e1;" id="successMsg">আপনার রিকোয়েস্ট গ্রহণ করা হয়েছে।</p>
+            <button onclick="closeModals()" class="btn-outline-lg" style="margin-top:15px; width:auto; display:inline-block; padding:8px 30px; border-color:#fff; color:#fff;">OK</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo" style="margin-bottom: 20px; display:inline-block;">
+                    <i class="fa-solid fa-arrow-trend-up"></i> Career<span>Lift</span>
+                </a>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem;">
+                    A Place to Build Your Dreams. <br> NSDA Recognized.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="studyabroad.html">Visa Guide</a></li>
+                    <li><a href="services.html">Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Social</h4>
+                <div style="display: flex; gap: 15px;">
+                    <a href="https://www.facebook.com/careerliftskill/" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                    <a href="https://www.youtube.com/@CareerliftInstitute" class="social-icon" title="YouTube"><i class="fa-brands fa-youtube fa-lg"></i></a>
+                    <a href="#" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    <a href="#" class="social-icon" title="X (Twitter)"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                    <a href="https://wa.me/8801814304081" target="_blank" class="social-icon" title="WhatsApp" style="color: #25D366;">
+                        <i class="fa-brands fa-whatsapp fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 CareerLift Skill Development Institute. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        const API_URL = 'https://careerlift-lms.onrender.com/api';
+        let currentCourse = null;
+        let isEnrolled = false;
+        let enrollmentStatus = null; 
+
+        // --- 1. LOAD DATA ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const courseId = params.get('id');
+
+            if (!courseId) { window.location.href = 'courses.html'; return; }
+
+            try {
+                const res = await fetch(`${API_URL}/courses/${courseId}`);
+                currentCourse = await res.json();
+
+                if (!currentCourse || currentCourse.message) throw new Error("Not Found");
+
+                renderPage(currentCourse);
+                
+                if(window.innerWidth <= 900) document.getElementById('mobileActionNav').style.display = 'flex';
+
+                checkUserStatus(courseId);
+
+            } catch (err) {
+                document.getElementById('loader').innerHTML = `<h3 style="color:#ef4444">Course load failed.</h3>`;
+            }
+        });
+
+        // --- 2. RENDER PAGE (DYNAMIC DATA) ---
+        function renderPage(course) {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('courseContent').style.display = 'grid';
+
+            // Basic Info
+            document.getElementById('cTitle').innerText = course.title;
+            document.getElementById('cCategory').innerText = course.category;
+            document.getElementById('cOverview').innerText = course.overview || "কোর্সের বিস্তারিত শীঘ্রই যুক্ত করা হবে।";
+            
+            // Meta Info (Side Bar)
+            document.getElementById('cDuration').innerText = course.duration || "Self Paced";
+            
+            // Total Lectures Calculation
+            const totalLectures = course.lectures ? course.lectures.length : 0;
+            document.getElementById('cLectureCount').innerText = totalLectures > 0 ? totalLectures + " টি" : "Update Soon";
+
+            // DYNAMIC LISTS
+            populateList('cLearnings', course.learnings, ["Professional Skill Development", "Live Projects", "Career Guideline"]);
+            document.getElementById('cAudience').innerText = course.audience || "ছাত্রছাত্রী, চাকরিপ্রার্থী এবং যারা নিজেদের স্কিল ডেভেলপ করে ফ্রিল্যান্সিং বা জব করতে চান।";
+            populateList('cFeatures', course.features, ["লাইভ মেন্টরিং", "লাইফটাইম এক্সেস", "সার্টিফিকেট", "24/7 সাপোর্ট"]);
+
+            // --- PRICE LOGIC (FIXED) ---
+            const priceEl = document.getElementById('cPrice');
+            const oldPriceEl = document.getElementById('cOldPrice');
+            const priceMob = document.getElementById('cPriceMob');
+            const oldPriceMob = document.getElementById('cOldPriceMob');
+            
+            if (course.type === 'free') {
+                // Free Course
+                priceEl.innerText = "Free Access";
+                priceEl.classList.add('free');
+                oldPriceEl.style.display = 'none';
+
+                priceMob.innerText = "Free";
+                priceMob.style.color = "#22c55e";
+                if(oldPriceMob) oldPriceMob.style.display = 'none';
+
+            } else {
+                // Paid Course
+                priceEl.innerText = course.price;
+                priceMob.innerText = course.price;
+
+                if (course.oldPrice && course.oldPrice !== "" && course.oldPrice !== "null") {
+                    oldPriceEl.innerText = course.oldPrice;
+                    oldPriceEl.style.display = 'inline-block';
+                    
+                    if(oldPriceMob) {
+                        oldPriceMob.innerText = course.oldPrice;
+                        oldPriceMob.style.display = 'inline-block';
+                    }
+                } else {
+                    oldPriceEl.style.display = 'none';
+                    if(oldPriceMob) oldPriceMob.style.display = 'none';
+                }
+            }
+
+            // Thumbnail
+            if(course.thumbnail) {
+                let imgUrl = course.thumbnail;
+                if(imgUrl.includes('drive.google.com')) {
+                    const id = imgUrl.split('/d/')[1].split('/')[0];
+                    imgUrl = `https://lh3.googleusercontent.com/d/${id}`;
+                }
+                document.getElementById('cThumb').src = imgUrl;
+            }
+        }
+
+        // Helper to populate lists
+        function populateList(elementId, dataArray, defaults) {
+            const list = document.getElementById(elementId);
+            list.innerHTML = "";
+            
+            const items = (dataArray && dataArray.length > 0) ? dataArray : defaults;
+            
+            items.forEach(txt => {
+                const div = document.createElement('div');
+                div.className = elementId === 'cFeatures' || elementId === 'cLearnings' ? 'learning-item' : '';
+                div.innerHTML = `<i class="fa-solid fa-check-circle"></i> ${txt}`;
+                list.appendChild(div);
+            });
+        }
+
+        // --- 3. CHECK STATUS ---
+        async function checkUserStatus(courseId) {
+            const userStr = localStorage.getItem('user');
+            if (!userStr) {
+                renderActionButtons('guest');
+                return;
+            }
+
+            const user = JSON.parse(userStr);
+            try {
+                const res = await fetch(`${API_URL}/enrollments/my-enrollments/${user.id}`);
+                const myData = await res.json();
+                
+                const found = myData.find(c => c.id === courseId);
+                if (found) {
+                    isEnrolled = true;
+                    enrollmentStatus = found.status;
+                    renderActionButtons('enrolled');
+                } else {
+                    renderActionButtons('user');
+                }
+            } catch (e) { renderActionButtons('user'); }
+        }
+
+        // --- 4. RENDER BUTTONS ---
+        function renderActionButtons(state) {
+            const container = document.getElementById('actionButtons');
+            const mobileContainer = document.getElementById('mobileActionButtons');
+            let html = '';
+
+            if (state === 'enrolled') {
+                if (enrollmentStatus === 'active') {
+                    html = `<a href="course-view.html?id=${currentCourse._id}" class="btn-primary-lg" style="background:#22c55e;">
+                                ক্লাসরুমে যান <i class="fa-solid fa-play"></i>
+                            </a>`;
+                } else {
+                    html = `<button class="btn-primary-lg" style="background:#fbbf24; color:#000; cursor:default;">
+                                রিকোয়েস্ট পেন্ডিং... <i class="fa-solid fa-clock"></i>
+                            </button>`;
+                }
+            } else {
+                if (currentCourse.type === 'free') {
+                    html = `<button onclick="enrollFree()" class="btn-primary-lg">
+                                এনরোল করুন (ফ্রি) <i class="fa-solid fa-arrow-right"></i>
+                            </button>`;
+                } else {
+                    html = `
+                        <button onclick="preBook()" class="btn-primary-lg">
+                            প্রি-বুক করুন (আগ্রহী) <i class="fa-solid fa-hand-point-up"></i>
+                        </button>
+                        <button onclick="openCodeModal()" class="btn-outline-lg" style="margin-top:10px;">
+                            কোর্স কোড আছে?
+                        </button>
+                    `;
+                }
+            }
+
+            container.innerHTML = html;
+            
+            // Mobile Specific Button
+            let mobileHtml = html.replace('btn-primary-lg', 'btn-primary-lg style="padding:10px 20px; font-size:0.9rem;"');
+            
+            // For mobile, simplify: Just show Primary Action (Enroll/Prebook)
+            if(html.includes("btn-outline-lg")) {
+                 const primaryOnly = html.split('<button onclick="openCodeModal"')[0]; 
+                 mobileContainer.innerHTML = primaryOnly.replace('btn-primary-lg', 'btn-primary-lg style="padding:10px 20px; font-size:0.9rem;"');
+            } else {
+                 mobileContainer.innerHTML = mobileHtml;
+            }
+        }
+
+        // --- 5. ACTIONS ---
+        function checkLogin() {
+            const user = localStorage.getItem('user');
+            if (!user) {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        async function enrollFree() {
+            if (!checkLogin()) return;
+            submitEnrollment('active');
+        }
+
+        async function preBook() {
+            if (!checkLogin()) return;
+            submitEnrollment('prebooked');
+        }
+
+        function openCodeModal() {
+            if (!checkLogin()) return;
+            document.getElementById('codeModal').classList.add('active');
+        }
+
+        async function enrollWithCode() {
+            const code = document.getElementById('specialCode').value;
+            if(!code) return alert("Please enter code");
+            submitEnrollment('active', code);
+        }
+
+        async function submitEnrollment(status, code = null) {
+            const user = JSON.parse(localStorage.getItem('user'));
+            
+            document.getElementById('actionButtons').innerHTML = `<button class="btn-primary-lg"><i class="fa-solid fa-spinner fa-spin"></i> Processing...</button>`;
+
+            const payload = {
+                userId: user.id,
+                courseId: currentCourse._id,
+                status: status,
+                contactName: user.name, 
+                contactPhone: user.phone || "Not Provided"
+            };
+            if(code) payload.code = code;
+
+            try {
+                const res = await fetch(`${API_URL}/enrollments`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    closeModals();
+                    if (status === 'active') {
+                        document.getElementById('successMsg').innerText = "এনরোলমেন্ট সফল হয়েছে! আপনি এখন ক্লাসে জয়েন করতে পারবেন।";
+                        document.getElementById('successModal').classList.add('active');
+                        setTimeout(() => window.location.href = `course-view.html?id=${currentCourse._id}`, 2000);
+                    } else {
+                        document.getElementById('successMsg').innerText = "আপনার আগ্রহ রেকর্ড করা হয়েছে। আমাদের প্রতিনিধি শীঘ্রই যোগাযোগ করবে।";
+                        document.getElementById('successModal').classList.add('active');
+                        setTimeout(() => checkUserStatus(currentCourse._id), 2000);
+                    }
+                } else {
+                    alert(data.message || "Failed");
+                    checkUserStatus(currentCourse._id);
+                }
+            } catch (err) {
+                alert("Server Connection Error");
+                checkUserStatus(currentCourse._id);
+            }
+        }
+
+        // --- UTILS ---
+        function openVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('promoVideo');
+            let videoUrl = currentCourse.videoLink || "";
+            
+            if(videoUrl.includes('watch?v=')) videoUrl = `https://www.youtube.com/embed/${videoUrl.split('v=')[1]}?autoplay=1`;
+            else if(videoUrl.includes('youtu.be/')) videoUrl = `https://www.youtube.com/embed/${videoUrl.split('.be/')[1]}?autoplay=1`;
+
+            if(videoUrl) {
+                iframe.src = videoUrl;
+                modal.style.display = 'flex';
+            } else {
+                alert("No promo video available.");
+            }
+        }
+
+        function closeVideoModal() {
+            document.getElementById('videoModal').style.display = 'none';
+            document.getElementById('promoVideo').src = "";
+        }
+
+        function closeModals() {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+        }
+    </script>
+</body>
+</html>

@@ -3,187 +3,159 @@
 /* 1. GRID LAYOUT */
 #courseGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
     padding: 20px 0;
 }
 
 /* 2. COURSE CARD DESIGN */
 .course-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-top: 1px solid var(--glass-highlight);
+    background: rgba(30, 41, 59, 0.7); /* Darker Glass */
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     overflow: hidden;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: all 0.4s ease;
     position: relative;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .course-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     border-color: var(--color-primary);
 }
 
 /* Image Area */
+.card-thumb-wrapper {
+    position: relative;
+    height: 190px;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
 .course-image {
     width: 100%;
-    height: 180px;
+    height: 100%;
     object-fit: cover;
-    border-bottom: 1px solid var(--glass-border);
+    transition: transform 0.5s ease;
 }
 
-/* Badge */
+.course-card:hover .course-image {
+    transform: scale(1.05);
+}
+
+/* BEAUTIFUL BADGE ON IMAGE */
 .badge {
     position: absolute;
-    top: 15px; right: 15px;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
+    top: 12px;
+    left: 12px;
+    padding: 6px 14px;
+    border-radius: 50px;
     font-size: 0.75rem;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* Free Course Badge Variation */
-.badge.free {
-    color: #22c55e; /* Green */
-    border-color: #22c55e;
+/* Badge Colors */
+.badge-blue {
+    background: rgba(14, 165, 233, 0.9);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+.badge-purple {
+    background: rgba(139, 92, 246, 0.9);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+.badge-green {
+    background: rgba(34, 197, 94, 0.9);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 /* Card Body */
 .course-info {
-    padding: 20px;
+    padding: 24px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
-.course-info h3 {
-    font-size: 1.2rem;
+.course-title {
+    font-size: 1.25rem;
+    font-weight: 700;
     margin-bottom: 10px;
     color: #fff;
-    background: none; 
-    -webkit-text-fill-color: initial;
+    line-height: 1.4;
+    min-height: 56px; /* 2 lines height */
+    font-family: 'Outfit', sans-serif;
 }
 
-.course-info p {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    margin-bottom: 20px;
-    line-height: 1.5;
-}
-
-/* Meta info */
-.course-meta {
+/* Rating Row */
+.rating-row {
     display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    margin-bottom: 20px;
 }
-.course-meta i { color: gold; margin-right: 5px; }
+.rating-row i { color: #fbbf24; }
 
 /* 3. FOOTER & BUTTONS */
 .course-footer {
-    margin-top: auto; /* Pushes footer to bottom */
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.price {
-    display: block;
+.price-tag {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--color-text);
-    margin-bottom: 15px;
+    color: #38bdf8; /* Blue for paid */
+}
+.price-tag.free {
+    color: #22c55e; /* Green for free */
 }
 
-/* Button Container */
-.btn-group {
-    display: flex;
-    gap: 10px;
-}
-
-/* Standard Enroll Button */
-.btn-enroll {
-    flex: 1;
-    padding: 10px;
-    font-size: 0.85rem;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+/* PREMIUM BUTTON */
+.btn-view-details {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: 0.3s;
+    text-decoration: none;
     font-weight: 600;
-}
-.btn-enroll:hover { filter: brightness(1.1); }
-
-/* Pre-book Button (Outline Style) */
-.btn-prebook {
-    flex: 1;
-    padding: 10px;
-    font-size: 0.85rem;
-    background: transparent;
-    border: 1px solid var(--color-primary);
-    color: var(--color-primary);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: 600;
-}
-.btn-prebook:hover {
-    background: rgba(0, 212, 255, 0.1);
-}
-
-/* 4. MODAL POPUP STYLES (For Forms) */
-.modal-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
-    z-index: 2000;
-    display: none; /* Hidden by default */
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-.modal-overlay.active { display: flex; opacity: 1; }
-
-.modal-content {
-    background: #0f172a;
-    border: 1px solid var(--color-primary);
-    padding: 30px;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 400px;
-    position: relative;
-    box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    transition: 0.3s;
 }
 
-.modal-close {
-    position: absolute;
-    top: 15px; right: 20px;
-    font-size: 1.5rem;
-    color: var(--color-text-muted);
-    cursor: pointer;
+.btn-view-details:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(14, 165, 233, 0.5);
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
 }
 
-.glass-input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: #fff;
+/* Loader */
+.loader-box {
+    text-align: center; 
+    color: var(--color-text-muted); 
+    grid-column: 1 / -1; 
+    padding: 50px;
 }
-.glass-input:focus { outline: none; border-color: var(--color-primary); }
