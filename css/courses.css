@@ -119,6 +119,21 @@
     justify-content: space-between;
 }
 
+/* 🔥 NEW: Styles for Old Price Display */
+.price-wrapper {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.old-price {
+    font-size: 0.85rem;
+    text-decoration: line-through;
+    color: #94a3b8; /* Muted Color */
+    margin-bottom: 2px;
+    font-weight: 500;
+}
+
 .price-tag {
     font-size: 1.2rem;
     font-weight: 700;
