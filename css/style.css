@@ -1,3 +1,5 @@
+/* css/style.css */
+
 /* =======================================================
    1. FONTS & IMPORTS
 ======================================================= */
@@ -28,10 +30,8 @@
    3. RESET & BASE STYLES
 ======================================================= */
 * { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-    font-family: 'Inter', sans-serif; /* Default English Font */
+    margin: 0; padding: 0; box-sizing: border-box; 
+    font-family: 'Inter', sans-serif;
 }
 
 body {
@@ -39,15 +39,11 @@ body {
     color: var(--color-text);
     line-height: 1.6;
     overflow-x: hidden;
-    
-    /* Page Transition Effect */
     opacity: 0; 
     transition: opacity 0.2s ease-in-out;
 }
 
-body.loaded {
-    opacity: 1; 
-}
+body.loaded { opacity: 1; }
 
 a { text-decoration: none; color: inherit; transition: 0.3s; }
 img { max-width: 100%; display: block; }
@@ -56,39 +52,17 @@ ul { list-style: none; }
 /* =======================================================
    4. LANGUAGE SUPPORT (Bangla Overrides)
 ======================================================= */
-body.bangla-mode {
+body.bangla-mode, body.bangla-mode * {
     font-family: 'Hind Siliguri', sans-serif !important;
 }
-
-body.bangla-mode h1, 
-body.bangla-mode h2, 
-body.bangla-mode h3, 
-body.bangla-mode h4,
-body.bangla-mode p,
-body.bangla-mode a,
-body.bangla-mode button,
-body.bangla-mode input,
-body.bangla-mode textarea {
-    font-family: 'Hind Siliguri', sans-serif !important;
-}
-
-/* Adjust Line Height for Bangla readability */
-body.bangla-mode h1, 
-body.bangla-mode h2, 
-body.bangla-mode h3 {
-    line-height: 1.5; 
-    letter-spacing: 0;
+body.bangla-mode h1, body.bangla-mode h2, body.bangla-mode h3 {
+    line-height: 1.5; letter-spacing: 0;
 }
 
 /* =======================================================
    5. UTILITIES
 ======================================================= */
-.container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
+.container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
 .section-padding { padding: 80px 0; }
 .text-center { text-align: center; }
 .text-primary { color: var(--color-primary); }
@@ -98,36 +72,23 @@ body.bangla-mode h3 {
    6. BUTTONS
 ======================================================= */
 .btn {
-    display: inline-block;
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
+    display: inline-block; padding: 12px 28px;
+    border-radius: 8px; font-weight: 600; cursor: pointer;
+    font-size: 0.95rem; transition: all 0.3s ease;
     border: 1px solid transparent;
 }
-
 .btn-primary {
-    background: var(--color-primary);
-    color: #fff;
+    background: var(--color-primary); color: #fff;
     box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.4);
 }
-
 .btn-primary:hover {
-    background: var(--color-primary-dark);
-    transform: translateY(-2px);
+    background: var(--color-primary-dark); transform: translateY(-2px);
 }
-
 .btn-outline {
-    background: transparent;
-    border-color: rgba(255,255,255,0.2);
-    color: var(--color-text);
+    background: transparent; border-color: rgba(255,255,255,0.2); color: var(--color-text);
 }
-
 .btn-outline:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+    border-color: var(--color-primary); color: var(--color-primary);
     background: rgba(14, 165, 233, 0.1);
 }
 
@@ -135,27 +96,21 @@ body.bangla-mode h3 {
    7. GLASS PANELS + INPUTS
 ======================================================= */
 .glass-panel {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border: var(--glass-border);
-    border-radius: var(--radius);
-    padding: 30px;
+    background: var(--glass-bg); backdrop-filter: blur(12px);
+    border: var(--glass-border); border-radius: var(--radius); padding: 30px;
 }
-
 .glass-input {
-    width: 100%;
-    padding: 12px 15px;
-    background: rgba(15, 23, 42, 0.6);
+    width: 100%; padding: 14px;
+    background: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #fff;
-    outline: none;
-    transition: 0.3s;
-    margin-bottom: 15px;
+    border-radius: 8px; color: #fff; font-size: 0.95rem;
+    margin-bottom: 15px; transition: 0.3s;
+    font-family: 'Inter', sans-serif; outline: none;
 }
-
 .glass-input:focus {
+    background: rgba(0, 0, 0, 0.4);
     border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
 }
 
 /* =======================================================
@@ -164,58 +119,23 @@ body.bangla-mode h3 {
 .hero-home {
     background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8)), 
                 url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    padding-top: 140px;
-    padding-bottom: 80px;
+    background-size: cover; background-position: center; background-attachment: fixed;
+    padding-top: 140px; padding-bottom: 80px;
 }
-
-/* Grid Class for Hero */
 .hero-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 50px;
-    align-items: center;
+    display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center;
 }
-
 .hero-title { font-size: 3rem; font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
 .hero-subtitle { font-size: 1.5rem; font-weight: 400; color: #cbd5e1; margin-bottom: 20px; }
-
-/* Buttons Container Class */
-.hero-btns {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
+.hero-btns { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
 .hero-badge {
-    display: inline-block;
-    padding: 6px 16px;
-    background: rgba(14, 165, 233, 0.1);
-    border: 1px solid rgba(14, 165, 233, 0.3);
-    border-radius: 50px;
-    margin-bottom: 20px;
-    color: var(--color-primary);
-    font-weight: 600;
-    font-size: 0.85rem;
+    display: inline-block; padding: 6px 16px;
+    background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3);
+    border-radius: 50px; margin-bottom: 20px; color: var(--color-primary);
+    font-weight: 600; font-size: 0.85rem;
 }
-
-/* Stats Bar */
-.stats-bar {
-    display: flex;
-    gap: 40px;
-    padding-top: 30px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.stat-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
+.stats-bar { display: flex; gap: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
+.stat-item { display: flex; align-items: center; gap: 12px; }
 .stat-item i { font-size: 1.8rem; color: var(--color-primary); }
 .stat-item strong { display: block; font-size: 1.2rem; color: white; }
 .stat-item span { font-size: 0.85rem; color: #94a3b8; }
@@ -225,269 +145,200 @@ body.bangla-mode h3 {
 ======================================================= */
 .cert-box { text-align: center; padding: 40px; border-top: 4px solid var(--color-primary); }
 .cert-icon-wrapper {
-    width: 80px; height: 80px;
-    background: rgba(14, 165, 233, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 80px; height: 80px; background: rgba(14, 165, 233, 0.1);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
     margin: 0 auto 20px;
 }
 .cert-icon-wrapper i { font-size: 2.5rem; color: var(--color-primary); }
-.cert-divider {
-    margin: 20px auto;
-    width: 50px;
-    height: 2px;
-    background: rgba(255,255,255,0.1);
-}
+.cert-divider { margin: 20px auto; width: 50px; height: 2px; background: rgba(255,255,255,0.1); }
 .cert-quote { font-size: 0.85rem; color: #cbd5e1; font-style: italic; }
 
 /* =======================================================
    10. GRIDS & CARDS
 ======================================================= */
 .services-grid, .course-grid-home {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
 }
-
-.contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-}
-
 .service-card { text-align: center; transition: 0.3s; }
 .service-card:hover { transform: translateY(-5px); border-color: var(--color-primary); }
-
 .service-icon {
-    width: 60px; height: 60px;
-    border-radius: 12px;
+    width: 60px; height: 60px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 1.8rem;
+    margin: 0 auto 20px; font-size: 1.8rem;
 }
-
 .icon-blue { background: rgba(14, 165, 233, 0.1); color: var(--color-primary); }
 .icon-purple { background: rgba(139, 92, 246, 0.1); color: var(--color-secondary); }
 .icon-pink { background: rgba(244, 63, 94, 0.1); color: var(--color-accent); }
 
 .link-arrow {
-    color: var(--color-primary);
-    font-weight: 600;
-    font-size: 0.9rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+    color: var(--color-primary); font-weight: 600; font-size: 0.9rem;
+    display: inline-flex; align-items: center; gap: 5px;
 }
 .link-arrow:hover { gap: 8px; }
 
-/* Course Preview Card */
+/* Course Preview */
 .course-preview { padding: 0; overflow: hidden; }
 .course-preview img { width: 100%; height: 200px; object-fit: cover; }
 .course-content { padding: 20px; }
-
 .course-meta {
-    display: flex;
-    justify-content: space-between;
-    color: #94a3b8;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
+    display: flex; justify-content: space-between; color: #94a3b8;
+    font-size: 0.9rem; margin-bottom: 15px;
 }
-
 .badge {
-    font-size: 0.75rem;
-    padding: 4px 10px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    font-weight: 600;
-    display: inline-block;
+    font-size: 0.75rem; padding: 4px 10px; border-radius: 20px;
+    text-transform: uppercase; font-weight: 600; display: inline-block;
     margin-bottom: 10px;
 }
-
 .badge-blue { background: rgba(14, 165, 233, 0.1); color: var(--color-primary); }
 .badge-purple { background: rgba(139, 92, 246, 0.1); color: var(--color-secondary); }
 .badge-pink { background: rgba(244, 63, 94, 0.1); color: var(--color-accent); }
 .text-yellow { color: #fbbf24; }
 
 /* =======================================================
-   11. CONTACT SECTION
+   11. CONTACT SECTION & MAP STYLES (🔥 UPDATED)
 ======================================================= */
 .contact-section-bg {
     background: linear-gradient(to top, #020617, rgba(30, 41, 59, 0.5));
 }
 
+/* 1. Layout: Left (Info+Map) & Right (Form) */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr; /* Info is smaller, Form is wider */
+    gap: 60px;
+    align-items: start;
+}
+
+/* 2. Contact Info & Rows */
+.contact-info-box {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 .contact-row {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 12px;
 }
 
+/* No background on rows now for cleaner look, just icons */
 .icon-circle {
-    width: 45px;
-    height: 45px;
+    width: 38px; height: 38px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; color: #fff;
+    flex-shrink: 0;
+    transition: 0.3s;
 }
 
-.label {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
+.icon-blue { background: rgba(14, 165, 233, 0.2); color: #38bdf8; }
+.icon-purple { background: rgba(139, 92, 246, 0.2); color: #a855f7; }
+
+/* 3. Map Container Styling */
+.map-container {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    /* Height is controlled inline but this is a fallback */
+    min-height: 250px;
+}
+
+/* 4. The Map Effect (Dark Mode Filter) */
+.map-frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    /* Beautiful Dark Mode Filter */
+    filter: grayscale(100%) invert(90%) contrast(90%);
+    transition: filter 0.5s ease;
+}
+
+/* Remove filters on hover so user sees real colors */
+.map-container:hover .map-frame {
+    filter: none;
+    cursor: grab;
 }
 
 /* =======================================================
    12. SUCCESS POPUP
 ======================================================= */
 #successPopup {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+    z-index: 9999; align-items: center; justify-content: center;
 }
-
-#successPopup.active {
-    display: flex;
-}
-
+#successPopup.active { display: flex; }
 .popup-content {
-    background: #1e293b;
-    border: 1px solid var(--color-primary);
-    padding: 40px;
-    border-radius: 16px;
-    text-align: center;
-    max-width: 400px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    background: #1e293b; border: 1px solid var(--color-primary);
+    padding: 40px; border-radius: 16px; text-align: center;
+    max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     animation: popIn 0.3s ease;
 }
-
 @keyframes popIn {
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
 
 /* =======================================================
-   13. RESPONSIVE MEDIA QUERIES
+   13. RESPONSIVE MEDIA QUERIES (🔥 UPDATED)
 ======================================================= */
 
 /* --- Tablet / Small Laptops (991px and down) --- */
 @media (max-width: 991px) {
-    /* Stack Hero Grid */
     .hero-grid {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 40px;
     }
+    .hero-content-wrapper { margin: 0 auto; }
+    .hero-btns { justify-content: center; }
 
     /* Stack Contact Grid */
     .contact-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack Left and Right */
         gap: 40px;
     }
-
-    .hero-content-wrapper {
-        margin: 0 auto;
-    }
-
-    /* Center buttons on tablet */
-    .hero-btns {
-        justify-content: center;
-    }
-
-    /* Align contact icons to center in stack mode */
-    .contact-info-box {
-        align-items: center;
-    }
     
-    .stats-bar {
-        justify-content: center;
-        flex-wrap: wrap;
+    .map-container {
+        height: 300px !important; /* Fixed height on mobile */
     }
+
+    .contact-info-box { align-items: stretch; }
+    .stats-bar { justify-content: center; flex-wrap: wrap; }
 }
 
 /* --- Mobile Landscape / Large Phones (768px and down) --- */
 @media (max-width: 768px) {
-    .hero-title, .hero-title-large {
-        font-size: 2.5rem;
-    }
+    .hero-title, .hero-title-large { font-size: 2.5rem; }
+    .section-padding { padding: 50px 0; }
+    .hero-home { padding-top: 120px; padding-bottom: 40px; }
 
-    .section-padding {
-        padding: 50px 0;
-    }
-
-    .hero-home {
-        padding-top: 120px;
-        padding-bottom: 40px;
-    }
-
-    /* Fix Floating Stats layout */
     .stats-container {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        gap: 20px;
+        display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;
     }
-
     .floating-stats {
-        margin-top: 0;
-        padding: 30px 0;
-        background: rgba(15, 23, 42, 0.95);
+        margin-top: 0; padding: 30px 0; background: rgba(15, 23, 42, 0.95);
     }
-
-    .stat-box {
-        flex: 1 1 40%; /* 2 items per row */
-        min-width: 120px;
-    }
-
-    /* Slider adjustments */
-    .slider-card {
-        flex: 0 0 300px;
-        height: auto;
-        min-height: 420px;
-    }
+    .stat-box { flex: 1 1 40%; min-width: 120px; }
+    .slider-card { flex: 0 0 300px; height: auto; min-height: 420px; }
 }
 
 /* --- Mobile Portrait (480px and down) --- */
 @media (max-width: 480px) {
-    .hero-title, .hero-title-large {
-        font-size: 2rem;
-    }
-
-    /* Stack buttons vertically on small screens */
-    .hero-btns {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .hero-btns .btn {
-        width: 100%;
-        text-align: center;
-    }
-
-    .slider-card {
-        flex: 0 0 280px; /* Smaller cards */
-    }
+    .hero-title, .hero-title-large { font-size: 2rem; }
+    .hero-btns { flex-direction: column; width: 100%; }
+    .hero-btns .btn { width: 100%; text-align: center; }
     
-    .cert-box {
-        padding: 20px;
-    }
+    .slider-card { flex: 0 0 280px; }
+    .cert-box { padding: 20px; }
     
-    /* Ensure Header Flex stacks properly */
     .section-header-flex {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+        flex-direction: column; align-items: center; text-align: center;
     }
-    
-    .section-header-flex .slider-nav {
-        margin-top: 15px;
-    }
+    .section-header-flex .slider-nav { margin-top: 15px; }
 }

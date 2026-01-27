@@ -102,38 +102,38 @@ window.handleLogout = function () {
 };
 
 /* ================================
-   6. INITIALIZE
-================================ */
-document.addEventListener('DOMContentLoaded', () => {
-    updateNavbarAuth();
-    
-    // Trigger Fade In on load (Part of Page Transitions)
-    setTimeout(() => {
-        document.body.classList.add('loaded');
-    }, 50);
-});
-
-/* js/main.js - Section 7 (Update just this part) */
-
-/* ================================
-   7. PAGE TRANSITION HANDLER
+   6. PAGE TRANSITION HANDLER (Optimized)
 ================================ */
 document.addEventListener('click', (e) => {
     const anchor = e.target.closest('a');
     
+    // Only intercept if it's a valid internal link
     if (anchor && anchor.href && anchor.target !== '_blank') {
         const targetUrl = new URL(anchor.href);
         
+        // Check if link is same origin and not a hash link (e.g., #contact)
         if (targetUrl.origin === window.location.origin && !anchor.getAttribute('href').startsWith('#')) {
             e.preventDefault();
             
             // Fade Out
             document.body.classList.remove('loaded');
             
-            // Wait just 200ms now (was 400ms)
+            // Wait 200ms then navigate (Fast transition)
             setTimeout(() => {
                 window.location.href = anchor.href;
             }, 200); 
         }
     }
+});
+
+/* ================================
+   7. INITIALIZE
+================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    updateNavbarAuth();
+    
+    // Trigger Fade In on load
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+    }, 50);
 });
