@@ -494,7 +494,8 @@
 
         const formData = new FormData(e.target);
         try {
-            const response = await fetch('http://localhost:5000/api/asset/register', { method: 'POST', body: formData });
+            
+            const response = await fetch('https://careerlift-lms.onrender.com/api/asset/register', { method: 'POST', body: formData });
             
             // Check if response is ok but also check if it's JSON
             const contentType = response.headers.get("content-type");
