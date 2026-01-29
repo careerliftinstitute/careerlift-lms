@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Admin Panel | CareerLift</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --primary: #0ea5e9; --danger: #ef4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--text); padding: 20px; }
+
+        /* HEADER */
+        .admin-header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--card); padding: 20px; border-radius: 12px; margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .stats { display: flex; gap: 20px; }
+        .stat-badge { background: rgba(14, 165, 233, 0.2); color: var(--primary); padding: 5px 15px; border-radius: 50px; font-weight: 600; }
+
+        /* TABLE STYLES */
+        .table-container {
+            overflow-x: auto; background: var(--card); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+        }
+        table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); vertical-align: middle; }
+        th { background: rgba(0,0,0,0.3); color: #94a3b8; font-size: 0.85rem; text-transform: uppercase; }
+        tr:hover { background: rgba(255,255,255,0.02); }
+
+        /* BUTTONS & LINKS */
+        .file-link {
+            display: inline-flex; align-items: center; gap: 5px;
+            background: #334155; color: white; padding: 6px 12px; border-radius: 6px;
+            font-size: 0.8rem; text-decoration: none; margin-right: 5px; transition: 0.3s;
+            border: 1px solid transparent;
+        }
+        .file-link:hover { background: var(--primary); border-color: var(--primary); }
+        
+        /* Missing File Style */
+        .file-link.missing { 
+            background: transparent; color: #64748b; 
+            border: 1px dashed #475569; cursor: not-allowed; 
+        }
+
+        .btn-delete {
+            background: rgba(239, 68, 68, 0.2); color: var(--danger); border: none;
+            padding: 8px 12px; border-radius: 6px; cursor: pointer; transition: 0.3s;
+        }
+        .btn-delete:hover { background: var(--danger); color: white; }
+
+        /* Document Preview Thumbnail Style */
+        .doc-preview {
+            width: 45px; height: 55px; /* Passport Shape */
+            object-fit: cover;
+            border-radius: 4px; /* Square Corners */
+            border: 1px solid #475569;
+            transition: 0.2s;
+            display: block;
+        }
+        .doc-preview:hover { transform: scale(1.5); border-color: var(--primary); }
+
+        /* LOGIN OVERLAY */
+        #loginOverlay {
+            position: fixed; inset: 0; background: var(--bg); z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .login-box {
+            background: var(--card); padding: 40px; border-radius: 16px; text-align: center; border: 1px solid var(--primary);
+        }
+        .login-input {
+            padding: 10px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loginOverlay">
+        <div class="login-box">
+            <h2 style="color: var(--primary);">Admin Access</h2>
+            <p style="color: #94a3b8; margin-bottom: 10px;">Enter PIN to view data</p>
+            <input type="password" id="adminPin" class="login-input" placeholder="Enter PIN">
+            <button onclick="checkLogin()" style="padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 10px;">Login</button>
+        </div>
+    </div>
+
+    <div class="admin-header">
+        <div>
+            <h2><i class="fa-solid fa-users-viewfinder"></i> Asset Project Applicants</h2>
+            <p style="color: #94a3b8; font-size: 0.9rem;">NSDA Free Course Registration Data</p>
+        </div>
+        <div class="stats">
+            <span class="stat-badge">Total: <span id="totalCount">0</span></span>
+            <button onclick="fetchData()" style="background: transparent; border: 1px solid #475569; color: white; padding: 5px 15px; border-radius: 6px; cursor: pointer;">
+                <i class="fa-solid fa-rotate"></i> Refresh
+            </button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Passport Photo</th>
+                    <th>Name & Phone</th>
+                    <th>Age & District</th>
+                    <th>Education</th>
+                    <th>Selected Course</th>
+                    <th>All Documents (Files)</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr><td colspan="8" style="text-align:center; padding: 30px;">Loading data...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000'; 
+
+        // 🔒 SECURITY (Change PIN here)
+        function checkLogin() {
+            const pin = document.getElementById('adminPin').value;
+            if(pin === '1234') { 
+                document.getElementById('loginOverlay').style.display = 'none';
+                fetchData();
+            } else {
+                alert('Wrong PIN!');
+            }
+        }
+
+        // 📥 FETCH DATA
+        async function fetchData() {
+            try {
+                const res = await fetch(`${API_URL}/api/asset/all`);
+                const data = await res.json();
+                renderTable(data);
+                document.getElementById('totalCount').innerText = data.length;
+            } catch (error) {
+                console.error(error);
+                alert('Failed to fetch data. Is server running?');
+            }
+        }
+
+        // 🖼️ RENDER TABLE
+        function renderTable(data) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            if(data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color: #94a3b8;">No applicants found.</td></tr>`;
+                return;
+            }
+
+            data.forEach(user => {
+                // Fix path slashes for URL compatibility
+                const photoUrl = user.photoPath ? `${API_URL}/${user.photoPath.replace(/\\/g, '/')}` : null;
+                const nidUrl = user.nidPath ? `${API_URL}/${user.nidPath.replace(/\\/g, '/')}` : null;
+                const sscUrl = user.sscPath ? `${API_URL}/${user.sscPath.replace(/\\/g, '/')}` : null;
+
+                const date = new Date(user.registrationDate).toLocaleDateString();
+
+                const row = `
+                    <tr>
+                        <td>
+                            ${photoUrl 
+                                ? `<a href="${photoUrl}" target="_blank" title="View Full Photo">
+                                     <img src="${photoUrl}" class="doc-preview" alt="User Photo">
+                                   </a>` 
+                                : '<span style="color:#64748b; font-size:0.8rem;">No Photo</span>'}
+                        </td>
+                        <td>
+                            <strong style="color:white; display:block; font-size: 1rem;">${user.name}</strong>
+                            <span style="color:#94a3b8; font-size:0.85rem;"><i class="fa-solid fa-phone"></i> ${user.phone}</span>
+                        </td>
+                        <td>
+                            ${user.age} Years<br>
+                            <span style="color:#94a3b8;">${user.district}</span>
+                        </td>
+                        <td><span style="background:#334155; padding:3px 8px; border-radius:4px; font-size:0.85rem;">${user.education}</span></td>
+                        <td><strong style="color:var(--primary);">${user.course}</strong></td>
+                        
+                        <td>
+                            <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                                ${photoUrl 
+                                    ? `<a href="${photoUrl}" target="_blank" class="file-link"><i class="fa-solid fa-image"></i> Photo</a>` 
+                                    : ''}
+                                
+                                ${nidUrl 
+                                    ? `<a href="${nidUrl}" target="_blank" class="file-link"><i class="fa-solid fa-id-card"></i> NID</a>` 
+                                    : '<span class="file-link missing">No NID</span>'}
+                                
+                                ${sscUrl 
+                                    ? `<a href="${sscUrl}" target="_blank" class="file-link"><i class="fa-solid fa-certificate"></i> SSC</a>` 
+                                    : '<span class="file-link missing">No SSC</span>'}
+                            </div>
+                        </td>
+                        
+                        <td style="color:#94a3b8; font-size:0.85rem;">${date}</td>
+                        <td>
+                            <button class="btn-delete" onclick="deleteUser('${user._id}')"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // 🗑️ DELETE USER
+        async function deleteUser(id) {
+            if(!confirm('Delete this applicant? This cannot be undone.')) return;
+
+            try {
+                const res = await fetch(`${API_URL}/api/asset/${id}`, { method: 'DELETE' });
+                if(res.ok) {
+                    fetchData();
+                } else {
+                    alert('Failed to delete');
+                }
+            } catch (err) {
+                alert('Server Error');
+            }
+        }
+    </script>
+
+</body>
+</html>

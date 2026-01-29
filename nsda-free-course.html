@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NSDA Free Govt. Courses | CareerLift</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0ea5e9; --primary-dark: #0284c7; --dark-bg: #0f172a; --card-bg: #1e293b;
+            --text-light: #f8fafc; --text-muted: #94a3b8; --border: rgba(255, 255, 255, 0.1);
+            --success: #22c55e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif; background-color: var(--dark-bg); color: var(--text-light);
+            overflow-x: hidden; opacity: 0; transition: opacity 0.5s ease;
+        }
+        body.loaded { opacity: 1; }
+        .bangla-text { font-family: 'Hind Siliguri', sans-serif !important; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; transition: 0.3s; }
+
+        /* --- 1. PREMIUM SCROLLING TOP BAR --- */
+        .top-bar {
+            background: linear-gradient(to right, #dc2626, #b91c1c);
+            color: white; height: 40px; display: flex; align-items: center;
+            overflow: hidden; position: fixed; top: 0; left: 0; width: 100%; z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .ticker-wrap { width: 100%; overflow: hidden; white-space: nowrap; }
+        .ticker-item {
+            display: inline-block; padding-left: 100%;
+            animation: ticker 30s linear infinite; /* Speed control */
+            font-size: 0.95rem; font-weight: 600;
+        }
+        .ticker-item:hover { animation-play-state: paused; cursor: default; }
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* --- 2. NAVBAR --- */
+        .navbar {
+            position: fixed; top: 40px; /* Pushed by Top Bar */
+            left: 0; width: 100%; height: 70px;
+            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; transition: 0.3s;
+        }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .back-link { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.95rem; }
+        .back-link:hover { color: var(--primary); }
+        .nav-btn {
+            background: var(--primary); color: white; padding: 10px 24px;
+            border-radius: 8px; font-weight: 600; font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+        .nav-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* --- 3. HERO SECTION --- */
+        .hero { padding-top: 150px; padding-bottom: 40px; text-align: center; background: radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.15), transparent 60%); }
+        .hero-logos { display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; align-items: center; flex-wrap: wrap; }
+        .hero-logo-img { height: 55px; width: auto; object-fit: contain; background: rgba(255,255,255,0.95); padding: 8px 12px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        
+        .badge { display: inline-block; padding: 6px 14px; background: rgba(34, 197, 94, 0.15); color: #4ade80; border-radius: 50px; font-size: 0.85rem; border: 1px solid rgba(34, 197, 94, 0.3); margin-bottom: 15px; font-weight: 600; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 15px; }
+        .text-gradient { background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 20px; line-height: 1.6; }
+
+        /* --- 4. STATS (Animated) --- */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 600px; margin: 0 auto 40px;
+            background: var(--card-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border);
+        }
+        .stat-item { text-align: center; border-right: 1px solid var(--border); }
+        .stat-item:last-child { border-right: none; }
+        .stat-val { font-size: 1.2rem; font-weight: 700; color: #fff; display: block; }
+        .stat-label { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* --- 5. PARTNER SECTION (Detailed Trust) --- */
+        .partner-section { padding: 50px 0; background: rgba(255,255,255,0.02); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .partner-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .partner-card { 
+            background: var(--card-bg); padding: 25px 20px; border-radius: 16px; border: 1px solid var(--border); 
+            text-align: center; transition: 0.3s; display: flex; flex-direction: column; align-items: center; 
+        }
+        .partner-card:hover { border-color: var(--primary); transform: translateY(-5px); background: rgba(30, 41, 59, 0.8); }
+        .partner-logo { height: 60px; width: auto; margin-bottom: 15px; object-fit: contain; }
+        .cl-logo { background: white; padding: 5px; border-radius: 6px; }
+        .partner-title { font-size: 1.1rem; color: #fff; margin-bottom: 10px; font-weight: 700; }
+        .partner-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+
+        /* --- 6. COURSE GRID --- */
+        .section-padding { padding: 60px 0; }
+        .section-title { text-align: center; margin-bottom: 40px; font-size: 2rem; font-weight: 700; }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .course-card {
+            background: var(--card-bg); padding: 20px; border-radius: 16px;
+            border: 1px solid var(--border); position: relative; overflow: hidden;
+            display: flex; flex-direction: column; transition: 0.3s;
+        }
+        .course-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .icon-box {
+            width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; margin-bottom: 12px;
+        }
+        .verified-badge { position: absolute; top: 15px; right: 15px; color: var(--success); font-size: 1.2rem; }
+        .feature-list { list-style: none; margin-top: auto; padding-top: 15px; }
+        .feature-list li { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 5px; display: flex; gap: 8px; }
+        .feature-list li i { color: var(--success); font-size: 0.9rem; margin-top: 3px; }
+
+        /* --- 7. FAQ --- */
+        .faq-section { max-width: 800px; margin: 0 auto; padding-bottom: 60px; padding-left:20px; padding-right:20px; }
+        .faq-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+        .faq-question { padding: 15px 20px; width: 100%; text-align: left; background: none; border: none; color: white; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-answer { padding: 0 20px 15px; color: var(--text-muted); font-size: 0.95rem; display: none; line-height: 1.6; border-top: 1px solid var(--border); margin-top: -5px; padding-top: 15px; }
+        .faq-item.open .faq-answer { display: block; }
+        .faq-item.open .faq-question i { transform: rotate(180deg); transition: 0.3s; color: var(--primary); }
+
+        /* --- 8. FORM --- */
+        .form-box { background: #1e293b; border-radius: 20px; padding: 40px; max-width: 750px; margin: 0 auto; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .input-group { margin-bottom: 15px; }
+        .input-label { display: block; color: var(--text-muted); margin-bottom: 8px; font-size: 0.9rem; }
+        .custom-input {
+            width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155;
+            border-radius: 8px; color: #fff; font-size: 1rem; outline: none; transition: 0.3s;
+        }
+        .custom-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1); }
+
+        /* --- 9. FLOATING WHATSAPP & STICKY BTN --- */
+        .whatsapp-float {
+            position: fixed; bottom: 80px; right: 20px; z-index: 9998;
+            background: #25D366; color: white; width: 55px; height: 55px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 15px rgba(37, 211, 102, 0.5); }
+
+        .mobile-sticky-btn { display: none; }
+        .desktop-only { display: block; }
+
+        /* --- ANIMATION CLASSES --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .navbar { height: 60px; top: 40px; }
+            .back-link span { display: none; }
+            .nav-btn { display: none; }
+            
+            .hero { padding-top: 140px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-logo-img { height: 45px; }
+
+            .partner-grid { grid-template-columns: 1fr; gap: 15px; }
+            .partner-card { flex-direction: row; text-align: left; padding: 15px; gap: 15px; align-items: flex-start; }
+            .partner-logo { height: 50px; margin-bottom: 0; }
+
+            /* SMART MOBILE GRID (2 Columns) */
+            .course-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .course-card { padding: 12px; border-radius: 12px; }
+            .icon-box { width: 35px; height: 35px; font-size: 1rem; margin-bottom: 8px; }
+            .course-card h3 { font-size: 0.85rem; line-height: 1.3; margin-bottom: 5px; height: 2.6em; overflow: hidden; }
+            .course-card p { display: none; } /* Hide desc on mobile */
+            .feature-list { padding-top: 8px; }
+            .feature-list li { font-size: 0.65rem; margin-bottom: 2px; }
+
+            .form-grid { grid-template-columns: 1fr; gap: 0; }
+            .form-box { padding: 25px; }
+            
+            .mobile-sticky-btn {
+                display: block; position: fixed; bottom: 0; left: 0; width: 100%;
+                padding: 10px 15px; background: rgba(15, 23, 42, 0.98);
+                border-top: 1px solid var(--border); z-index: 9999;
+                box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+            }
+            .mobile-sticky-btn a {
+                display: block; width: 100%; text-align: center; background: var(--primary);
+                color: white; padding: 12px; border-radius: 8px; font-weight: 700;
+            }
+            .whatsapp-float { bottom: 80px; width: 50px; height: 50px; font-size: 26px; }
+        }
+
+        /* POPUP */
+        #successPopup { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; }
+        #successPopup.active { display: flex; animation: fadeIn 0.3s; }
+        .popup-box { background: #1e293b; padding: 30px; border-radius: 16px; text-align: center; width: 350px; border: 1px solid var(--primary); }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        
+        footer { border-top: 1px solid var(--border); padding: 30px 0; text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 60px; }
+    </style>
+</head>
+<body class="bangla-mode">
+
+<div class="top-bar">
+    <div class="ticker-wrap">
+        <div class="ticker-item bangla-text">
+            🔴 বিশেষ বিজ্ঞপ্তি: গণপ্রজাতন্ত্রী বাংলাদেশ সরকারের প্রধানমন্ত্রীর কার্যালয়ের অধীনস্থ <strong>NSDA অনুমোদিত</strong> 'Care Giving' কোর্সে ১০০% সরকারি স্কলারশিপে ভর্তি চলছে! নিয়মিত ক্লাসে উপস্থিত থাকলে থাকছে দৈনিক যাতায়াত ভাতা। আসন সংখ্যা সীমিত, তাই আজই আবেদন করুন। 🔴
+        </div>
+    </div>
+</div>
+
+<nav class="navbar">
+    <div class="container nav-wrapper">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> <span>Back to Main Site</span></a>
+        <div style="font-weight: 700; font-size: 1.1rem;">Career<span style="color: var(--primary);">Lift</span></div>
+        <a href="#register-form" class="nav-btn desktop-only">Apply Now</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-logos reveal">
+            <img src="assets/images/asset-logo.png" alt="ASSET Project" class="hero-logo-img">
+            <img src="assets/images/nsda-logo.png" alt="NSDA Logo" class="hero-logo-img">
+        </div>
+
+        <div class="badge bangla-text reveal"><i class="fa-solid fa-certificate"></i> সরকারি প্রজেক্ট (ASSET)</div>
+        <h1 class="bangla-text reveal">সরকারি খরচে <br> <span class="text-gradient">স্কিল ডেভেলপমেন্ট</span></h1>
+        
+        <div class="stats-grid reveal">
+            <div class="stat-item"><span class="stat-val text-gradient count" data-target="100">0</span><span class="stat-label bangla-text">টাকা/দিন (ভাতা)</span></div>
+            <div class="stat-item"><span class="stat-val count" style="color:#a855f7;" data-target="3">0</span><span class="stat-label bangla-text">মাস (মেয়াদ)</span></div>
+            <div class="stat-item"><span class="stat-val" style="color:#22c55e;">L-3</span><span class="stat-label bangla-text">সার্টিফিকেট</span></div>
+        </div>
+
+        <div class="desktop-only reveal">
+            <a href="#register-form" class="nav-btn" style="padding: 12px 30px; border-radius: 50px;">আসন নিশ্চিত করুন</a>
+        </div>
+    </div>
+</section>
+
+<section class="partner-section reveal">
+    <div class="container">
+        <div class="partner-grid">
+            <div class="partner-card">
+                <img src="assets/images/asset-logo.png" alt="ASSET Logo" class="partner-logo" style="background: white; padding: 5px; border-radius: 6px;">
+                <div>
+                    <h3 class="partner-title bangla-text">ASSET প্রজেক্ট কী?</h3>
+                    <p class="partner-desc bangla-text">বিশ্বব্যাংক ও বাংলাদেশ সরকারের যৌথ অর্থায়নে পরিচালিত প্রকল্প। এর মূল উদ্দেশ্য হলো দেশের যুবসমাজকে বিনামূল্যে দক্ষ করে গড়ে তোলা এবং নিশ্চিত কর্মসংস্থান সৃষ্টি করা।</p>
+                </div>
+            </div>
+            <div class="partner-card">
+                <img src="assets/images/nsda-logo.png" alt="NSDA Logo" class="partner-logo" style="background: white; padding: 5px; border-radius: 6px;">
+                <div>
+                    <h3 class="partner-title bangla-text">NSDA (প্রধানমন্ত্রীর কার্যালয়)</h3>
+                    <p class="partner-desc bangla-text">জাতীয় দক্ষতা উন্নয়ন কর্তৃপক্ষ। এটি সরাসরি প্রধানমন্ত্রীর কার্যালয়ের অধীনস্থ যা দেশের প্রশিক্ষণের মান নিয়ন্ত্রণ করে এবং আন্তর্জাতিক মানের সার্টিফিকেট প্রদান করে।</p>
+                </div>
+            </div>
+            <div class="partner-card">
+                <img src="assets/images/careerlift-logo.png" alt="CareerLift Logo" class="partner-logo cl-logo">
+                <div>
+                    <h3 class="partner-title bangla-text">বাস্তবায়নকারী পার্টনার</h3>
+                    <p class="partner-desc bangla-text">CareerLift একটি NSDA অনুমোদিত অত্যাধুনিক স্কিল ডেভেলপমেন্ট ইনস্টিটিউট। আমরা এই সরকারি প্রজেক্টের গর্বিত প্রশিক্ষণ সহযোগী।</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding reveal" style="padding-bottom: 20px;">
+    <div class="container">
+        <h2 class="section-title bangla-text">আমাদের <span style="color: var(--primary);">কোর্সসমূহ</span></h2>
+        
+        <div class="course-grid">
+            <div class="course-card">
+                <i class="fa-solid fa-circle-check verified-badge" title="Verified"></i>
+                <div class="icon-box" style="background: rgba(244,63,94,0.1); color: #f43f5e;"><i class="fa-solid fa-user-nurse"></i></div>
+                <h3 class="bangla-text" style="color: #fff;">Elderly Caregiving (L-3)</h3>
+                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">বয়স্কদের সেবা ও ঔষধ ব্যবস্থাপনা।</p>
+                <ul class="feature-list bangla-text">
+                    <li><i class="fa-solid fa-check"></i> ভাইটাল সাইন চেক</li>
+                    <li><i class="fa-solid fa-check"></i> ঔষধ সেবন বিধি</li>
+                </ul>
+            </div>
+            <div class="course-card">
+                <i class="fa-solid fa-circle-check verified-badge"></i>
+                <div class="icon-box" style="background: rgba(168,85,247,0.1); color: #a855f7;"><i class="fa-solid fa-brain"></i></div>
+                <h3 class="bangla-text" style="color: #fff;">Dementia Care (L-3)</h3>
+                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">ডিমেনশিয়া রোগীদের বিশেষ যত্ন।</p>
+                <ul class="feature-list bangla-text">
+                    <li><i class="fa-solid fa-check"></i> আচরণগত পরিবর্তন</li>
+                    <li><i class="fa-solid fa-check"></i> মানসিক সাপোর্ট</li>
+                </ul>
+            </div>
+            <div class="course-card">
+                <i class="fa-solid fa-circle-check verified-badge"></i>
+                <div class="icon-box" style="background: rgba(56,189,248,0.1); color: #38bdf8;"><i class="fa-solid fa-baby"></i></div>
+                <h3 class="bangla-text" style="color: #fff;">Child Care (L-3)</h3>
+                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">শিশু ও নবজাতকের সঠিক লালন-পালন।</p>
+                <ul class="feature-list bangla-text">
+                    <li><i class="fa-solid fa-check"></i> ফিডিং টেকনিক</li>
+                    <li><i class="fa-solid fa-check"></i> হাইজিন মেইনটেইন</li>
+                </ul>
+            </div>
+            <div class="course-card">
+                <i class="fa-solid fa-circle-check verified-badge"></i>
+                <div class="icon-box" style="background: rgba(34,197,94,0.1); color: #22c55e;"><i class="fa-solid fa-wheelchair"></i></div>
+                <h3 class="bangla-text" style="color: #fff;">Special Needs (L-3)</h3>
+                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">বিশেষ চাহিদাসম্পন্নদের সহায়তা।</p>
+                <ul class="feature-list bangla-text">
+                    <li><i class="fa-solid fa-check"></i> অ্যাসিস্টিভ ডিভাইস</li>
+                    <li><i class="fa-solid fa-check"></i> ডেইলি সাপোর্ট</li>
+                </ul>
+            </div>
+            <div class="course-card">
+                <i class="fa-solid fa-circle-check verified-badge"></i>
+                <div class="icon-box" style="background: rgba(249,115,22,0.1); color: #f97316;"><i class="fa-solid fa-kit-medical"></i></div>
+                <h3 class="bangla-text" style="color: #fff;">Primary Health Care (L-2)</h3>
+                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">প্রাথমিক চিকিৎসা ও নার্সিং বেসিকস।</p>
+                <ul class="feature-list bangla-text">
+                    <li><i class="fa-solid fa-check"></i> ফার্স্ট এইড</li>
+                    <li><i class="fa-solid fa-check"></i> ড্রেসিং ও ব্যান্ডেজিং</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container faq-section reveal">
+    <h2 class="section-title bangla-text" style="font-size: 1.5rem; margin-bottom: 20px;">সচরাচর জিজ্ঞাসা (FAQ)</h2>
+    <div class="faq-item">
+        <button class="faq-question bangla-text">কোর্সটি কি সত্যিই সম্পূর্ণ ফ্রি? <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="faq-answer bangla-text">জি, এটি বিশ্বব্যাংক ও বাংলাদেশ সরকারের ASSET প্রজেক্টের আওতাধীন, তাই সম্পূর্ণ ফ্রি। কোনো ভর্তি ফি বা গোপন চার্জ নেই।</div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question bangla-text">আমি কি নিশ্চিত ভাতা পাবো? <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="faq-answer bangla-text">হ্যাঁ, যদি আপনি ৮০% ক্লাসে উপস্থিত থাকেন তবে দৈনিক ১০০ টাকা করে যাতায়াত ভাতা পাবেন।</div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question bangla-text">কোর্স শেষে সার্টিফিকেট পাবো? <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="faq-answer bangla-text">অবশ্যই। সফলভাবে অ্যাসেসমেন্ট সম্পন্ন করলে NSDA (প্রধানমন্ত্রীর কার্যালয়) থেকে আন্তর্জাতিক মানের লেভেল-৩ সার্টিফিকেট পাবেন।</div>
+    </div>
+</section>
+
+<section id="register-form" class="form-section reveal">
+    <div class="container">
+        <div class="form-box">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <h2 class="bangla-text" style="color: #fff; margin-bottom: 10px;">আবেদন ফর্ম</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">⚠️ আসন সংখ্যা সীমিত। দ্রুত ফর্ম পূরণ করুন।</p>
+            </div>
+            
+            <form id="assetForm">
+                <div class="form-grid">
+                    <div class="input-group"><label class="input-label">নাম</label><input type="text" name="name" class="custom-input" required></div>
+                    <div class="input-group"><label class="input-label">মোবাইল</label><input type="tel" name="phone" class="custom-input" required></div>
+                </div>
+                <div class="form-grid">
+                    <div class="input-group"><label class="input-label">বয়স (১৮+)</label><input type="number" name="age" class="custom-input" required></div>
+                    <div class="input-group"><label class="input-label">জেলা</label><input type="text" name="district" class="custom-input" required></div>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">শিক্ষাগত যোগ্যতা</label>
+                    <select name="education" class="custom-input" required>
+                        <option value="" disabled selected>বাছাই করুন...</option>
+                        <option value="JSC">JSC / Class 8</option>
+                        <option value="SSC">SSC / O Level</option>
+                        <option value="HSC">HSC / A Level</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="Bachelor">Bachelor</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">পছন্দের কোর্স</label>
+                    <select name="course" class="custom-input" style="border-color: var(--primary);" required>
+                        <option value="" disabled selected>কোর্স সিলেক্ট করুন...</option>
+                        <option value="Primary Health L2">Primary Health Care (L-2)</option>
+                        <option value="Elderly Care L3">Elderly Caregiving (L-3)</option>
+                        <option value="Dementia Care L3">Dementia Caregiving (L-3)</option>
+                        <option value="Child Care L3">Child & Infant Care (L-3)</option>
+                        <option value="Special Needs L3">Special Needs Care (L-3)</option>
+                    </select>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px dashed #475569;">
+                    <p style="color: var(--primary); font-size: 0.85rem; margin-bottom: 10px;">প্রয়োজনীয় কাগজপত্র (ছবি ও ফাইল)</p>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label class="input-label">১. আপনার ছবি</label>
+                            <input type="file" name="photo" accept="image/*" class="custom-input" style="padding: 8px;">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">২. NID / জন্মনিবন্ধন</label>
+                            <input type="file" name="nid" accept=".pdf, image/*" class="custom-input" style="padding: 8px;">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">৩. SSC সার্টিফিকেট</label>
+                        <input type="file" name="ssc_certificate" accept=".pdf, image/*" class="custom-input" style="padding: 8px;">
+                    </div>
+                </div>
+
+                <button type="submit" class="nav-btn" style="width: 100%; padding: 14px; margin-top: 20px; font-size: 1.1rem; border: none; cursor: pointer;">আবেদন জমা দিন</button>
+            </form>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; color: var(--text-muted); font-size: 0.9rem;">
+            <p><i class="fa-solid fa-location-dot"></i> অফিস: ১৮০–১৮১ প্রাইম টাওয়ার (Lift-3), বিজয়নগর, ঢাকা।</p>
+            <p style="margin-top: 5px;"><i class="fa-solid fa-phone"></i> হেল্পলাইন: <strong>+৮৮০ ১৮১৪-৩০৪০৮১</strong></p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        © 2026 CareerLift Institute. All Rights Reserved.<br>
+        <span style="font-size:0.8rem; color:#64748b;">NSDA Recognized | World Bank Funded Project</span>
+    </div>
+</footer>
+
+<div class="mobile-sticky-btn"><a href="#register-form">এখনই আবেদন করুন</a></div>
+
+<a href="https://wa.me/8801814304081" target="_blank" class="whatsapp-float">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<div id="successPopup">
+    <div class="popup-box">
+        <i class="fa-solid fa-check-circle" style="font-size: 3rem; color: #22c55e; margin-bottom: 15px;"></i>
+        <h3 class="bangla-text" style="color: #fff;">সফল হয়েছে!</h3>
+        <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">আমরা শীঘ্রই যোগাযোগ করব।</p>
+        <button class="nav-btn" style="background: transparent; border: 1px solid #fff;" onclick="document.getElementById('successPopup').classList.remove('active')">Close</button>
+    </div>
+</div>
+
+<script>
+    // Fade In & Animation
+    document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('loaded');
+        window.addEventListener('scroll', reveal);
+        reveal(); // Trigger once on load
+        
+        // Count Up Animation
+        const counters = document.querySelectorAll('.count');
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const inc = target / 50; 
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc);
+                    setTimeout(updateCount, 40);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        });
+    });
+
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 150;
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add("active");
+            }
+        }
+    }
+    
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const faqItem = button.parentElement;
+            faqItem.classList.toggle('open');
+        });
+    });
+
+    const form = document.getElementById('assetForm');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ...'; btn.disabled = true;
+
+        const formData = new FormData(e.target);
+        try {
+            const response = await fetch('http://localhost:5000/api/asset/register', { method: 'POST', body: formData });
+            if (response.ok) { document.getElementById('successPopup').classList.add('active'); form.reset(); }
+            else { alert('Error sending data'); }
+        } catch { alert('Server Error'); } 
+        finally { btn.innerHTML = originalText; btn.disabled = false; }
+    });
+</script>
+</body>
+</html>
