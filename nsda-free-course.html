@@ -54,24 +54,12 @@
         .back-link { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.95rem; }
         .back-link:hover { color: var(--primary); }
         
-        /* Navbar Button (Hidden on Mobile) */
         .nav-btn {
             background: var(--primary); color: white; padding: 10px 24px;
             border-radius: 8px; font-weight: 600; font-size: 0.9rem;
             box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
         }
         .nav-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
-
-        /* Form Submit Button (Visible on Mobile) */
-        .submit-btn {
-            background: var(--primary); color: white; padding: 14px 24px;
-            border-radius: 8px; font-weight: 600; font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
-            border: none; cursor: pointer; width: 100%; margin-top: 20px;
-            transition: 0.3s;
-        }
-        .submit-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
-        .submit-btn:disabled { background: #64748b; cursor: not-allowed; }
 
         /* --- HERO --- */
         .hero { padding-top: 150px; padding-bottom: 40px; text-align: center; background: radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.15), transparent 60%); }
@@ -99,25 +87,47 @@
         .partner-title { font-size: 1.1rem; color: #fff; margin-bottom: 10px; font-weight: 700; }
         .partner-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
 
-        /* --- COURSES --- */
-        .section-padding { padding: 60px 0; }
-        .section-title { text-align: center; margin-bottom: 40px; font-size: 2rem; font-weight: 700; }
-        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .course-card { background: var(--card-bg); padding: 20px; border-radius: 16px; border: 1px solid var(--border); position: relative; overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; }
-        .course-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .icon-box { width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 12px; }
-        .verified-badge { position: absolute; top: 15px; right: 15px; color: var(--success); font-size: 1.2rem; }
-        .feature-list { list-style: none; margin-top: auto; padding-top: 15px; }
-        .feature-list li { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 5px; display: flex; gap: 8px; }
-        .feature-list li i { color: var(--success); font-size: 0.9rem; margin-top: 3px; }
-
-        /* --- FORM --- */
-        .form-box { background: #1e293b; border-radius: 20px; padding: 40px; max-width: 750px; margin: 0 auto; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .input-group { margin-bottom: 15px; }
-        .input-label { display: block; color: var(--text-muted); margin-bottom: 8px; font-size: 0.9rem; }
-        .custom-input { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #fff; font-size: 1rem; outline: none; transition: 0.3s; }
-        .custom-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1); }
+        /* --- MODERN COURSES SECTION --- */
+        .section-padding { padding: 80px 0; }
+        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.2rem; font-weight: 800; }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        
+        .course-card { 
+            background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px); 
+            padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); 
+            position: relative; overflow: hidden; display: flex; flex-direction: column; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .course-card:hover { 
+            border-color: var(--primary); transform: translateY(-8px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(14, 165, 233, 0.15); 
+        }
+        
+        .course-header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .icon-box { width: 55px; height: 55px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .course-level { font-size: 0.8rem; background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 8px; color: var(--text-muted); border: 1px solid var(--border); }
+        
+        .course-card h3 { font-size: 1.25rem; margin-bottom: 8px; line-height: 1.4; }
+        .course-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; }
+        
+        .feature-list { list-style: none; margin-bottom: 20px; }
+        .feature-list li { color: #cbd5e1; font-size: 0.9rem; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; }
+        .feature-list li i { color: var(--primary); font-size: 0.85rem; margin-top: 4px; }
+        
+        .course-footer { 
+            margin-top: auto; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1); 
+            display: flex; justify-content: space-between; align-items: center; 
+        }
+        .course-duration { color: var(--text-muted); font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+        .course-duration i { color: #f59e0b; }
+        
+        .apply-btn-small { 
+            background: rgba(14, 165, 233, 0.1); color: var(--primary); 
+            padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; 
+            transition: 0.3s; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(14, 165, 233, 0.2);
+        }
+        .apply-btn-small:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
         /* --- MOBILE/DESKTOP UTILS --- */
         .mobile-sticky-btn { display: none; }
@@ -143,16 +153,9 @@
             .partner-card { flex-direction: row; text-align: left; padding: 15px; gap: 15px; align-items: flex-start; }
             .partner-logo { height: 50px; margin-bottom: 0; }
 
-            .course-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .course-card { padding: 12px; border-radius: 12px; }
-            .icon-box { width: 35px; height: 35px; font-size: 1rem; margin-bottom: 8px; }
-            .course-card h3 { font-size: 0.85rem; line-height: 1.3; margin-bottom: 5px; height: 2.6em; overflow: hidden; }
-            .course-card p { display: none; }
-            .feature-list { padding-top: 8px; }
-            .feature-list li { font-size: 0.65rem; margin-bottom: 2px; }
-
-            .form-grid { grid-template-columns: 1fr; gap: 0; }
-            .form-box { padding: 25px; }
+            .section-padding { padding: 50px 0; }
+            .course-grid { grid-template-columns: 1fr; gap: 15px; }
+            .course-card { padding: 20px; }
             
             .mobile-sticky-btn {
                 display: block; position: fixed; bottom: 0; left: 0; width: 100%;
@@ -167,12 +170,7 @@
             .whatsapp-float { bottom: 80px; width: 50px; height: 50px; font-size: 26px; }
         }
 
-        /* POPUP & FAQ */
-        #successPopup { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; }
-        #successPopup.active { display: flex; animation: fadeIn 0.3s; }
-        .popup-box { background: #1e293b; padding: 30px; border-radius: 16px; text-align: center; width: 350px; border: 1px solid var(--primary); }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        
+        /* FAQ */
         .faq-section { max-width: 800px; margin: 0 auto; padding-bottom: 60px; padding-left:20px; padding-right:20px; }
         .faq-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
         .faq-question { padding: 15px 20px; width: 100%; text-align: left; background: none; border: none; color: white; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
@@ -197,7 +195,7 @@
     <div class="container nav-wrapper">
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> <span>Back to Main Site</span></a>
         <div style="font-weight: 700; font-size: 1.1rem;">Career<span style="color: var(--primary);">Lift</span></div>
-        <a href="#register-form" class="nav-btn desktop-only">Apply Now</a>
+        <a href="https://forms.gle/9HjJRWe2xQqJoXYW6" target="_blank" class="nav-btn desktop-only">Apply Now</a>
     </div>
 </nav>
 
@@ -218,7 +216,7 @@
         </div>
 
         <div class="desktop-only reveal">
-            <a href="#register-form" class="nav-btn" style="padding: 12px 30px; border-radius: 50px;">আসন নিশ্চিত করুন</a>
+            <a href="https://forms.gle/9HjJRWe2xQqJoXYW6" target="_blank" class="nav-btn" style="padding: 12px 30px; border-radius: 50px;">আসন নিশ্চিত করুন</a>
         </div>
     </div>
 </section>
@@ -256,88 +254,124 @@
         <h2 class="section-title bangla-text">আমাদের <span style="color: var(--primary);">কোর্সসমূহ</span></h2>
         
         <div class="course-grid">
+            
+            <!-- Course 1 -->
             <div class="course-card">
-                <i class="fa-solid fa-circle-check verified-badge" title="Verified"></i>
-                <div class="icon-box" style="background: rgba(244,63,94,0.1); color: #f43f5e;"><i class="fa-solid fa-user-nurse"></i></div>
-                <h3 class="bangla-text" style="color: #fff;">Elderly Caregiving (L-3)</h3>
-                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">বয়স্কদের সেবা ও ঔষধ ব্যবস্থাপনা।</p>
+                <div class="course-header-top">
+                    <div class="icon-box" style="background: rgba(168,85,247,0.1); color: #a855f7;"><i class="fa-solid fa-brain"></i></div>
+                </div>
+                <h3 style="color: #fff;">Dementia Caregiving, Level-03</h3>
+                <p class="bangla-text">ডিমেনশিয়া ও অ্যালজাইমার্স রোগীদের বিশেষ মানসিক ও শারীরিক যত্ন।</p>
                 <ul class="feature-list bangla-text">
-                    <li><i class="fa-solid fa-check"></i> ভাইটাল সাইন চেক</li>
-                    <li><i class="fa-solid fa-check"></i> ঔষধ সেবন বিধি</li>
+                    <li><i class="fa-solid fa-circle-check"></i> আচরণগত পরিবর্তন হ্যান্ডেলিং</li>
+                    <li><i class="fa-solid fa-circle-check"></i> পেশেন্টের মানসিক সাপোর্ট নিশ্চিতকরণ</li>
                 </ul>
-            </div>
-            <div class="course-card">
-                <i class="fa-solid fa-circle-check verified-badge"></i>
-                <div class="icon-box" style="background: rgba(168,85,247,0.1); color: #a855f7;"><i class="fa-solid fa-brain"></i></div>
-                <h3 class="bangla-text" style="color: #fff;">Dementia Care (L-3)</h3>
-                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">ডিমেনশিয়া রোগীদের বিশেষ যত্ন।</p>
-                <ul class="feature-list bangla-text">
-                    <li><i class="fa-solid fa-check"></i> আচরণগত পরিবর্তন</li>
-                    <li><i class="fa-solid fa-check"></i> মানসিক সাপোর্ট</li>
-                </ul>
-            </div>
-            <div class="course-card">
-                <i class="fa-solid fa-circle-check verified-badge"></i>
-                <div class="icon-box" style="background: rgba(56,189,248,0.1); color: #38bdf8;"><i class="fa-solid fa-baby"></i></div>
-                <h3 class="bangla-text" style="color: #fff;">Child Care (L-3)</h3>
-                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">শিশু ও নবজাতকের সঠিক লালন-পালন।</p>
-                <ul class="feature-list bangla-text">
-                    <li><i class="fa-solid fa-check"></i> ফিডিং টেকনিক</li>
-                    <li><i class="fa-solid fa-check"></i> হাইজিন মেইনটেইন</li>
-                </ul>
-            </div>
-            <div class="course-card">
-                <i class="fa-solid fa-circle-check verified-badge"></i>
-                <div class="icon-box" style="background: rgba(34,197,94,0.1); color: #22c55e;"><i class="fa-solid fa-wheelchair"></i></div>
-                <h3 class="bangla-text" style="color: #fff;">Special Needs (L-3)</h3>
-                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">বিশেষ চাহিদাসম্পন্নদের সহায়তা।</p>
-                <ul class="feature-list bangla-text">
-                    <li><i class="fa-solid fa-check"></i> অ্যাসিস্টিভ ডিভাইস</li>
-                    <li><i class="fa-solid fa-check"></i> ডেইলি সাপোর্ট</li>
-                </ul>
-            </div>
-            <div class="course-card">
-                <i class="fa-solid fa-circle-check verified-badge"></i>
-                <div class="icon-box" style="background: rgba(249,115,22,0.1); color: #f97316;"><i class="fa-solid fa-kit-medical"></i></div>
-                <h3 class="bangla-text" style="color: #fff;">Primary Health Care (L-2)</h3>
-                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">প্রাথমিক চিকিৎসা ও নার্সিং বেসিকস।</p>
-                <ul class="feature-list bangla-text">
-                    <li><i class="fa-solid fa-check"></i> ফার্স্ট এইড</li>
-                    <li><i class="fa-solid fa-check"></i> ড্রেসিং ও ব্যান্ডেজিং</li>
-                </ul>
+                <div class="course-footer">
+                    <span class="course-duration bangla-text"><i class="fa-regular fa-clock"></i> মেয়াদ: ৩ মাস</span>
+                    <a href="https://forms.gle/9HjJRWe2xQqJoXYW6" target="_blank" class="apply-btn-small bangla-text">রেজিস্ট্রেশন করুন <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
             </div>
 
+            <!-- Course 2 -->
             <div class="course-card">
-                <i class="fa-solid fa-circle-check verified-badge"></i>
-                <div class="icon-box" style="background: rgba(234,179,8,0.1); color: #eab308;"><i class="fa-solid fa-book-open"></i></div>
-                <h3 class="bangla-text" style="color: #fff;">English for Work (L-2)</h3>
-                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">পেশাগত ইংরেজি ও কমিউনিকেশন স্কিলস।</p>
+                <div class="course-header-top">
+                    <div class="icon-box" style="background: rgba(244,63,94,0.1); color: #f43f5e;"><i class="fa-solid fa-user-nurse"></i></div>
+                </div>
+                <h3 style="color: #fff;">Caregiving For Elderly Persons (Level-3)</h3>
+                <p class="bangla-text">বয়স্কদের সেবা, ঔষধ ব্যবস্থাপনা এবং ইমার্জেন্সি সাপোর্ট।</p>
                 <ul class="feature-list bangla-text">
-                    <li><i class="fa-solid fa-check"></i> স্পিকিং প্র্যাকটিস</li>
-                    <li><i class="fa-solid fa-check"></i> জব ইন্টারভিউ প্রস্তুতি</li>
+                    <li><i class="fa-solid fa-circle-check"></i> পেশেন্ট ভাইটাল সাইন মনিটরিং</li>
+                    <li><i class="fa-solid fa-circle-check"></i> সঠিক ঔষধ সেবন বিধি ও হাইজিন</li>
                 </ul>
+                <div class="course-footer">
+                    <span class="course-duration bangla-text"><i class="fa-regular fa-clock"></i> মেয়াদ: ৩ মাস</span>
+                    <a href="https://forms.gle/9HjJRWe2xQqJoXYW6" target="_blank" class="apply-btn-small bangla-text">রেজিস্ট্রেশন করুন <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
             </div>
 
+            <!-- Course 3 -->
             <div class="course-card">
-                <i class="fa-solid fa-circle-check verified-badge"></i>
-                <div class="icon-box" style="background: rgba(236,72,153,0.1); color: #ec4899;"><i class="fa-solid fa-spa"></i></div>
-                <h3 class="bangla-text" style="color: #fff;">Skin care (L-3)</h3>
-                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">ত্বকের যত্ন ও সৌন্দর্য বর্ধন প্রশিক্ষণ।</p>
+                <div class="course-header-top">
+                    <div class="icon-box" style="background: rgba(56,189,248,0.1); color: #38bdf8;"><i class="fa-solid fa-baby"></i></div>
+                </div>
+                <h3 style="color: #fff;">Caregiving for Infant, Toddler, and Children (Level-3)</h3>
+                <p class="bangla-text">শিশু ও নবজাতকের সঠিক লালন-পালন, পুষ্টি ও স্বাস্থ্যবিধি।</p>
                 <ul class="feature-list bangla-text">
-                    <li><i class="fa-solid fa-check"></i> ফেসিয়াল ট্রিটমেন্ট</li>
-                    <li><i class="fa-solid fa-check"></i> প্রোডাক্ট নলেজ</li>
+                    <li><i class="fa-solid fa-circle-check"></i> নবজাতকের ফিডিং ও গ্রোথ টেকনিক</li>
+                    <li><i class="fa-solid fa-circle-check"></i> চাইল্ড সেফটি ও হাইজিন মেইনটেইন</li>
                 </ul>
+                <div class="course-footer">
+                    <span class="course-duration bangla-text"><i class="fa-regular fa-clock"></i> মেয়াদ: ৩ মাস</span>
+                    <a href="https://forms.gle/9HjJRWe2xQqJoXYW6" target="_blank" class="apply-btn-small bangla-text">রেজিস্ট্রেশন করুন <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
             </div>
 
+            <!-- Course 4 -->
             <div class="course-card">
-                <i class="fa-solid fa-circle-check verified-badge"></i>
-                <div class="icon-box" style="background: rgba(220,38,38,0.1); color: #dc2626;"><i class="fa-solid fa-language"></i></div>
-                <h3 class="bangla-text" style="color: #fff;">Japanese Language (JLPT N5)</h3>
-                <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem;">জাপানিজ ভাষা, সংস্কৃতির মৌলিক জ্ঞান এবং N5 এক্সাম প্রস্তুতি।</p>
+                <div class="course-header-top">
+                    <div class="icon-box" style="background: rgba(249,115,22,0.1); color: #f97316;"><i class="fa-solid fa-kit-medical"></i></div>
+                </div>
+                <h3 style="color: #fff;">Primary Health Care Services Level-2</h3>
+                <p class="bangla-text">প্রাথমিক চিকিৎসা, ফার্স্ট এইড ও বেসিক নার্সিং স্কিলস।</p>
                 <ul class="feature-list bangla-text">
-                    <li><i class="fa-solid fa-check"></i> রিডিং, রাইটিং ও স্পোকেন</li>
-                    <li><i class="fa-solid fa-check"></i> N5 ভোকাবুলারি ও গ্রামার</li>
+                    <li><i class="fa-solid fa-circle-check"></i> ইমার্জেন্সি ফার্স্ট এইড ম্যানেজমেন্ট</li>
+                    <li><i class="fa-solid fa-circle-check"></i> ক্ষত ড্রেসিং, ব্যান্ডেজিং ও সিপিআর</li>
                 </ul>
+                <div class="course-footer">
+                    <span class="course-duration bangla-text"><i class="fa-regular fa-clock"></i> মেয়াদ: ৩ মাস</span>
+                    <a href="https://forms.gle/9HjJRWe2xQqJoXYW6" target="_blank" class="apply-btn-small bangla-text">রেজিস্ট্রেশন করুন <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Course 5 -->
+            <div class="course-card">
+                <div class="course-header-top">
+                    <div class="icon-box" style="background: rgba(234,179,8,0.1); color: #eab308;"><i class="fa-solid fa-book-open"></i></div>
+                </div>
+                <h3 style="color: #fff;">ENGLISH FOR WORK Level: 02</h3>
+                <p class="bangla-text">কর্পোরেট লেভেলে পেশাগত ইংরেজি ও ইফেক্টিভ কমিউনিকেশন স্কিলস।</p>
+                <ul class="feature-list bangla-text">
+                    <li><i class="fa-solid fa-circle-check"></i> ফ্লুয়েন্ট স্পিকিং ও লিসেনিং প্র্যাকটিস</li>
+                    <li><i class="fa-solid fa-circle-check"></i> প্রফেশনাল জব ইন্টারভিউ প্রস্তুতি</li>
+                </ul>
+                <div class="course-footer">
+                    <span class="course-duration bangla-text"><i class="fa-regular fa-clock"></i> মেয়াদ: ৩ মাস</span>
+                    <a href="https://forms.gle/9HjJRWe2xQqJoXYW6" target="_blank" class="apply-btn-small bangla-text">রেজিস্ট্রেশন করুন <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Course 6 -->
+            <div class="course-card">
+                <div class="course-header-top">
+                    <div class="icon-box" style="background: rgba(236,72,153,0.1); color: #ec4899;"><i class="fa-solid fa-spa"></i></div>
+                </div>
+                <h3 style="color: #fff;">SKIN CARE (Level-3)</h3>
+                <p class="bangla-text">ত্বকের যত্ন, বিউটিফিকেশন ও সৌন্দর্য বর্ধন নিয়ে প্রফেশনাল প্রশিক্ষণ।</p>
+                <ul class="feature-list bangla-text">
+                    <li><i class="fa-solid fa-circle-check"></i> অ্যাডভান্সড ফেসিয়াল ও স্কিন ট্রিটমেন্ট</li>
+                    <li><i class="fa-solid fa-circle-check"></i> স্কিন টাইপ অনুযায়ী প্রোডাক্ট নলেজ</li>
+                </ul>
+                <div class="course-footer">
+                    <span class="course-duration bangla-text"><i class="fa-regular fa-clock"></i> মেয়াদ: ৩ মাস</span>
+                    <a href="https://forms.gle/9HjJRWe2xQqJoXYW6" target="_blank" class="apply-btn-small bangla-text">রেজিস্ট্রেশন করুন <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Course 7 -->
+            <div class="course-card">
+                <div class="course-header-top">
+                    <div class="icon-box" style="background: rgba(220,38,38,0.1); color: #dc2626;"><i class="fa-solid fa-language"></i></div>
+                </div>
+                <h3 style="color: #fff; font-size: 1.15rem;">Japanese Language BNQF Level-2 (JLPT N5 and Equivalent)</h3>
+                <p class="bangla-text">জাপানিজ ভাষা, সংস্কৃতির মৌলিক জ্ঞান এবং N5 লেভেল এক্সাম প্রস্তুতি।</p>
+                <ul class="feature-list bangla-text">
+                    <li><i class="fa-solid fa-circle-check"></i> রিডিং, রাইটিং ও স্পোকেন প্র্যাকটিস</li>
+                    <li><i class="fa-solid fa-circle-check"></i> N5 লেভেল ভোকাবুলারি ও গ্রামার রুলস</li>
+                </ul>
+                <div class="course-footer">
+                    <span class="course-duration bangla-text"><i class="fa-regular fa-clock"></i> মেয়াদ: ৩ মাস</span>
+                    <a href="https://forms.gle/9HjJRWe2xQqJoXYW6" target="_blank" class="apply-btn-small bangla-text">রেজিস্ট্রেশন করুন <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
             </div>
 
         </div>
@@ -360,81 +394,10 @@
     </div>
 </section>
 
-<section id="register-form" class="form-section reveal">
-    <div class="container">
-        <div class="form-box">
-            <div style="text-align: center; margin-bottom: 25px;">
-                <h2 class="bangla-text" style="color: #fff; margin-bottom: 10px;">আবেদন ফর্ম</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">⚠️ আসন সংখ্যা সীমিত। দ্রুত ফর্ম পূরণ করুন।</p>
-            </div>
-            
-            <form id="assetForm">
-                <div class="form-grid">
-                    <div class="input-group"><label class="input-label">নাম</label><input type="text" name="name" class="custom-input" required></div>
-                    <div class="input-group"><label class="input-label">মোবাইল</label><input type="tel" name="phone" class="custom-input" required></div>
-                </div>
-                <div class="form-grid">
-                    <div class="input-group"><label class="input-label">বয়স (১৮+)</label><input type="number" name="age" class="custom-input" required></div>
-                    <div class="input-group"><label class="input-label">জেলা</label><input type="text" name="district" class="custom-input" required></div>
-                </div>
-                
-                <div class="input-group">
-                    <label class="input-label">শিক্ষাগত যোগ্যতা</label>
-                    <select name="education" class="custom-input" required>
-                        <option value="" disabled selected>বাছাই করুন...</option>
-                        <option value="JSC">JSC / Class 8</option>
-                        <option value="SSC">SSC / O Level</option>
-                        <option value="HSC">HSC / A Level</option>
-                        <option value="Diploma">Diploma</option>
-                        <option value="Bachelor">Bachelor</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label class="input-label">পছন্দের কোর্স</label>
-                    <select name="course" class="custom-input" style="border-color: var(--primary);" required>
-                        <option value="" disabled selected>কোর্স সিলেক্ট করুন...</option>
-                        <option value="Primary Health L2">Primary Health Care (L-2)</option>
-                        <option value="Elderly Care L3">Elderly Caregiving (L-3)</option>
-                        <option value="Dementia Care L3">Dementia Caregiving (L-3)</option>
-                        <option value="Child Care L3">Child & Infant Care (L-3)</option>
-                        <option value="Special Needs L3">Special Needs Care (L-3)</option>
-                        <option value="English for Work L2">English for Work (L-2)</option>
-                        <option value="Skin care L3">Skin care (L-3)</option>
-                        <option value="Japanese Language JLPT N5">Japanese Language (JLPT N5)</option>
-                    </select>
-                </div>
-
-                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px dashed #475569;">
-                    <p style="color: var(--primary); font-size: 0.85rem; margin-bottom: 10px;">প্রয়োজনীয় কাগজপত্র (ছবি ও ফাইল)</p>
-                    <p style="color: #f59e0b; font-size: 0.75rem; margin-bottom: 15px;">⚠️ প্রতিটি ফাইল ৩MB এর নিচে হতে হবে</p>
-                    
-                    <div class="form-grid">
-                        <div class="input-group">
-                            <label class="input-label">১. আপনার ছবি</label>
-                            <input type="file" name="photo" accept="image/*" class="custom-input" style="padding: 8px;">
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">২. NID / জন্মনিবন্ধন</label>
-                            <input type="file" name="nid" accept="image/*, .pdf" class="custom-input" style="padding: 8px;">
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label class="input-label">৩. SSC সার্টিফিকেট</label>
-                        <input type="file" name="ssc_certificate" accept="image/*, .pdf" class="custom-input" style="padding: 8px;">
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-btn">আবেদন জমা দিন</button>
-            </form>
-        </div>
-        
-        <div style="text-align: center; margin-top: 30px; color: var(--text-muted); font-size: 0.9rem;">
-            <p><i class="fa-solid fa-location-dot"></i> অফিস: ১৮০–১৮১ প্রাইম টাওয়ার (Lift-3), বিজয়নগর, ঢাকা।</p>
-            <p style="margin-top: 5px;"><i class="fa-solid fa-phone"></i> হেল্পলাইন: <strong>+৮৮০ ১৮১৪-৩০৪০৮১</strong></p>
-        </div>
-    </div>
-</section>
+<div style="text-align: center; margin-top: 30px; margin-bottom: 30px; color: var(--text-muted); font-size: 0.9rem;" class="reveal">
+    <p><i class="fa-solid fa-location-dot"></i> অফিস: ১৮০–১৮১ প্রাইম টাওয়ার (Lift-3), বিজয়নগর, ঢাকা।</p>
+    <p style="margin-top: 5px;"><i class="fa-solid fa-phone"></i> হেল্পলাইন: <strong>+৮৮০ ১৮১৪-৩০৪০৮১</strong></p>
+</div>
 
 <footer>
     <div class="container">
@@ -443,20 +406,13 @@
     </div>
 </footer>
 
-<div class="mobile-sticky-btn"><a href="#register-form">এখনই আবেদন করুন</a></div>
+<div class="mobile-sticky-btn">
+    <a href="https://forms.gle/9HjJRWe2xQqJoXYW6" target="_blank">এখনই রেজিস্ট্রেশন করুন</a>
+</div>
 
 <a href="https://wa.me/8801814304081" target="_blank" class="whatsapp-float">
     <i class="fa-brands fa-whatsapp"></i>
 </a>
-
-<div id="successPopup">
-    <div class="popup-box">
-        <i class="fa-solid fa-check-circle" style="font-size: 3rem; color: #22c55e; margin-bottom: 15px;"></i>
-        <h3 class="bangla-text" style="color: #fff;">সফল হয়েছে!</h3>
-        <p class="bangla-text" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">আমরা শীঘ্রই যোগাযোগ করব।</p>
-        <button class="nav-btn" style="background: transparent; border: 1px solid #fff;" onclick="document.getElementById('successPopup').classList.remove('active')">Close</button>
-    </div>
-</div>
 
 <script>
     // Fade In & Animation
@@ -501,58 +457,6 @@
             const faqItem = button.parentElement;
             faqItem.classList.toggle('open');
         });
-    });
-
-    // Form Submission & File Size Check
-    const form = document.getElementById('assetForm');
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = form.querySelector('button[type="submit"]');
-        const originalText = btn.innerHTML;
-        
-        // Check File Sizes (Client Side)
-        const fileInputs = form.querySelectorAll('input[type="file"]');
-        let fileSizeError = false;
-        const maxSizeBytes = 3 * 1024 * 1024; // 3MB Limit
-
-        fileInputs.forEach(input => {
-            if(input.files.length > 0) {
-                if(input.files[0].size > maxSizeBytes) {
-                    fileSizeError = true;
-                    alert(`ফাইল "${input.files[0].name}" অনেক বড়! দয়া করে ৩MB এর নিচে ফাইল দিন।`);
-                }
-            }
-        });
-
-        if(fileSizeError) return;
-
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
-        btn.disabled = true;
-
-        const formData = new FormData(e.target);
-        try {
-            
-            const response = await fetch('https://careerlift-lms.onrender.com/api/asset/register', { method: 'POST', body: formData });
-            
-            const contentType = response.headers.get("content-type");
-            if (contentType && contentType.indexOf("application/json") !== -1) {
-                const result = await response.json();
-                if (response.ok) { 
-                    document.getElementById('successPopup').classList.add('active'); 
-                    form.reset(); 
-                } else { 
-                    alert('Error: ' + (result.message || 'Something went wrong')); 
-                }
-            } else {
-                alert('File upload failed. Files might be too large for the server.');
-            }
-        } catch (error) { 
-            console.error(error);
-            alert('Server Error. Check your connection.'); 
-        } finally { 
-            btn.innerHTML = originalText; 
-            btn.disabled = false; 
-        }
     });
 </script>
 </body>
